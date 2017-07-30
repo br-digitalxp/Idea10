@@ -19,7 +19,8 @@ import javax.persistence.Table;
 @NamedQueries({
 
 		@NamedQuery(name = "TamanhoSubstratoEntity.findAll", query = "SELECT p FROM TamanhoSubstratoEntity p"),
-
+		@NamedQuery(name = "TamanhoSubstratoEntity.findbySubstrato", query = "SELECT p FROM TamanhoSubstratoEntity p where p.substrato = :substrato") 
+		
 })
 public class TamanhoSubstratoEntity {
 

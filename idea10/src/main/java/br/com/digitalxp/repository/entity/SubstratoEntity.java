@@ -22,7 +22,8 @@ import javax.persistence.Table;
 @NamedQueries({
 
 		@NamedQuery(name = "SubstratoEntity.findAll", query = "SELECT p FROM SubstratoEntity p"),
-
+		@NamedQuery(name = "SubstratoEntity.findbySubstrato", query = "SELECT p FROM SubstratoEntity p")
+		
 })
 public class SubstratoEntity {
 

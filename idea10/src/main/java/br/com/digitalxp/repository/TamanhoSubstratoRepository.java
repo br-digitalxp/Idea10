@@ -36,10 +36,12 @@ public class TamanhoSubstratoRepository {
 		tamanhoSubstratoEntity.setValorY(tamanhoSubstratoModel.getValorY());
 		tamanhoSubstratoEntity.setDataCadastro(LocalDateTime.now());
 
-		SubstratoEntity substratoEntity = entityManager.find(SubstratoEntity.class, tamanhoSubstratoModel.getSubstrato().getCodigo());
+		SubstratoEntity substratoEntity = entityManager.find(SubstratoEntity.class,
+				tamanhoSubstratoModel.getSubstrato().getCodigo());
 		tamanhoSubstratoEntity.setSubstrato(substratoEntity);
 
-		UsuarioEntity usuarioEntity = entityManager.find(UsuarioEntity.class, tamanhoSubstratoModel.getUsuario().getCodigo());
+		UsuarioEntity usuarioEntity = entityManager.find(UsuarioEntity.class,
+				tamanhoSubstratoModel.getUsuario().getCodigo());
 		tamanhoSubstratoEntity.setUsuarioEntity(usuarioEntity);
 
 		entityManager.persist(tamanhoSubstratoEntity);
@@ -60,7 +62,8 @@ public class TamanhoSubstratoRepository {
 		Query query = entityManager.createNamedQuery("TamanhoSubstratoEntity.findAll");
 
 		@SuppressWarnings("unchecked")
-		Collection<TamanhoSubstratoEntity> tamanhoSubstratosEntity = (Collection<TamanhoSubstratoEntity>) query.getResultList();
+		Collection<TamanhoSubstratoEntity> tamanhoSubstratosEntity = (Collection<TamanhoSubstratoEntity>) query
+				.getResultList();
 
 		for (TamanhoSubstratoEntity tamanhoSubstratoEntity : tamanhoSubstratosEntity) {
 			tamanhoSubstratosModel.add(new TamanhoSubstratoModel(tamanhoSubstratoEntity));
@@ -70,6 +73,32 @@ public class TamanhoSubstratoRepository {
 
 	}
 
+	/***
+	 * MÉTODO PARA CONSULTAR A TamanhoSubstrato
+	 * 
+	 * @return
+	 */
+	public List<TamanhoSubstratoModel> getTamanhoSubstratosBySubstrato(int idSubstrato) {
+
+		List<TamanhoSubstratoModel> tamanhoSubstratosModel = new ArrayList<TamanhoSubstratoModel>();
+
+		entityManager = Uteis.JpaEntityManager();
+
+		Query query = entityManager.createNamedQuery("TamanhoSubstratoEntity.findbySubstrato");
+		query.setParameter("substrato", idSubstrato);
+
+		@SuppressWarnings("unchecked")
+		Collection<TamanhoSubstratoEntity> tamanhoSubstratosEntity = (Collection<TamanhoSubstratoEntity>) query
+				.getResultList();
+
+		for (TamanhoSubstratoEntity tamanhoSubstratoEntity : tamanhoSubstratosEntity) {
+			tamanhoSubstratosModel.add(new TamanhoSubstratoModel(tamanhoSubstratoEntity));
+		}
+
+		return tamanhoSubstratosModel;
+
+	}
+	
 	/***
 	 * CONSULTA UMA TamanhoSubstrato CADASTRADA PELO CÓDIGO
 	 * 
@@ -107,7 +136,7 @@ public class TamanhoSubstratoRepository {
 	 * 
 	 * @param codigo
 	 */
-	public void ExcluirRegistro(int codigo) {
+	public void excluirRegistro(int codigo) {
 
 		entityManager = Uteis.JpaEntityManager();
 

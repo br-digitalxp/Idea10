@@ -16,38 +16,47 @@
 
 	<ui:define name="content">
 		<h:form style="margin:auto;margin-left:1%;" id="form-consulta">
-			<h1>Consultar Substrato</h1>
-			<p:dataTable id="dataTable-registros" var="substrato"
-				value="#{consultarSubstratoController.substratos}" rows="50"
-				paginator="true"
+			<p:messages showDetail="false" autoUpdate="true" closable="true"
+				severity="error" />
+			<h1>Consultar Tamanho do Substrato</h1>
+
+			<h:panelGrid columns="2">
+				<p:selectOneMenu
+					value="#{consultarTamanhoSubstratoController.tamanhoSubstratoModel.substrato}"
+					converter="substratoConverter" id="inputText-categoria">
+					<f:selectItems value="#{consultarSubstratoController.substratos}"
+						var="substrato" itemLabel="#{substrato.material}"
+						itemValue="#{substrato}" />
+				</p:selectOneMenu>
+				<p:commandButton value="Pesquisar" id="commandButton-pesquisar"
+					icon="ui-icon-search"
+					actionListener="#{consultarTamanhoSubstratoController.carregarSubstrato}"
+					update="form-consulta" />
+			</h:panelGrid>
+
+			<p:dataTable id="dataTable-registros" var="tamanhoSubstrato"
+				value="#{consultarTamanhoSubstratoController.tamanhoSubstratos}"
+				rows="50" paginator="true"
 				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} 
                                                  {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 				rowsPerPageTemplate="5,10,15,50" style="width:98%;">
 
 				<p:column headerText="Código">
-					<h:outputText value="#{substrato.codigo}" />
+					<h:outputText value="#{tamanhoSubstrato.codigo}" />
 				</p:column>
 
-				<p:column headerText="Material">
-					<h:outputText value="#{substrato.material}" />
+				<p:column headerText="Tamanho X">
+					<h:outputText value="#{tamanhoSubstrato.valorX}" />
 				</p:column>
 
-				<p:column headerText="Valor">
-					<h:outputText value="#{substrato.valorMaterial}" />
-				</p:column>
-
-				<p:column headerText="Primer">
-					<h:outputText value="#{substrato.primer}" />
-				</p:column>
-
-				<p:column headerText="Coating">
-					<h:outputText value="#{substrato.coating}" />
+				<p:column headerText="Tamanho Y">
+					<h:outputText value="#{tamanhoSubstrato.valorY}" />
 				</p:column>
 
 				<p:column headerText="" style="width:25px;">
 					<p:commandButton icon="ui-icon-pencil" title="Editar Registro"
 						ajax="true"
-						actionListener="#{consultarSubstratoController.Editar(substrato)}"
+						actionListener="#{consultarTamanhoSubstratoController.editar(tamanhoSubstrato)}"
 						oncomplete="PF('dialog-modal-editar').show();"
 						update="dialog-modal-editar" />
 				</p:column>
@@ -55,7 +64,7 @@
 				<p:column headerText="" style="width:25px;">
 					<p:commandButton icon="ui-icon-trash" title="Excluir Registro"
 						ajax="true"
-						actionListener="#{consultarSubstratoController.ExcluirSubstrato(substrato)}"
+						actionListener="#{consultarTamanhoSubstratoController.excluirTamanhoSubstrato(tamanhoSubstrato)}"
 						update="@form" />
 				</p:column>
 
@@ -63,11 +72,12 @@
 
 		</h:form>
 
-		<p:dialog header="Editar cadastro de Substrato"
+		<p:dialog header="Editar cadastro de Tamanho Substrato"
 			id="dialog-modal-editar" widgetVar="dialog-modal-editar" modal="true"
 			height="400px" width="550px">
 
-			<ui:include src="/sistema/substrato/editarSubstrato.xhtml" />
+			<!--<ui:include
+				src="/sistema/tamanhoSubstrato/editarTamanhoSubstrato.xhtml" />-->
 
 
 		</p:dialog>

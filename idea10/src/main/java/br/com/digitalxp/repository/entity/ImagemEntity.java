@@ -24,7 +24,7 @@ public class ImagemEntity {
 
 	@Id
 	@GeneratedValue
-	@Column(name = "id_cliente")
+	@Column(name = "id_imagem")
 	private Integer codigo;
 
 	@Column(name = "id_autor")

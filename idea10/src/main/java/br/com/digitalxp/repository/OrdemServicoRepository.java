@@ -10,6 +10,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
 import br.com.digitalxp.model.ClienteModel;
+import br.com.digitalxp.model.ImagemModel;
 import br.com.digitalxp.model.OrdemServicoModel;
 import br.com.digitalxp.model.SubstratoModel;
 import br.com.digitalxp.model.TamanhoSubstratoModel;
@@ -100,9 +101,8 @@ public class OrdemServicoRepository {
 			ClienteModel clienteModel = new ClienteModel(ordemServicoEntity.getCliente());
 			ordemServicoModel.setCliente(clienteModel);
 
-			// ImagemModel imagemModel = new
-			// ImagemModel(OrdemServicoEntity.getImagem());
-			// OrdemServicoModel.setImagem(imagemModel);
+			ImagemModel imagemModel = new ImagemModel(ordemServicoEntity.getImagem());
+			ordemServicoModel.setImagem(imagemModel);
 
 			UsuarioEntity usuarioEntity = ordemServicoEntity.getUsuarioEntity();
 
