@@ -10,7 +10,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
 import br.com.digitalxp.model.ClienteModel;
-import br.com.digitalxp.model.ImagemModel;
 import br.com.digitalxp.model.OrdemServicoModel;
 import br.com.digitalxp.model.SubstratoModel;
 import br.com.digitalxp.model.TamanhoSubstratoModel;
@@ -43,19 +42,23 @@ public class OrdemServicoRepository {
 		ordemServicoEntity.setTamanho(ordemServicoModel.getTamanho());
 		ordemServicoEntity.setDataCadastro(LocalDateTime.now());
 
-		SubstratoEntity substratoEntity = entityManager.find(SubstratoEntity.class, ordemServicoModel.getSubstrato().getCodigo());
+		SubstratoEntity substratoEntity = entityManager.find(SubstratoEntity.class,
+				ordemServicoModel.getSubstrato().getCodigo());
 		ordemServicoEntity.setSubstrato(substratoEntity);
 
-		TamanhoSubstratoEntity tamanhoSubstratoEntity = entityManager.find(TamanhoSubstratoEntity.class, ordemServicoModel.getTamanhoSubstrato().getCodigo());
+		TamanhoSubstratoEntity tamanhoSubstratoEntity = entityManager.find(TamanhoSubstratoEntity.class,
+				ordemServicoModel.getTamanhoSubstrato().getCodigo());
 		ordemServicoEntity.setTamanhoSubstrato(tamanhoSubstratoEntity);
 
-		ClienteEntity clienteEntity = entityManager.find(ClienteEntity.class, ordemServicoModel.getCliente().getCodigo());
+		ClienteEntity clienteEntity = entityManager.find(ClienteEntity.class,
+				ordemServicoModel.getCliente().getCodigo());
 		ordemServicoEntity.setCliente(clienteEntity);
 
 		ImagemEntity imagemEntity = entityManager.find(ImagemEntity.class, ordemServicoModel.getImagem().getCodigo());
 		ordemServicoEntity.setImagem(imagemEntity);
 
-		UsuarioEntity usuarioEntity = entityManager.find(UsuarioEntity.class, ordemServicoModel.getUsuario().getCodigo());
+		UsuarioEntity usuarioEntity = entityManager.find(UsuarioEntity.class,
+				ordemServicoModel.getUsuario().getCodigo());
 		ordemServicoEntity.setUsuarioEntity(usuarioEntity);
 
 		entityManager.persist(ordemServicoEntity);
@@ -76,37 +79,39 @@ public class OrdemServicoRepository {
 		Query query = entityManager.createNamedQuery("OrdemServicoEntity.findAll");
 
 		@SuppressWarnings("unchecked")
-		Collection<OrdemServicoEntity> OredemServicosEntity = (Collection<OrdemServicoEntity>) query.getResultList();
+		Collection<OrdemServicoEntity> ordemServicosEntity = (Collection<OrdemServicoEntity>) query.getResultList();
 
-		OrdemServicoModel OrdemServicoModel = null;
+		OrdemServicoModel ordemServicoModel = null;
 
-		for (OrdemServicoEntity OrdemServicoEntity : OredemServicosEntity) {
+		for (OrdemServicoEntity ordemServicoEntity : ordemServicosEntity) {
 
-			OrdemServicoModel = new OrdemServicoModel();
-			OrdemServicoModel.setCodigo(OrdemServicoEntity.getCodigo());
-			OrdemServicoModel.setTamanho(OrdemServicoEntity.getTamanho());
-			OrdemServicoModel.setDataCadastro(OrdemServicoEntity.getDataCadastro());
+			ordemServicoModel = new OrdemServicoModel();
+			ordemServicoModel.setCodigo(ordemServicoEntity.getCodigo());
+			ordemServicoModel.setTamanho(ordemServicoEntity.getTamanho());
+			ordemServicoModel.setDataCadastro(ordemServicoEntity.getDataCadastro());
 
-			SubstratoModel substratoModel = new SubstratoModel(OrdemServicoEntity.getSubstrato());
-			OrdemServicoModel.setSubstrato(substratoModel);
+			SubstratoModel substratoModel = new SubstratoModel(ordemServicoEntity.getSubstrato());
+			ordemServicoModel.setSubstrato(substratoModel);
 
-			TamanhoSubstratoModel tamanhoSubstratoModel = new TamanhoSubstratoModel(OrdemServicoEntity.getTamanhoSubstrato());
-			OrdemServicoModel.setTamanhoSubstrato(tamanhoSubstratoModel);
+			TamanhoSubstratoModel tamanhoSubstratoModel = new TamanhoSubstratoModel(
+					ordemServicoEntity.getTamanhoSubstrato());
+			ordemServicoModel.setTamanhoSubstrato(tamanhoSubstratoModel);
 
-			ClienteModel clienteModel = new ClienteModel(OrdemServicoEntity.getCliente());
-			OrdemServicoModel.setCliente(clienteModel);
-			
-			ImagemModel imagemModel = new ImagemModel(OrdemServicoEntity.getImagem());
-			OrdemServicoModel.setImagem(imagemModel);
-			
-			UsuarioEntity usuarioEntity = OrdemServicoEntity.getUsuarioEntity();
+			ClienteModel clienteModel = new ClienteModel(ordemServicoEntity.getCliente());
+			ordemServicoModel.setCliente(clienteModel);
+
+			// ImagemModel imagemModel = new
+			// ImagemModel(OrdemServicoEntity.getImagem());
+			// OrdemServicoModel.setImagem(imagemModel);
+
+			UsuarioEntity usuarioEntity = ordemServicoEntity.getUsuarioEntity();
 
 			UsuarioModel usuarioModel = new UsuarioModel();
 			usuarioModel.setUsuario(usuarioEntity.getUsuario());
 
-			OrdemServicoModel.setUsuario(usuarioModel);
+			ordemServicoModel.setUsuario(usuarioModel);
 
-			OredemServicosModel.add(OrdemServicoModel);
+			OredemServicosModel.add(ordemServicoModel);
 		}
 
 		return OredemServicosModel;
@@ -136,15 +141,18 @@ public class OrdemServicoRepository {
 		entityManager = Uteis.JpaEntityManager();
 
 		OrdemServicoEntity OrdemServicoEntity = this.GetOrdemServico(ordemServicoModel.getCodigo());
-		
+
 		ordemServicoEntity.setTamanho(ordemServicoModel.getTamanho());
-		SubstratoEntity substratoEntity = entityManager.find(SubstratoEntity.class, ordemServicoModel.getSubstrato().getCodigo());
+		SubstratoEntity substratoEntity = entityManager.find(SubstratoEntity.class,
+				ordemServicoModel.getSubstrato().getCodigo());
 		ordemServicoEntity.setSubstrato(substratoEntity);
 
-		TamanhoSubstratoEntity tamanhoSubstratoEntity = entityManager.find(TamanhoSubstratoEntity.class, ordemServicoModel.getTamanhoSubstrato().getCodigo());
+		TamanhoSubstratoEntity tamanhoSubstratoEntity = entityManager.find(TamanhoSubstratoEntity.class,
+				ordemServicoModel.getTamanhoSubstrato().getCodigo());
 		ordemServicoEntity.setTamanhoSubstrato(tamanhoSubstratoEntity);
 
-		ClienteEntity clienteEntity = entityManager.find(ClienteEntity.class, ordemServicoModel.getCliente().getCodigo());
+		ClienteEntity clienteEntity = entityManager.find(ClienteEntity.class,
+				ordemServicoModel.getCliente().getCodigo());
 		ordemServicoEntity.setCliente(clienteEntity);
 
 		ImagemEntity imagemEntity = entityManager.find(ImagemEntity.class, ordemServicoModel.getImagem().getCodigo());

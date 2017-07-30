@@ -28,6 +28,11 @@
 					<h:outputText value="#{ordemServico.codigo}" />
 				</p:column>
 
+				<p:column headerText="Imagem">
+					<p:graphicImage url="#{ordemservico.imagem.caminhoImagem}"
+						height="150px" width="100px" style="text-align: center;" />
+				</p:column>
+
 				<p:column headerText="Substrato">
 					<h:outputText value="#{ordemServico.substrato.material}" />
 				</p:column>
@@ -44,10 +49,10 @@
 				<p:column headerText="Quantidade">
 					<h:outputText value="#{ordemServico.tamanho}" />
 				</p:column>
-				
+
 				<p:column headerText="" style="width:25px;">
 
-					<p:commandButton icon="ui-icon-pencil" title="Editar Registro"
+					<p:commandButton icon="ui-icon-search" title="Editar Registro"
 						ajax="true"
 						actionListener="#{consultarOrdemServicoController.Editar(ordemServico)}"
 						oncomplete="PF('dialog-modal-editar').show();"
@@ -68,13 +73,11 @@
 
 		</h:form>
 
-		<p:dialog header="Editar cadastro de Categoria de Imagem"
+		<p:dialog header="Detalhar Ordem de Serviço"
 			id="dialog-modal-editar" widgetVar="dialog-modal-editar" modal="true"
-			height="400px" width="550px">
+			height="500px" width="550px">
 
-			<ui:include
-				src="/sistema/ordemServico/editarOrdemServico.xhtml" />
-
+			 <ui:include src="/sistema/ordemServico/detalharOrdemServico.xhtml" />
 
 		</p:dialog>
 

@@ -1,0 +1,74 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<h:form>
+
+		<h:panelGrid id="panelGrid-campos-form" columns="2">
+			<h:panelGrid id="panelGrid-campos-detalhes" columns="2"
+				cellpadding="10">
+				<p:outputLabel value="Código: " for="inputText-codigo" />
+				<p:inputText id="inputText-codigo"
+					value="#{consultarOrdemServicoController.ordemServicoModel.codigo}"
+					style="width:50px" readonly="true" />
+
+				<p:outputLabel value="Substrato: " for="inputText-substrato" />
+				<p:inputText id="inputText-substrato"
+					value="#{consultarOrdemServicoController.ordemServicoModel.substrato.material}"
+					style="width:80px" readonly="true" />
+
+				<p:outputLabel value="Tamanho: " for="inputText-tamanho" />
+				<p:inputText id="inputText-tamanho"
+					value="#{consultarOrdemServicoController.ordemServicoModel.tamanhoSubstrato.valorX} X #{consultarOrdemServicoController.ordemServicoModel.tamanhoSubstrato.valorY}"
+					style="width:50px" readonly="true" />
+
+				<p:outputLabel value="Metros M²: " for="inputText-metros" />
+				<p:inputText id="inputText-metros"
+					value="#{consultarOrdemServicoController.ordemServicoModel.tamanho}"
+					style="width:50px" readonly="true" />
+			</h:panelGrid>
+			<h:panelGrid id="panelGrid-campos-imagem" columns="1">
+				<p:outputLabel value="Imagem: " />
+				<p:graphicImage
+					url="#{consultarOrdemServicoController.ordemServicoModel.imagem.caminhoImagem}"
+					height="150px" width="100px" style="text-align: center;" />
+			</h:panelGrid>
+			<h:panelGrid id="panelGrid-campos-cliente" columns="2">
+				<p:outputLabel value="Cliente - Nome: " for="inputText-nome" />
+				<p:inputText id="inputText-nome"
+					value="#{consultarOrdemServicoController.ordemServicoModel.cliente.nome}"
+					style="width:200px" readonly="true" />
+
+				<p:outputLabel value="Cliente - CPF: " for="inputText-cpf" />
+				<p:inputText id="inputText-cpf"
+					value="#{consultarOrdemServicoController.ordemServicoModel.cliente.cpf}"
+					style="width:100px" readonly="true" />
+
+				<p:outputLabel value="Cliente - E-mail: " for="inputText-email" />
+				<p:inputText id="inputText-email"
+					value="#{consultarOrdemServicoController.ordemServicoModel.cliente.email}"
+					style="width:150px" readonly="true" />
+
+				<p:outputLabel value="Cliente - Telefone: " for="inputText-telefone" />
+				<p:inputText id="inputText-telefone"
+					value="#{consultarOrdemServicoController.ordemServicoModel.cliente.telefone}"
+					style="width:150px" readonly="true" />
+			</h:panelGrid>
+	
+			<p:spacer />
+			<p:commandButton value="Fechar" id="commandButton-alterar"
+				icon="ui-icon-close" onclick="PF('dialog-modal-editar').hide();"
+				update="form-consulta" />
+
+
+			<p:spacer />
+			<p:messages showDetail="false" autoUpdate="true" closable="true"
+				severity="error" />
+
+		</h:panelGrid>
+
+	</h:form>
+
+</ui:composition>

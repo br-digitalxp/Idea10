@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -27,29 +28,29 @@ public class OrdemServicoEntity {
 	@Column(name = "id_ordem_servico")
 	private Integer codigo;
 
-	@OneToOne
+	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_substato")
 	private SubstratoEntity substrato;
 
-	@OneToOne
+	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_tamanho_substrato")
 	private TamanhoSubstratoEntity tamanhoSubstrato;
 
-	@OneToOne
+	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_cliente")
 	private ClienteEntity cliente;
 
 	@Column(name = "nm_tamanho")
 	private Integer tamanho;
 
-	@OneToOne
+	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_imagem")
 	private ImagemEntity imagem;
 
 	@Column(name = "dt_cadastro")
 	private LocalDateTime dataCadastro;
 
-	@OneToOne
+	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_usuario_cadastro")
 	private UsuarioEntity usuarioEntity;
 

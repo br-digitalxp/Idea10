@@ -6,7 +6,7 @@
 
 <h:form>
 	<p:menubar>
-		<p:menuitem value="Home" icon="ui-icon-home" url="home.xhtml" />
+		<p:menuitem value="Home" icon="ui-icon-home" url="/sistema/home.xhtml" />
 		<p:submenu label="Cliente" icon="ui-icon-arrowthick-1-s">
 			<p:menuitem value="Cadastrar Cliente" icon="ui-icon-document"
 				url="/sistema/cliente/cadastrarCliente.xhtml" />
@@ -27,13 +27,12 @@
 		</p:submenu>
 		<p:submenu label="Imagens" icon="ui-icon-arrowthick-1-s">
 			<p:menuitem value="Cadastrar Imagem" icon="ui-icon-document"
-				url="cadastrarImagem.xhtml" />
+				url="/sistema/imagem/cadastrarImagem.xhtml" />
 			<p:menuitem value="Consultar Imagem" icon="ui-icon-document"
-				url="consultarCliente.xhtml" />
+				url="/sistema/imagem/consultarImagem.xhtml" />
 		</p:submenu>
 		<p:menuitem value="Ordens de Serviço" icon="ui-icon-document"
-			url="exportarRegistrosXml.xhtml" />
-
+			url="/sistema/ordemServico/consultarOrdemServico.xhtml" />
 
 		<f:facet name="options">
 			<p:commandButton value="Logout" icon="ui-icon-extlink"
