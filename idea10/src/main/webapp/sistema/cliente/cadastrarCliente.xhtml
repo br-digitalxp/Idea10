@@ -76,23 +76,6 @@
 
 			</p:tab>
 
-			<p:tab title="Upload Xml Cliente">
-
-				<h:form id="form-upload" enctype="multipart/form-data">
-
-					<h:panelGrid id="panelGrid-upload-xml" columns="2" cellpadding="10">
-
-						<p:fileUpload value="#{cadastrarClienteController.file}"
-							mode="simple" skinSimple="true" label="Selecionar" />
-
-						<p:commandButton value="Importar..." ajax="false"
-							actionListener="#{cadastrarClienteController.UploadRegistros}" />
-
-					</h:panelGrid>
-
-				</h:form>
-			</p:tab>
-
 		</p:tabView>
 
 	</ui:define>

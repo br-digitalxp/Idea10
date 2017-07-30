@@ -28,6 +28,7 @@
 				<p:inputText id="inputText-metros"
 					value="#{consultarOrdemServicoController.ordemServicoModel.tamanho}"
 					style="width:50px" readonly="true" />
+
 			</h:panelGrid>
 			<h:panelGrid id="panelGrid-campos-imagem" columns="1">
 				<p:outputLabel value="Imagem: " />
@@ -36,6 +37,9 @@
 					height="150px" width="100px" style="text-align: center;" />
 			</h:panelGrid>
 			<h:panelGrid id="panelGrid-campos-cliente" columns="2">
+				<p:outputLabel value="Caminho da Imagem: " />
+				<p:inputText style="width:320px" readonly="true"
+					value="#{consultarOrdemServicoController.ordemServicoModel.imagem.caminhoImagem}" />
 				<p:outputLabel value="Cliente - Nome: " for="inputText-nome" />
 				<p:inputText id="inputText-nome"
 					value="#{consultarOrdemServicoController.ordemServicoModel.cliente.nome}"
@@ -56,7 +60,7 @@
 					value="#{consultarOrdemServicoController.ordemServicoModel.cliente.telefone}"
 					style="width:150px" readonly="true" />
 			</h:panelGrid>
-	
+
 			<p:spacer />
 			<p:commandButton value="Fechar" id="commandButton-alterar"
 				icon="ui-icon-close" onclick="PF('dialog-modal-editar').hide();"
