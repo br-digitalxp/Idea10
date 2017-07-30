@@ -10,7 +10,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
 import br.com.digitalxp.model.CategoriaImagemModel;
-import br.com.digitalxp.model.UsuarioModel;
 import br.com.digitalxp.repository.entity.CategoriaImagemEntity;
 import br.com.digitalxp.repository.entity.UsuarioEntity;
 import br.com.digitalxp.uteis.Uteis;
@@ -37,7 +36,8 @@ public class CategoriaImagemRepository {
 		categoriaImagemEntity.setCategoriaPrincipal(categoriaImagemModel.isCategoriaPrincipal());
 		categoriaImagemEntity.setDataCadastro(LocalDateTime.now());
 
-		UsuarioEntity usuarioEntity = entityManager.find(UsuarioEntity.class, categoriaImagemModel.getUsuarioModel().getCodigo());
+		UsuarioEntity usuarioEntity = entityManager.find(UsuarioEntity.class,
+				categoriaImagemModel.getUsuarioModel().getCodigo());
 
 		categoriaImagemEntity.setUsuarioEntity(usuarioEntity);
 
@@ -59,27 +59,12 @@ public class CategoriaImagemRepository {
 		Query query = entityManager.createNamedQuery("CategoriaImagemEntity.findAll");
 
 		@SuppressWarnings("unchecked")
-		Collection<CategoriaImagemEntity> categoriasImagemEntity = (Collection<CategoriaImagemEntity>) query.getResultList();
-
-		CategoriaImagemModel categoriaImagemModel = null;
+		Collection<CategoriaImagemEntity> categoriasImagemEntity = (Collection<CategoriaImagemEntity>) query
+				.getResultList();
 
 		for (CategoriaImagemEntity categoriaImagemEntity : categoriasImagemEntity) {
 
-			categoriaImagemModel = new CategoriaImagemModel();
-			categoriaImagemModel.setCodigo(categoriaImagemEntity.getCodigo());
-			categoriaImagemModel.setNomeCategoriaImagem(categoriaImagemEntity.getNomeCategoriaImagem());
-			categoriaImagemModel.setOrdemMenu(categoriaImagemEntity.getOrdemMenu());
-			categoriaImagemModel.setCategoriaPrincipal(categoriaImagemEntity.isCategoriaPrincipal());
-			categoriaImagemModel.setDataCadastro(categoriaImagemEntity.getDataCadastro());
-
-			UsuarioEntity usuarioEntity = categoriaImagemEntity.getUsuarioEntity();
-
-			UsuarioModel usuarioModel = new UsuarioModel();
-			usuarioModel.setUsuario(usuarioEntity.getUsuario());
-
-			categoriaImagemModel.setUsuarioModel(usuarioModel);
-
-			categoriasImagemModel.add(categoriaImagemModel);
+			categoriasImagemModel.add(new CategoriaImagemModel(categoriaImagemEntity));
 		}
 
 		return categoriasImagemModel;

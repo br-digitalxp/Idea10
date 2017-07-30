@@ -14,6 +14,10 @@ public class ImagemModel {
 	private CategoriaImagemModel categoria;
 	private UsuarioModel usuario;
 
+	public ImagemModel() {
+
+	}
+
 	public ImagemModel(ImagemEntity entity) {
 		this.codigo = entity.getCodigo();
 		this.autor = entity.getAutor();
@@ -87,7 +91,7 @@ public class ImagemModel {
 	/**
 	 * @return the exclusivo
 	 */
-	public boolean isExclusivo() {
+	public boolean getExclusivo() {
 		return exclusivo;
 	}
 

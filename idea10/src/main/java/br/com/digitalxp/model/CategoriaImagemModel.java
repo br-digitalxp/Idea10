@@ -115,4 +115,21 @@ public class CategoriaImagemModel {
 		this.usuarioModel = usuarioModel;
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (!(obj instanceof CategoriaImagemModel))
+			return false;
+		CategoriaImagemModel other = (CategoriaImagemModel) obj;
+		if (nomeCategoriaImagem == null) {
+			if (other.nomeCategoriaImagem != null)
+				return false;
+		} else if (!nomeCategoriaImagem.equals(other.nomeCategoriaImagem))
+			return false;
+		return true;
+	}
+
 }
