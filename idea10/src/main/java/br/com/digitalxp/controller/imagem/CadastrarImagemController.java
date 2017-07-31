@@ -9,7 +9,7 @@ import javax.faces.model.SelectItem;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import br.com.digitalxp.controller.usuario.UsuarioController;
+import br.com.digitalxp.controller.usuario.UsuarioAdmController;
 import br.com.digitalxp.model.CategoriaImagemModel;
 import br.com.digitalxp.model.ImagemModel;
 import br.com.digitalxp.repository.CategoriaImagemRepository;
@@ -24,7 +24,7 @@ public class CadastrarImagemController {
 	ImagemModel imagemModel;
 
 	@Inject
-	UsuarioController usuarioController;
+	UsuarioAdmController usuarioController;
 
 	@Inject
 	ImagemRepository ImagemRepository;

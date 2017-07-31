@@ -31,14 +31,14 @@
 				<h:panelGrid columns="2" cellpadding="5">
 					<p:outputLabel value="Login" />
 					<p:inputText id="inputText-login"
-						value="#{usuarioController.usuarioModel.usuario}" />
+						value="#{usuarioAdmController.usuarioModel.usuario}" />
 					<p:outputLabel value="Senha" />
 					<p:password id="password-usuario"
-						value="#{usuarioController.usuarioModel.senha}" />
+						value="#{usuarioAdmController.usuarioModel.senha}" />
 
 					<p:commandButton value="Acessar" id="commandButton-acessar"
 						icon="ui-icon-gear" ajax="false"
-						action="#{usuarioController.EfetuarLogin}" update="growl-mensagem" />
+						action="#{usuarioAdmController.EfetuarLogin}" update="growl-mensagem" />
 				</h:panelGrid>
 			</h:panelGrid>
 		</p:panel>

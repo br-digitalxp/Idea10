@@ -6,7 +6,7 @@ import javax.inject.Named;
 
 import org.primefaces.model.UploadedFile;
 
-import br.com.digitalxp.controller.usuario.UsuarioController;
+import br.com.digitalxp.controller.usuario.UsuarioAdmController;
 import br.com.digitalxp.model.CategoriaImagemModel;
 import br.com.digitalxp.repository.CategoriaImagemRepository;
 import br.com.digitalxp.uteis.Uteis;
@@ -19,7 +19,7 @@ public class CadastrarCategoriaImagemController {
 	CategoriaImagemModel categoriaImagemModel;
 
 	@Inject
-	UsuarioController usuarioController;
+	UsuarioAdmController usuarioController;
 
 	@Inject
 	CategoriaImagemRepository categoriaImagemRepository;

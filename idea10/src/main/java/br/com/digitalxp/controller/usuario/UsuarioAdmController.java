@@ -14,12 +14,12 @@ import br.com.digitalxp.repository.UsuarioRepository;
 import br.com.digitalxp.repository.entity.UsuarioEntity;
 import br.com.digitalxp.uteis.Uteis;
 
-@Named(value = "usuarioController")
+@Named
 @SessionScoped
-public class UsuarioController implements Serializable {
+public class UsuarioAdmController implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-
+ 
 	@Inject
 	private UsuarioModel usuarioModel;
 

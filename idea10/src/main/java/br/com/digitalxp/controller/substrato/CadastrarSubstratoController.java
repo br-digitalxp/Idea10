@@ -4,7 +4,7 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import br.com.digitalxp.controller.usuario.UsuarioController;
+import br.com.digitalxp.controller.usuario.UsuarioAdmController;
 import br.com.digitalxp.model.SubstratoModel;
 import br.com.digitalxp.model.TamanhoSubstratoModel;
 import br.com.digitalxp.repository.SubstratoRepository;
@@ -21,7 +21,7 @@ public class CadastrarSubstratoController {
 	SubstratoModel substratoModel;
 
 	@Inject
-	UsuarioController usuarioController;
+	UsuarioAdmController usuarioController;
 
 	@Inject
 	SubstratoRepository substratoRepository;
