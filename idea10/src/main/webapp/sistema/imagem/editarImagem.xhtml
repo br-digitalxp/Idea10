@@ -14,13 +14,12 @@
 				style="width:50px" readonly="true" />
 
 			<p:outputLabel value="Categoria da Imagem" for="inputText-categoria" />
-			<p:selectOneMenu
-				value="#{consultarImagemController.imagemModel.categoria}"
-				id="inputText-categoria" converter="categoriaImagemConverter">
-				<f:selectItems value="#{consultarImagemController.listaCategoria}"
+			<p:selectOneMenu id="inputText-categoria"
+				value="#{consultarImagemController.categoriaImagem.codigo}"
+				effect="fade" style="width:160px">
+				<f:selectItems value="#{cadastrarImagemController.listaCategoria}"
 					var="categoria" itemLabel="#{categoria.nomeCategoriaImagem}"
-					itemValue="#{categoria}" required="true"
-					requiredMessage="A categoria é de preenchimento obrigatório" />
+					itemValue="#{categoria}" />
 			</p:selectOneMenu>
 
 			<p:outputLabel value="Caminho da Imagem" for="inputText-caminho" />
@@ -41,7 +40,7 @@
 			<p:spacer />
 			<p:commandButton value="Alterar" id="commandButton-alterar"
 				icon="ui-icon-gear"
-				actionListener="#consultarImagemController.AlterarRegistro}"
+				actionListener="#{consultarImagemController.AlterarRegistro}"
 				oncomplete="PF('dialog-modal-editar').hide();"
 				update="form-consulta" />
 			<p:spacer />

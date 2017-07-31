@@ -28,10 +28,11 @@
 					<h:panelGrid id="panelGrid-campos-form" columns="2"
 						cellpadding="10">
 						<p:outputLabel value="Substrato" />
-						<p:selectOneMenu
-							value="#{cadastratTamanhoSubstratoController.tamanhoSubstratoModel.substrato}"
-							converter="substratoConverter" id="inputText-categoria">
-							<f:selectItems value="#{consultarSubstratoController.substratos}"
+						<p:selectOneMenu id="inputText-categoria"
+							value="#{cadastrarTamanhoSubstratoController.substrato.codigo}"
+							effect="fade" style="width:160px">
+							<f:selectItems
+								value="#{cadastrarTamanhoSubstratoController.listaSubstrato}"
 								var="substrato" itemLabel="#{substrato.material}"
 								itemValue="#{substrato}" />
 						</p:selectOneMenu>
@@ -56,7 +57,7 @@
 
 					<p:commandButton value="Salvar" id="commandButton-salvar"
 						icon="ui-icon-gear"
-						actionListener="#{cadastratTamanhoSubstratoController.SalvarNovaSubstrato}"
+						actionListener="#{cadastrarTamanhoSubstratoController.SalvarNovaTamanhoSubstrato}"
 						update="panelGrid-campos-form" />
 				</h:form>
 

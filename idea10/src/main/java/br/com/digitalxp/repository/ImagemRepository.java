@@ -33,6 +33,7 @@ public class ImagemRepository {
 
 		imagemEntity = new ImagemEntity();
 		imagemEntity.setAutor(0);
+		imagemEntity.setCaminhoImagem(imagemModel.getCaminhoImagem());
 		imagemEntity.setExclusivo(imagemModel.getExclusivo());
 		imagemEntity.setDataCadastro(LocalDateTime.now());
 

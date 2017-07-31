@@ -17,6 +17,11 @@
 
 		<p:tabView style="width:600px;height:270px;margin:auto;">
 			<p:tab title="Cadastro de Imagem">
+				<p:messages showDetail="true" autoUpdate="true" closable="true"
+					severity="warn" />
+				<p:messages autoUpdate="true" closable="true" severity="error" />
+				<p:messages showDetail="true" autoUpdate="true" closable="true"
+					severity="info" />
 
 				<h:form id="form-cadastro">
 
@@ -25,14 +30,13 @@
 
 						<p:outputLabel value="Categoria da imagem"
 							for="inputText-categoria" />
-						<p:selectOneMenu
-							value="#{cadastrarImagemController.imagemModel.categoria}"
-							id="inputText-categoria" converter="categoriaImagemConverter">
+						<p:selectOneMenu id="inputText-categoria"
+							value="#{cadastrarImagemController.categoriaImagem.codigo}"
+							effect="fade" style="width:160px">
 							<f:selectItems
 								value="#{cadastrarImagemController.listaCategoria}"
 								var="categoria" itemLabel="#{categoria.nomeCategoriaImagem}"
-								itemValue="#{categoria}" required="true"
-								requiredMessage="A categoria é de preenchimento obrigatório" />
+								itemValue="#{categoria}" />
 						</p:selectOneMenu>
 
 						<p:outputLabel value="Caminho da Imagem" for="inputText-caminho" />
@@ -55,12 +59,6 @@
 
 
 					</h:panelGrid>
-
-					<p:messages showDetail="true" autoUpdate="true" closable="true"
-						severity="warn" />
-					<p:messages autoUpdate="true" closable="true" severity="error" />
-					<p:messages showDetail="true" autoUpdate="true" closable="true"
-						severity="info" />
 
 				</h:form>
 

@@ -15,9 +15,13 @@
 
 	<ui:define name="content">
 
-		<p:tabView style="width:600px;height:240px;margin:auto;">
+		<p:tabView style="width:600px;height:340px;margin:auto;">
 			<p:tab title="Cadastro de Categoria de Imagens">
-
+				<p:messages showDetail="true" autoUpdate="true" closable="true"
+					severity="warn" />
+				<p:messages autoUpdate="true" closable="true" severity="error" />
+				<p:messages showDetail="true" autoUpdate="true" closable="true"
+					severity="info" />
 				<h:form id="form-cadastro">
 
 					<h:panelGrid id="panelGrid-campos-form" columns="2"
@@ -51,11 +55,7 @@
 
 					</h:panelGrid>
 
-					<p:messages showDetail="true" autoUpdate="true" closable="true"
-						severity="warn" />
-					<p:messages autoUpdate="true" closable="true" severity="error" />
-					<p:messages showDetail="true" autoUpdate="true" closable="true"
-						severity="info" />
+
 
 				</h:form>
 

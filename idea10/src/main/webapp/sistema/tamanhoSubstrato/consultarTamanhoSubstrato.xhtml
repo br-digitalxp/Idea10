@@ -21,16 +21,17 @@
 			<h1>Consultar Tamanho do Substrato</h1>
 
 			<h:panelGrid columns="2">
-				<p:selectOneMenu
-					value="#{consultarTamanhoSubstratoController.tamanhoSubstratoModel.substrato}"
-					converter="substratoConverter" id="inputText-categoria">
-					<f:selectItems value="#{consultarSubstratoController.substratos}"
+				<p:selectOneMenu id="inputText-categoria"
+					value="#{consultarTamanhoSubstratoController.substrato.codigo}"
+					effect="fade" style="width:160px">
+					<f:selectItems
+						value="#{consultarTamanhoSubstratoController.listaSubstrato}"
 						var="substrato" itemLabel="#{substrato.material}"
 						itemValue="#{substrato}" />
 				</p:selectOneMenu>
 				<p:commandButton value="Pesquisar" id="commandButton-pesquisar"
 					icon="ui-icon-search"
-					actionListener="#{consultarTamanhoSubstratoController.carregarSubstrato}"
+					actionListener="#{consultarTamanhoSubstratoController.carregarTamanhoSubstrato}"
 					update="form-consulta" />
 			</h:panelGrid>
 
@@ -76,8 +77,8 @@
 			id="dialog-modal-editar" widgetVar="dialog-modal-editar" modal="true"
 			height="400px" width="550px">
 
-			<!--<ui:include
-				src="/sistema/tamanhoSubstrato/editarTamanhoSubstrato.xhtml" />-->
+			<ui:include
+				src="/sistema/tamanhoSubstrato/editarTamanhoSubstrato.xhtml" />
 
 
 		</p:dialog>

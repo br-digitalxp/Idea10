@@ -1,15 +1,19 @@
 package br.com.digitalxp.controller.tamanhoSubstrato;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.inject.Produces;
+import javax.faces.model.SelectItem;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import br.com.digitalxp.model.SubstratoModel;
 import br.com.digitalxp.model.TamanhoSubstratoModel;
+import br.com.digitalxp.repository.SubstratoRepository;
 import br.com.digitalxp.repository.TamanhoSubstratoRepository;
 
 @Named(value = "consultarTamanhoSubstratoController")
@@ -27,10 +31,15 @@ public class ConsultarTamanhoSubstratoController implements Serializable {
 	@Inject
 	transient private TamanhoSubstratoRepository tamanhoSubstratoRepository;
 
-	public void carregarSubstrato(){
-		this.tamanhoSubstratos = tamanhoSubstratoRepository.getTamanhoSubstratosBySubstrato(tamanhoSubstratoModel.getSubstrato().getCodigo());
+	private SubstratoModel substrato;
+	private List<SelectItem> listaSubstrato;
+
+	public void carregarTamanhoSubstrato() {
+		this.tamanhoSubstratoModel.setSubstrato(this.getSubstrato());
+		this.tamanhoSubstratos = tamanhoSubstratoRepository
+				.getTamanhoSubstratosBySubstrato(tamanhoSubstratoModel.getSubstrato().getCodigo());
 	}
-	
+
 	/***
 	 * CARREGA INFORMAÇÕES DE UMA TamanhoSubstrato PARA SER EDITADA
 	 * 
@@ -47,6 +56,7 @@ public class ConsultarTamanhoSubstratoController implements Serializable {
 	 */
 	public void alterarRegistro() {
 
+		this.tamanhoSubstratoModel.setSubstrato(this.getSubstrato());
 		this.tamanhoSubstratoRepository.alterarRegistro(this.tamanhoSubstratoModel);
 
 		/* RECARREGA OS REGISTROS */
@@ -70,6 +80,22 @@ public class ConsultarTamanhoSubstratoController implements Serializable {
 
 	}
 
+	public SubstratoModel getSubstrato() {
+		return substrato;
+	}
+
+	public void setSubstrato(SubstratoModel substrato) {
+		this.substrato = substrato;
+	}
+
+	public List<SelectItem> getListaSubstrato() {
+		return listaSubstrato;
+	}
+
+	public void setListaSubstrato(List<SelectItem> listaSubstrato) {
+		this.listaSubstrato = listaSubstrato;
+	}
+
 	public List<TamanhoSubstratoModel> getTamanhoSubstratos() {
 		return tamanhoSubstratos;
 	}
@@ -91,7 +117,14 @@ public class ConsultarTamanhoSubstratoController implements Serializable {
 	 */
 	@PostConstruct
 	public void init() {
+		SubstratoRepository substratoRepository = new SubstratoRepository();
+		this.setListaSubstrato(new ArrayList<SelectItem>());
+		// RETORNAR AS CategoriaImagemS CADASTRADAS
+		for (SubstratoModel selectItem : substratoRepository.getSubstratos()) {
+			this.getListaSubstrato().add(new SelectItem(selectItem.getCodigo(), selectItem.getMaterial()));
+		}
 
+		substrato = new SubstratoModel();
 	}
 
 }

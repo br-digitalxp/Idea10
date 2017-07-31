@@ -1,13 +1,13 @@
 package br.com.digitalxp.controller.imagem;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.model.SelectItem;
 import javax.inject.Inject;
 import javax.inject.Named;
-
-import org.primefaces.model.UploadedFile;
 
 import br.com.digitalxp.controller.usuario.UsuarioController;
 import br.com.digitalxp.model.CategoriaImagemModel;
@@ -21,7 +21,7 @@ import br.com.digitalxp.uteis.Uteis;
 public class CadastrarImagemController {
 
 	@Inject
-	ImagemModel ImagemModel;
+	ImagemModel imagemModel;
 
 	@Inject
 	UsuarioController usuarioController;
@@ -29,23 +29,14 @@ public class CadastrarImagemController {
 	@Inject
 	ImagemRepository ImagemRepository;
 
-	private List<CategoriaImagemModel> listaCategoria;
-
-	private UploadedFile file;
-
-	public UploadedFile getFile() {
-		return file;
-	}
-
-	public void setFile(UploadedFile file) {
-		this.file = file;
-	}
+	private CategoriaImagemModel categoriaImagem;
+	private List<SelectItem> listaCategoria;
 
 	/**
 	 * @return the ImagemModel
 	 */
 	public ImagemModel getImagemModel() {
-		return ImagemModel;
+		return imagemModel;
 	}
 
 	/**
@@ -53,15 +44,23 @@ public class CadastrarImagemController {
 	 *            the ImagemModel to set
 	 */
 	public void setImagemModel(ImagemModel ImagemModel) {
-		this.ImagemModel = ImagemModel;
+		this.imagemModel = ImagemModel;
 	}
 
-	public List<CategoriaImagemModel> getListaCategoria() {
+	public void setListaCategoria(List<SelectItem> listaCategoria) {
+		this.listaCategoria = listaCategoria;
+	}
+
+	public List<SelectItem> getListaCategoria() {
 		return listaCategoria;
 	}
 
-	public void setListaCategoria(List<CategoriaImagemModel> listaCategoria) {
-		this.listaCategoria = listaCategoria;
+	public CategoriaImagemModel getCategoriaImagem() {
+		return categoriaImagem;
+	}
+
+	public void setCategoriaImagem(CategoriaImagemModel categoriaImagem) {
+		this.categoriaImagem = categoriaImagem;
 	}
 
 	/**
@@ -69,22 +68,27 @@ public class CadastrarImagemController {
 	 */
 	public void SalvarNovaImagem() {
 
-		ImagemModel.setUsuario(this.usuarioController.GetUsuarioSession());
+		imagemModel.setUsuario(this.usuarioController.GetUsuarioSession());
+		imagemModel.setCategoria(this.categoriaImagem);
 
-		ImagemRepository.SalvarNovoRegistro(this.ImagemModel);
+		ImagemRepository.SalvarNovoRegistro(this.imagemModel);
 
 		Uteis.MensagemInfo("Registro cadastrado com sucesso");
 
-		ImagemModel = null;
+		imagemModel = null;
 	}
 
 	@PostConstruct
 	public void init() {
-		
-		CategoriaImagemRepository categoriaImagemRepository = new CategoriaImagemRepository();
 
+		CategoriaImagemRepository categoriaImagemRepository = new CategoriaImagemRepository();
+		this.setListaCategoria(new ArrayList<SelectItem>());
 		// RETORNAR AS CategoriaImagemS CADASTRADAS
-		this.listaCategoria = categoriaImagemRepository.GetCategoriaImagem();
+		for (CategoriaImagemModel selectItem : categoriaImagemRepository.GetCategoriaImagem()) {
+			this.getListaCategoria().add(new SelectItem(selectItem.getCodigo(), selectItem.getNomeCategoriaImagem()));
+		}
+
+		categoriaImagem = new CategoriaImagemModel();
 	}
 
 	/**

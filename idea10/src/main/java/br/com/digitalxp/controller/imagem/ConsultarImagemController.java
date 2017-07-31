@@ -1,10 +1,12 @@
 package br.com.digitalxp.controller.imagem;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.inject.Produces;
+import javax.faces.model.SelectItem;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -26,10 +28,11 @@ public class ConsultarImagemController implements Serializable {
 	@Produces
 	private List<ImagemModel> imagens;
 
+	private CategoriaImagemModel categoriaImagem;
+	private List<SelectItem> listaCategoria;
+
 	@Inject
 	transient private ImagemRepository imagemRepository;
-
-	private List<CategoriaImagemModel> listaCategoria;
 
 	/***
 	 * CARREGA INFORMAÇÕES DE UMA Imagem PARA SER EDITADA
@@ -86,11 +89,19 @@ public class ConsultarImagemController implements Serializable {
 		this.imagemModel = ImagemModel;
 	}
 
-	public List<CategoriaImagemModel> getListaCategoria() {
+	public CategoriaImagemModel getCategoriaImagem() {
+		return categoriaImagem;
+	}
+
+	public void setCategoriaImagem(CategoriaImagemModel categoriaImagem) {
+		this.categoriaImagem = categoriaImagem;
+	}
+
+	public List<SelectItem> getListaCategoria() {
 		return listaCategoria;
 	}
 
-	public void setListaCategoria(List<CategoriaImagemModel> listaCategoria) {
+	public void setListaCategoria(List<SelectItem> listaCategoria) {
 		this.listaCategoria = listaCategoria;
 	}
 
@@ -100,9 +111,13 @@ public class ConsultarImagemController implements Serializable {
 	@PostConstruct
 	public void init() {
 		CategoriaImagemRepository categoriaImagemRepository = new CategoriaImagemRepository();
-
+		this.setListaCategoria(new ArrayList<SelectItem>());
 		// RETORNAR AS CategoriaImagemS CADASTRADAS
-		this.listaCategoria = categoriaImagemRepository.GetCategoriaImagem();
+		for (CategoriaImagemModel selectItem : categoriaImagemRepository.GetCategoriaImagem()) {
+			this.getListaCategoria().add(new SelectItem(selectItem.getCodigo(), selectItem.getNomeCategoriaImagem()));
+		}
+
+		categoriaImagem = new CategoriaImagemModel();
 		// RETORNAR AS ImagemS CADASTRADAS
 		this.imagens = imagemRepository.GetImagem();
 	}

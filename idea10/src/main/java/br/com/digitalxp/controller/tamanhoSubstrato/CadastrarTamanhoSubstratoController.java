@@ -1,11 +1,18 @@
 package br.com.digitalxp.controller.tamanhoSubstrato;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.model.SelectItem;
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import br.com.digitalxp.controller.usuario.UsuarioController;
+import br.com.digitalxp.model.SubstratoModel;
 import br.com.digitalxp.model.TamanhoSubstratoModel;
+import br.com.digitalxp.repository.SubstratoRepository;
 import br.com.digitalxp.repository.TamanhoSubstratoRepository;
 import br.com.digitalxp.uteis.Uteis;
 
@@ -22,6 +29,9 @@ public class CadastrarTamanhoSubstratoController {
 	@Inject
 	TamanhoSubstratoRepository tamanhoSubstratoRepository;
 
+	private SubstratoModel substrato;
+	private List<SelectItem> listaSubstrato;
+
 	/**
 	 * SALVA UM NOVO REGISTRO VIA INPUT
 	 */
@@ -29,6 +39,7 @@ public class CadastrarTamanhoSubstratoController {
 
 		tamanhoSubstratoModel.setUsuario(this.usuarioController.GetUsuarioSession());
 
+		tamanhoSubstratoModel.setSubstrato(this.substrato);
 		tamanhoSubstratoRepository.salvarNovoRegistro(this.tamanhoSubstratoModel);
 
 		Uteis.MensagemInfo("Registro cadastrado com sucesso");
@@ -51,4 +62,32 @@ public class CadastrarTamanhoSubstratoController {
 		this.tamanhoSubstratoModel = tamanhoSubstratoModel;
 	}
 
+	public SubstratoModel getSubstrato() {
+		return substrato;
+	}
+
+	public void setSubstrato(SubstratoModel substrato) {
+		this.substrato = substrato;
+	}
+
+	public List<SelectItem> getListaSubstrato() {
+		return listaSubstrato;
+	}
+
+	public void setListaSubstrato(List<SelectItem> listaSubstrato) {
+		this.listaSubstrato = listaSubstrato;
+	}
+
+	@PostConstruct
+	public void init() {
+
+		SubstratoRepository substratoRepository = new SubstratoRepository();
+		this.setListaSubstrato(new ArrayList<SelectItem>());
+		// RETORNAR AS CategoriaImagemS CADASTRADAS
+		for (SubstratoModel selectItem : substratoRepository.getSubstratos()) {
+			this.getListaSubstrato().add(new SelectItem(selectItem.getCodigo(), selectItem.getMaterial()));
+		}
+
+		substrato = new SubstratoModel();
+	}
 }
