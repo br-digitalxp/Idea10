@@ -2,9 +2,13 @@ CREATE TABLE tb_usuario(
  
 	id_usuario INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
 	ds_login   VARCHAR(30) NOT NULL, 
-	ds_senha   VARCHAR(30) NOT NULL 
+	ds_senha   VARCHAR(30) NOT NULL,
+	fl_ativo   BIT,
+	dt_cadastro datetime not null,
+	id_usuario_cadastro	   INT NOT NULL
  
 );
+ALTER TABLE tb_usuario ADD FOREIGN KEY (id_usuario_cadastro) REFERENCES tb_usuario(id_usuario);
 
 
 CREATE TABLE tb_cliente(
