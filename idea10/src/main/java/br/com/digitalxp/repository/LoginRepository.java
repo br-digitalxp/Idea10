@@ -8,7 +8,7 @@ import br.com.digitalxp.model.UsuarioModel;
 import br.com.digitalxp.repository.entity.UsuarioEntity;
 import br.com.digitalxp.uteis.Uteis;
 
-public class UsuarioRepository implements Serializable {
+public class LoginRepository implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
