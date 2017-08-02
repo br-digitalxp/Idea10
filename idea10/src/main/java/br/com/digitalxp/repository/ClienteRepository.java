@@ -27,7 +27,7 @@ public class ClienteRepository {
 	 * 
 	 * @param ClienteModel
 	 */
-	public void SalvarNovoRegistro(ClienteModel ClienteModel) {
+	public ClienteModel SalvarNovoRegistroCliente(ClienteModel ClienteModel) {
 
 		entityManager = Uteis.JpaEntityManager();
 
@@ -44,7 +44,13 @@ public class ClienteRepository {
 		clienteEntity.setUsuarioEntity(usuarioEntity);
 
 		entityManager.persist(clienteEntity);
+		
+		return new ClienteModel(clienteEntity);
 
+	}
+	
+	public void SalvarNovoRegistro(ClienteModel ClienteModel) {
+		SalvarNovoRegistroCliente(ClienteModel);
 	}
 
 	/***

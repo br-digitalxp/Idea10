@@ -27,7 +27,7 @@ public class ImagemRepository {
 	 * 
 	 * @param imagemModel
 	 */
-	public void SalvarNovoRegistro(ImagemModel imagemModel) {
+	public ImagemModel SalvarNovoRegistroImagem(ImagemModel imagemModel) {
 
 		entityManager = Uteis.JpaEntityManager();
 
@@ -46,6 +46,12 @@ public class ImagemRepository {
 
 		entityManager.persist(imagemEntity);
 
+		return new ImagemModel(imagemEntity);
+
+	}
+
+	public void SalvarNovoRegistro(ImagemModel imagemModel) {
+		SalvarNovoRegistroImagem(imagemModel);
 	}
 
 	/***

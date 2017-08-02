@@ -93,41 +93,31 @@
 				<p:outputPanel style="display:block" styleClass="container">
 					<p:outputPanel style="display:block" styleClass="row">
 						<p:outputPanel style="display:block" styleClass="col-md-12">
-							<p:outputLabel value="Galerias em Destaque"
-								styleClass="title, h3" style="font-size: 45px; font-weight: bold;" />
-							<p class="lead">Veja as imagens em alta no momento</p>
+							<h3 class="title">
+								<p:outputLabel value="Galerias em Destaque" />
+							</h3>
+							<p class="lead">
+								<p:outputLabel value="Uma seleção das imagens mais visualizadas" />
+							</p>
 						</p:outputPanel>
 						<div class="galeria-list">
-							<div class="col-md-4 col-xs-6">
-								<div class="galeria-box">
-									<img src="img/img-produto-1.jpg" />
-									<div class="galeria-hover">
-										<h4>Pets que amamos</h4>
-										<a href="#" class="ver-galeria">Ver galeria completa</a> <a
-											href="#" class="mais"></a>
+							<ui:repeat var="o" value="#{principalController.listaCategoria}"
+								varStatus="status">
+								<div class="col-md-4 col-xs-6">
+									<div class="galeria-box">
+										<img src="#{o.caminhoImagemDestaque}" />
+										<div class="galeria-hover">
+											<h4>
+												<p:outputLabel value="#{o.nomeCategria}" />
+											</h4>
+											<a>Ver galeria completa</a> <a> <h:commandButton
+													styleClass="mais"
+													action="#{galeriaController.iniciarPagina(o)}" />
+											</a>
+										</div>
 									</div>
 								</div>
-							</div>
-							<div class="col-md-4 col-xs-6">
-								<div class="galeria-box">
-									<img src="img/img-produto-2.jpg" />
-									<div class="galeria-hover">
-										<h4>Pets que amamos</h4>
-										<a href="#" class="ver-galeria">Ver galeria completa</a> <a
-											href="#" class="mais"></a>
-									</div>
-								</div>
-							</div>
-							<div class="col-md-4 col-xs-6">
-								<div class="galeria-box">
-									<img src="img/img-produto-3.jpg" />
-									<div class="galeria-hover">
-										<h4>Pets que amamos</h4>
-										<a href="#" class="ver-galeria">Ver galeria completa</a> <a
-											href="#" class="mais"></a>
-									</div>
-								</div>
-							</div>
+							</ui:repeat>
 						</div>
 					</p:outputPanel>
 				</p:outputPanel>
@@ -138,46 +128,25 @@
 				<div class="container">
 					<div class="row">
 						<div class="col-md-12">
-							<h3 class="title">Melhores da semana</h3>
-							<p class="lead">Uma selação das imagens mais visualizadas</p>
+							<h3 class="title">
+								<p:outputLabel value="Melhores da semana" />
+							</h3>
+							<p class="lead">
+								<p:outputLabel value="Uma seleção das imagens mais visualizadas" />
+							</p>
 						</div>
 						<div class="galeria-list">
-							<div class="col-md-4 col-xs-6">
-								<div class="galeria-box">
-									<img src="img/img-produto-4.jpg" /><a href="#"
-										class="galeria-cart"></a>
+							<ui:repeat var="o" value="#{principalController.listaImagens}"
+								varStatus="status">
+								<div class="col-md-4 col-xs-6">
+									<div class="galeria-box">
+										<img src="#{o.imagem.caminhoImagem}" />
+										<h:commandLink
+											action="#{cadastrarOrdemServico.iniciarPagina(o)}"
+											class="galeria-cart" />
+									</div>
 								</div>
-							</div>
-							<div class="col-md-4 col-xs-6">
-								<div class="galeria-box">
-									<img src="img/img-produto-5.jpg" /><a href="#"
-										class="galeria-cart"></a>
-								</div>
-							</div>
-							<div class="col-md-4 col-xs-6">
-								<div class="galeria-box">
-									<img src="img/img-produto-6.jpg" /><a href="#"
-										class="galeria-cart"></a>
-								</div>
-							</div>
-							<div class="col-md-4 col-xs-6">
-								<div class="galeria-box">
-									<img src="img/img-produto-4.jpg" /><a href="#"
-										class="galeria-cart"></a>
-								</div>
-							</div>
-							<div class="col-md-4 col-xs-6">
-								<div class="galeria-box">
-									<img src="img/img-produto-5.jpg" /><a href="#"
-										class="galeria-cart"></a>
-								</div>
-							</div>
-							<div class="col-md-4 col-xs-6">
-								<div class="galeria-box">
-									<img src="img/img-produto-6.jpg" /><a href="#"
-										class="galeria-cart"></a>
-								</div>
-							</div>
+							</ui:repeat>
 						</div>
 						<div class="col-md-12 loadmore">
 							<a href="#" id="loadMore">veja mais</a>

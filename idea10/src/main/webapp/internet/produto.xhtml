@@ -9,25 +9,28 @@
 		<h:form>
 			<p:outputPanel style="display:block" styleClass="container produto">
 				<p:outputPanel style="display:block" styleClass="row">
-					<p:outputPanel style="display:block" styleClass="col-md-12">
-						<p class="categoria-title">PETS QUE AMAMOS</p>
-						<h1 class="title">Border collie peludinho correndo no campo</h1>
+					<p:outputPanel style="display:block;margin-top:30px;"
+						styleClass="col-md-12">
+						<p class="categoria-title">
+							<p:outputLabel
+								value="#{cadastrarOrdemServico.imagem.categoria.nomeCategria}" />
+						</p>
+						<h1 class="title">
+							<p:outputLabel value="#{cadastrarOrdemServico.imagem.titulo}" />
+						</h1>
 					</p:outputPanel>
 					<p:outputPanel style="display:block" styleClass="col-md-6">
 						<p:outputPanel style="display:block" styleClass="produto-img">
-							<img src="img/img-produto-interno.jpg"
-								alt="Border collie peludinho correndo no campo"
-								title="Border collie peludinho correndo no campo" />
+							<img src="#{cadastrarOrdemServico.imagem.imagem.caminhoImagem}"
+								alt="#{cadastrarOrdemServico.imagem.titulo}"
+								title="#{cadastrarOrdemServico.imagem.titulo}" />
 						</p:outputPanel>
 						<p:outputPanel style="display:block"
 							styleClass="produto-descricao">
 							<h3>Sobre esta imagem:</h3>
-							<p>It is a long established fact that a reader will be
-								distracted by the readable content of a page when looking at its
-								layout. The point of using Lorem Ipsum is that it has a
-								more-or-less normal distribution of letters, as opposed to using
-								'Content here, content here', making it look like readable
-								English.</p>
+							<p>
+								<p:outputLabel value="#{cadastrarOrdemServico.imagem.descricao}" />
+							</p>
 							<h3>Materiais e Aplicações</h3>
 							<p>Many desktop publishing packages and web page editors now
 								use Lorem Ipsum as their default model text, and a search for
@@ -48,47 +51,15 @@
 							</p:outputPanel>
 							<p:outputPanel style="display:block"
 								styleClass="produto-list-item">
-								<p:panelGrid columns="3">
-									<p:selectOneMenu id="inputText-categoria"
-										value="#{cadastrarOrdemServico.substratoModel.codigo}"
-										effect="fade" style="width:160px">
-										<f:selectItems value="#{cadastrarOrdemServico.listaSubstrato}"
-											var="substrato" itemLabel="#{substrato.material}"
-											itemValue="#{substrato}" />
-									</p:selectOneMenu>
-								</p:panelGrid>
-								<ul>
-									<li>
-										<div class="produto-list-nome">Porcelanato</div> <a href="#"><img
-											src="img/img-produto-material.png" alt="Porcelanato"
-											title="Porcelanato" /></a>
-									</li>
-									<li>
-										<div class="produto-list-nome">Pastilha</div> <a href="#"><img
-											src="img/img-produto-material.png" alt="Pastilha"
-											title="Pastilha" /></a>
-									</li>
-									<li>
-										<div class="produto-list-nome">Azuleijo</div> <a href="#"><img
-											src="img/img-produto-material.png" alt="Azuleijo"
-											title="Azuleijo" /></a>
-									</li>
-									<li>
-										<div class="produto-list-nome">Madeira</div> <a href="#"><img
-											src="img/img-produto-material.png" alt="Madeira"
-											title="Madeira" /></a>
-									</li>
-									<li>
-										<div class="produto-list-nome">Capacha</div> <a href="#"><img
-											src="img/img-produto-material.png" alt="Capacha"
-											title="Capacha" /></a>
-									</li>
-									<li>
-										<div class="produto-list-nome">Vidro</div> <a href="#"><img
-											src="img/img-produto-material.png" alt="Vidro"
-											title="Vidro" /></a>
-									</li>
-								</ul>
+								<h:selectOneMenu id="inputText-categoria" style="width:350px;"
+									value="#{cadastrarOrdemServico.substratoModel.codigo}">
+									<f:selectItems value="#{cadastrarOrdemServico.listaSubstrato}"
+										var="substrato" itemLabel="#{substrato.material}"
+										itemValue="#{substrato}" />
+									<f:ajax
+										listener="#{cadastrarOrdemServico.buscarTamanhoSubstrato()}"
+										render="inputText-tamanho" event="change" />
+								</h:selectOneMenu>
 							</p:outputPanel>
 						</p:outputPanel>
 						<p:outputPanel style="display:block" styleClass="produto-formato">
@@ -101,29 +72,53 @@
 							</p:outputPanel>
 							<p:outputPanel style="display:block"
 								styleClass="produto-list-item">
-								<ul>
-									<li>
-										<div class="produto-list-nome">1x1</div> <a href="#"><img
-											src="img/img-produto-formato-1.png" alt="1x1" title="1x1" /></a>
-									</li>
-									<li>
-										<div class="produto-list-nome">2x2</div> <a href="#"><img
-											src="img/img-produto-formato-2.png" alt="2x2" title="2x2" /></a>
-									</li>
-									<li>
-										<div class="produto-list-nome">2x4</div> <a href="#"><img
-											src="img/img-produto-formato-3.png" alt="2x4" title="2x4" /></a>
-									</li>
-									<li>
-										<div class="produto-list-nome">4x6</div> <a href="#"><img
-											src="img/img-produto-formato-4.png" alt="4x6" title="4x6" /></a>
-									</li>
-									<li>
-										<div class="produto-list-nome">Customizado</div> <a href="#"><img
-											src="img/img-produto-formato-5.png" alt="Customizado"
-											title="Customizado" /></a>
-									</li>
-								</ul>
+								<h:selectOneMenu id="inputText-tamanho" style="width:350px;"
+									value="#{cadastrarOrdemServico.substratoModel.codigo}">
+									<f:selectItems
+										value="#{cadastrarOrdemServico.listaTamanhoSubstrato}"
+										var="tamanho"
+										itemLabel="#{substrato.valorX} X #{substrato.valorY}"
+										itemValue="tamanho" />
+								</h:selectOneMenu>
+							</p:outputPanel>
+						</p:outputPanel>
+						<p:outputPanel style="display:block; margin-top:30px;"
+							styleClass="produto-formato">
+							<p:outputPanel style="display:block" styleClass="etapa">
+								<span class="etp">3</span>
+								<h3>
+									<strong>PASSO 3 :</strong> DADOS DO CLIENTE
+								</h3>
+							</p:outputPanel>
+							<p:outputPanel style="display:block"
+								styleClass="produto-list-item">
+								<h:panelGrid columns="2">
+									<h:outputLabel value="Nome Completo:" />
+									<h:inputText value="#{cadastrarOrdemServico.cliente.nome}" />
+									<h:outputLabel />
+									<h:outputLabel />
+									<h:outputLabel value="CPF:" />
+									<h:inputText value="#{cadastrarOrdemServico.cliente.cpf}" maxlength="14"/>
+									<h:outputLabel />
+									<h:outputLabel />
+									<h:outputLabel value="E-mail:" />
+									<h:inputText value="#{cadastrarOrdemServico.cliente.email}" />
+									<h:outputLabel />
+									<h:outputLabel />
+									<h:outputLabel value="Endereço:" />
+									<h:inputText value="#{cadastrarOrdemServico.cliente.endereco}" />
+									<h:outputLabel />
+									<h:outputLabel />
+									<h:outputLabel value="Telefone:" />
+									<h:inputText value="#{cadastrarOrdemServico.cliente.telefone}" maxlength="15"/>
+								</h:panelGrid>
+							</p:outputPanel>
+							<p:outputPanel style="display:block;margin-top:30px;"
+								styleClass="col-md-3 catalogo-completo">
+								<p:commandButton value="Cadastrar Ordem de Serviço"
+									id="commandButton-cadastrar-ordem-servico"
+									styleClass="btn btn-default"
+									actionListener="#{cadastrarOrdemServico.cadastraOrdemServico}" />
 							</p:outputPanel>
 						</p:outputPanel>
 					</p:outputPanel>

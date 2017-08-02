@@ -2,6 +2,7 @@ package br.com.digitalxp.model;
 
 import java.time.LocalDateTime;
 
+import br.com.digitalxp.controller.internet.ordemservico.CategoriaGettyImage;
 import br.com.digitalxp.repository.entity.CategoriaImagemEntity;
 
 public class CategoriaImagemModel {
@@ -14,6 +15,11 @@ public class CategoriaImagemModel {
 	private UsuarioModel usuarioModel;
 
 	public CategoriaImagemModel() {
+	}
+
+	public CategoriaImagemModel(CategoriaGettyImage categoria) {
+		this.nomeCategoriaImagem = categoria.getNomeCategria();
+		this.ordemMenu = 15;
 	}
 
 	public CategoriaImagemModel(CategoriaImagemEntity entity) {

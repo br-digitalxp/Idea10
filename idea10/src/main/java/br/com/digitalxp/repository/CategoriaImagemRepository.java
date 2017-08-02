@@ -25,8 +25,9 @@ public class CategoriaImagemRepository {
 	 * MÉTODO RESPONSÁVEL POR SALVAR UMA NOVA Cliente
 	 * 
 	 * @param categoriaImagemModel
+	 * @return
 	 */
-	public void SalvarNovoRegistro(CategoriaImagemModel categoriaImagemModel) {
+	public CategoriaImagemModel SalvarNovoRegistroCategoria(CategoriaImagemModel categoriaImagemModel) {
 
 		entityManager = Uteis.JpaEntityManager();
 
@@ -43,6 +44,12 @@ public class CategoriaImagemRepository {
 
 		entityManager.persist(categoriaImagemEntity);
 
+		return new CategoriaImagemModel(categoriaImagemEntity);
+
+	}
+
+	public void SalvarNovoRegistro(CategoriaImagemModel categoriaImagemModel) {
+		SalvarNovoRegistro(categoriaImagemModel);
 	}
 
 	/***

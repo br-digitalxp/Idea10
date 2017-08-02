@@ -4,20 +4,30 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.ApplicationScoped;
+import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.model.SelectItem;
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import br.com.digitalxp.controller.usuario.UsuarioAdmController;
+import br.com.digitalxp.model.CategoriaImagemModel;
+import br.com.digitalxp.model.ClienteModel;
+import br.com.digitalxp.model.ImagemModel;
+import br.com.digitalxp.model.OrdemServicoModel;
 import br.com.digitalxp.model.SubstratoModel;
 import br.com.digitalxp.model.TamanhoSubstratoModel;
+import br.com.digitalxp.model.UsuarioModel;
+import br.com.digitalxp.repository.CategoriaImagemRepository;
+import br.com.digitalxp.repository.ClienteRepository;
+import br.com.digitalxp.repository.ImagemRepository;
+import br.com.digitalxp.repository.OrdemServicoRepository;
 import br.com.digitalxp.repository.SubstratoRepository;
 import br.com.digitalxp.repository.TamanhoSubstratoRepository;
 import br.com.digitalxp.uteis.Uteis;
 
 @Named(value = "cadastrarOrdemServico")
-@RequestScoped
+@ApplicationScoped
 public class CadastrarOrdemServico {
 
 	@Inject
@@ -27,10 +37,16 @@ public class CadastrarOrdemServico {
 	SubstratoModel substratoModel;
 
 	@Inject
+	OrdemServicoModel ordemServico;
+
+	@Inject
 	UsuarioAdmController usuarioController;
 
 	@Inject
 	SubstratoRepository substratoRepository;
+
+	@Inject
+	OrdemServicoRepository ordemServicoRepository;
 
 	@Inject
 	TamanhoSubstratoRepository tamanhoSubstratoRepository;
@@ -38,20 +54,61 @@ public class CadastrarOrdemServico {
 	private List<SelectItem> listaTamanhoSubstrato;
 
 	private List<SelectItem> listaSubstrato;
+	private ImagemGettyImage imagem;
+
+	@Inject
+	ClienteModel cliente;
+
+	public String iniciarPagina(ImagemGettyImage imagem) {
+		this.imagem = imagem;
+
+		String retorno = "/internet/produto.xhtml";
+
+		return retorno;
+	}
+
+	public void buscarTamanhoSubstrato(AjaxBehaviorEvent event) {
+		List<TamanhoSubstratoModel> listaTamanho = tamanhoSubstratoRepository
+				.getTamanhoSubstratosBySubstrato(this.getSubstratoModel().getCodigo());
+		this.setListaTamanhoSubstrato(new ArrayList<SelectItem>());
+		// RETORNAR AS CategoriaImagemS CADASTRADAS
+		for (TamanhoSubstratoModel tamanho : listaTamanho) {
+			this.getListaSubstrato().add(new SelectItem(tamanho.getCodigo(),
+					tamanho.getValorX().toString().concat(" X ".concat(tamanho.getValorY().toString()))));
+		}
+	}
 
 	/**
 	 * SALVA UM NOVO REGISTRO VIA INPUT
 	 */
 	public void cadastraOrdemServico() {
+		UsuarioModel usuario = new UsuarioModel();
+		usuario.setCodigo(2);
+		cliente.setUsuarioModel(usuario);
+		ClienteModel clienteModel = new ClienteRepository().SalvarNovoRegistroCliente(cliente);
 
-		substratoModel.setUsuario(this.usuarioController.GetUsuarioSession());
+		ordemServico.setCliente(clienteModel);
 
-		substratoRepository.salvarNovoRegistro(this.substratoModel);
+		CategoriaImagemModel categoriaImagem = new CategoriaImagemModel(imagem.getCategoria());
+		categoriaImagem.setUsuarioModel(usuario);
+		categoriaImagem = new CategoriaImagemRepository().SalvarNovoRegistroCategoria(categoriaImagem);
+		
+		imagem.getImagem().setUsuario(usuario);
+		imagem.getImagem().setCategoria(categoriaImagem);
+		ImagemModel imagemModel = new ImagemRepository().SalvarNovoRegistroImagem(imagem.getImagem());
+		
+		
+		ordemServico.setImagem(imagemModel);
+		SubstratoModel substrato = new SubstratoModel();
+		substrato.setCodigo(1);
+		ordemServico.setSubstrato(substrato);
+		tamanho.setCodigo(1);
+		ordemServico.setTamanhoSubstrato(tamanho);
+		ordemServico.setTamanho(1);
+		ordemServico.setUsuario(usuario);
 
-		// for (TamanhoSubstratoModel tamanho :
-		// substratoModel.getListaTamanhos()) {
-		// tamanhoSubstratoRepository.salvarNovoRegistro(tamanho);
-		// }
+		ordemServicoRepository.SalvarNovoRegistro(ordemServico);
+
 
 		Uteis.MensagemInfo("Registro cadastrado com sucesso");
 
@@ -103,6 +160,22 @@ public class CadastrarOrdemServico {
 		this.listaSubstrato = listaSubstrato;
 	}
 
+	public ImagemGettyImage getImagem() {
+		return imagem;
+	}
+
+	public void setImagem(ImagemGettyImage imagem) {
+		this.imagem = imagem;
+	}
+
+	public ClienteModel getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(ClienteModel cliente) {
+		this.cliente = cliente;
+	}
+
 	@PostConstruct
 	public void init() {
 		this.setListaSubstrato(new ArrayList<SelectItem>());
@@ -110,7 +183,6 @@ public class CadastrarOrdemServico {
 		for (SubstratoModel selectItem : substratoRepository.getSubstratos()) {
 			this.getListaSubstrato().add(new SelectItem(selectItem.getCodigo(), selectItem.getMaterial()));
 		}
-
 		substratoModel = new SubstratoModel();
 	}
 
