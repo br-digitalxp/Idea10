@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+<head>
+
+<title>Produto - Site IDEA10</title>
+
+<link rel="shortcut icon" href="favicon.ico" />
+
+<!-- Bootstrap Core CSS -->
+<link href="css/bootstrap.min.css" rel="stylesheet" />
+
+<!-- Custom CSS -->
+<link href="css/style.css" rel="stylesheet" />
+
+<!-- Slick Slide CSS -->
+<link href="css/slick.css" rel="stylesheet" />
+<link href="css/slick-theme.css" rel="stylesheet" />
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+
+<h:body>
+	<div class="header">
+		<ui:insert name="header">
+			<ui:include src="header.xhtml"></ui:include>
+		</ui:insert>
+	</div>
+
+	<div class="containerContent">
+		<ui:insert name="content"></ui:insert>
+	</div>
+
+	<div class="containerFooter">
+		<ui:insert name="footer">
+			<ui:include src="footer.xhtml"></ui:include>
+		</ui:insert>
+	</div>
+</h:body>
+
+</html>

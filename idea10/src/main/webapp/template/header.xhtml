@@ -7,6 +7,12 @@
 <h:form>
 	<p:menubar>
 		<p:menuitem value="Home" icon="ui-icon-home" url="/sistema/home.xhtml" />
+		<p:submenu label="Administrativo" icon="ui-icon-arrowthick-1-s">
+			<p:menuitem value="Cadastrar Usuario" icon="ui-icon-document"
+				url="/sistema/usuario/cadastrarUsuario.xhtml" />
+			<!-- <p:menuitem value="Consultar Usuarios" icon="ui-icon-document"
+				url="/sistema/usuario/consultarUsuario.xhtml" /> -->
+		</p:submenu>
 		<p:submenu label="Cliente" icon="ui-icon-arrowthick-1-s">
 			<p:menuitem value="Cadastrar Cliente" icon="ui-icon-document"
 				url="/sistema/cliente/cadastrarCliente.xhtml" />
@@ -42,7 +48,7 @@
 
 		<f:facet name="options">
 			<p:commandButton value="Logout" icon="ui-icon-extlink"
-				action="/sistema/index.xhtml" />
+				action="#{usuarioAdmController.Logout}" />
 		</f:facet>
 	</p:menubar>
 

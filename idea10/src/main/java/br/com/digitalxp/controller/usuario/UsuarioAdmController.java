@@ -10,7 +10,7 @@ import javax.inject.Named;
 import org.apache.commons.lang3.StringUtils;
 
 import br.com.digitalxp.model.UsuarioModel;
-import br.com.digitalxp.repository.UsuarioRepository;
+import br.com.digitalxp.repository.LoginRepository;
 import br.com.digitalxp.repository.entity.UsuarioEntity;
 import br.com.digitalxp.uteis.Uteis;
 
@@ -19,12 +19,12 @@ import br.com.digitalxp.uteis.Uteis;
 public class UsuarioAdmController implements Serializable {
 
 	private static final long serialVersionUID = 1L;
- 
+
 	@Inject
 	private UsuarioModel usuarioModel;
 
 	@Inject
-	private UsuarioRepository usuarioRepository;
+	private LoginRepository loginRepository;
 
 	@Inject
 	private UsuarioEntity usuarioEntity;
@@ -48,7 +48,7 @@ public class UsuarioAdmController implements Serializable {
 
 		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
 
-		return "/index.xhtml?faces-redirect=true";
+		return "/internet/index.xhtml";
 	}
 
 	public String EfetuarLogin() {
@@ -63,7 +63,7 @@ public class UsuarioAdmController implements Serializable {
 			return null;
 		} else {
 
-			usuarioEntity = usuarioRepository.ValidaUsuario(usuarioModel);
+			usuarioEntity = loginRepository.ValidaUsuario(usuarioModel);
 
 			if (usuarioEntity != null) {
 

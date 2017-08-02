@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+</h:head>
+
+<ui:composition template="/template/layoutBase.xhtml">
+
+
+	<ui:define name="content">
+
+		<p:tabView style="width:600px;height:400px;margin:auto;">
+			<p:tab title="Cadastro de Usuario">
+				<p:messages showDetail="true" autoUpdate="true" closable="true"
+					severity="warn" />
+				<p:messages autoUpdate="true" closable="true" severity="error" />
+				<p:messages showDetail="true" autoUpdate="true" closable="true"
+					severity="info" />
+
+				<h:form id="form-cadastro">
+
+					<h:panelGrid id="panelGrid-campos-form" columns="2"
+						cellpadding="10">
+
+						<p:outputLabel value="Usuario" for="inputText-usuario" />
+						<p:inputText id="inputText-usuario" maxlength="70"
+							value="#{cadastrarUsuarioController.usuarioModel.usuario}"
+							required="true"
+							requiredMessage="O Usuario é de preenchimento obrigatório" />
+
+
+						<p:outputLabel value="Senha" for="inputText-senha" />
+						<p:password id="inputText-senha"
+							value="#{cadastrarUsuarioController.usuarioModel.senha}"
+							match="inputText-senha2" label="Password 1" required="true" feedback="true"
+							promptLabel="Entre com sua senha" weakLabel="Fraco" 
+							goodLabel="Boa" strongLabel="Forte" />
+						<h:outputLabel for="inputText-senha2" value="Confirmação da Senha" />
+						<p:password id="inputText-senha2" 
+							value="#{cadastrarUsuarioController.usuarioModel.senha}"
+							label="Password 2" required="true" />
+
+						<p:outputLabel value="Ativo" for="inputText-ativo" />
+						<p:selectBooleanCheckbox id="inputText-ativo"
+							value="#{cadastrarUsuarioController.usuarioModel.ativo}" />
+
+						<p:spacer />
+
+						<p:commandButton value="Salvar" id="commandButton-salvar"
+							icon="ui-icon-gear"
+							actionListener="#{cadastrarUsuarioController.SalvarNovaUsuario}"
+							update="panelGrid-campos-form" />
+
+
+					</h:panelGrid>
+
+
+
+				</h:form>
+
+			</p:tab>
+
+		</p:tabView>
+
+	</ui:define>
+
+</ui:composition>
+
+
+</html>
