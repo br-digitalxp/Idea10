@@ -4,11 +4,10 @@ CREATE TABLE tb_usuario(
 	ds_login   VARCHAR(30) NOT NULL, 
 	ds_senha   VARCHAR(30) NOT NULL,
 	fl_ativo   BIT,
-	dt_cadastro datetime not null,
-	id_usuario_cadastro	   INT NOT NULL
+	dt_cadastro datetime not null
  
 );
-ALTER TABLE tb_usuario ADD FOREIGN KEY (id_usuario_cadastro) REFERENCES tb_usuario(id_usuario);
+
 
 
 CREATE TABLE tb_cliente(
