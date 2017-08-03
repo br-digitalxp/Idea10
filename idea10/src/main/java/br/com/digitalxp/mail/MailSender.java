@@ -13,11 +13,11 @@ import javax.mail.internet.MimeMessage;
 
 public class MailSender {
 
-	public void enviarEmail(final String recipient, final String subject,
+	public void enviarEmail(final String username, final String password, final String recipient, final String subject,
 			final String text) throws AddressException, MessagingException {
 
-		 final String username = "revistavivasa6@gmail.com";
-		 final String password = "Revistaviva2017!";
+		// final String username = "revistavivasa6@gmail.com";
+		// final String password = "Revistaviva2017!";
 
 		Properties props = new Properties();
 		props.put("mail.smtp.host", "smtp.gmail.com");
@@ -40,15 +40,5 @@ public class MailSender {
 
 		Transport.send(message);
 
-	}
-	
-	public static void main(String[] args) {
-		MailSender mail = new MailSender();
-		try {
-			mail.enviarEmail("danillo@digitalxp.com.br", "TEste dessa caralha", "Olha ai se funcionou");
-		} catch (MessagingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 }

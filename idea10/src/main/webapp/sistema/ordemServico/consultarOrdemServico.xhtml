@@ -59,24 +59,16 @@
 
 				</p:column>
 
-				<p:column headerText="" style="width:25px;">
-
-					<p:commandButton icon="ui-icon-trash" title="Excluir Registro"
-						ajax="true"
-						actionListener="#{consultarOrdemServicoController.ExcluirOrdemServico(ordemServico)}"
-						update="@form" />
-
-				</p:column>
 
 			</p:dataTable>
 
 		</h:form>
 
-		<p:dialog header="Detalhar Ordem de Serviço"
-			id="dialog-modal-editar" widgetVar="dialog-modal-editar" modal="true"
-			height="450px" width="700px">
+		<p:dialog header="Detalhar Ordem de Serviço" id="dialog-modal-editar"
+			widgetVar="dialog-modal-editar" modal="true" height="450px"
+			width="700px">
 
-			 <ui:include src="/sistema/ordemServico/detalharOrdemServico.xhtml" />
+			<ui:include src="/sistema/ordemServico/detalharOrdemServico.xhtml" />
 
 		</p:dialog>
 

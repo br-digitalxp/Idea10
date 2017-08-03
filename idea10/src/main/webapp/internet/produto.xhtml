@@ -56,9 +56,9 @@
 									<f:selectItems value="#{cadastrarOrdemServico.listaSubstrato}"
 										var="substrato" itemLabel="#{substrato.material}"
 										itemValue="#{substrato}" />
-									<f:ajax
+									<p:ajax
 										listener="#{cadastrarOrdemServico.buscarTamanhoSubstrato()}"
-										render="inputText-tamanho" event="change" />
+										render="inputText-tamanho" event="change"/>
 								</h:selectOneMenu>
 							</p:outputPanel>
 						</p:outputPanel>

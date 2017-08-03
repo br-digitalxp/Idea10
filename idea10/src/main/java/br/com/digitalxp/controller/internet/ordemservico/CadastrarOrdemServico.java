@@ -67,7 +67,7 @@ public class CadastrarOrdemServico {
 		return retorno;
 	}
 
-	public void buscarTamanhoSubstrato(AjaxBehaviorEvent event) {
+	public void buscarTamanhoSubstrato() {
 		List<TamanhoSubstratoModel> listaTamanho = tamanhoSubstratoRepository
 				.getTamanhoSubstratosBySubstrato(this.getSubstratoModel().getCodigo());
 		this.setListaTamanhoSubstrato(new ArrayList<SelectItem>());

@@ -1,154 +1,98 @@
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition template="template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui">
-
-<head>
-
-<meta charset="utf-8" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="description" content="" />
-<meta name="author" content="" />
-<title>Categoria - Site IDEA10</title>
-
-<link rel="shortcut icon" href="favicon.ico" />
-
-<!-- Bootstrap Core CSS -->
-<link href="css/bootstrap.min.css" rel="stylesheet" />
-
-<!-- Custom CSS -->
-<link href="css/style.css" rel="stylesheet" />
-
-<!-- Slick Slide CSS -->
-<link href="css/slick.css" rel="stylesheet" />
-
-
-<link href="css/slick-theme.css" rel="stylesheet" />
-
-
-<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-<!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-</head>
-
-<body>
-	<ui:include src="header.xhtml" />
-	<!-- Main Section -->
-	<main>
-	<div class="container categoria">
-		<div class="row">
-			<div class="col-md-12">
-				<p class="categoria-title">Destaques</p>
-				<h1 class="title">Esportes</h1>
-			</div>
-			<div class="col-md-4 categoria-img">
-				<img src="img/img-categoria.jpg"
-					alt="Border collie peludinho correndo no campo"
-					title="Border collie peludinho correndo no campo" />
-			</div>
-			<div class="col-md-8 categoria-descricao">
-				<p>It is a long established fact that a reader will be
-					distracted by the readable content of a page when looking at its
-					layout.</p>
-
-				<p>The point of using Lorem Ipsum is that it has a more-or-less
-					normal distribution of letters, as opposed to using 'Content here,
-					content here', making it look like readable English.</p>
-			</div>
-			<div class="col-md-12">
-				<div class="border"></div>
-			</div>
-			<div class="categoria-list">
-				<div class="col-md-4 col-xs-6">
-					<div class="categoria-box">
-						<a href="#"><img src="img/img-categoria-1.jpg" /></a>
+	<ui:define name="content">
+		<h:form>
+			<div class="container categoria">
+				<div class="row">
+					<div class="col-md-12">
+						<p class="categoria-title">Destaques</p>
+						<h1 class="title">Esportes</h1>
 					</div>
-				</div>
-				<div class="col-md-4 col-xs-6">
-					<div class="categoria-box">
-						<a href="#"><img src="img/img-categoria-2.jpg" /></a>
+					<div class="col-md-4 categoria-img">
+						<img src="img/img-categoria.jpg"
+							alt="Border collie peludinho correndo no campo"
+							title="Border collie peludinho correndo no campo" />
 					</div>
-				</div>
-				<div class="col-md-4 col-xs-6">
-					<div class="categoria-box">
-						<a href="#"><img src="img/img-categoria-3.jpg" /></a>
+					<div class="col-md-8 categoria-descricao">
+						<p>It is a long established fact that a reader will be
+							distracted by the readable content of a page when looking at its
+							layout.</p>
+
+						<p>The point of using Lorem Ipsum is that it has a
+							more-or-less normal distribution of letters, as opposed to using
+							'Content here, content here', making it look like readable
+							English.</p>
 					</div>
-				</div>
-				<div class="col-md-4 col-xs-6">
-					<div class="categoria-box">
-						<a href="#"><img src="img/img-categoria-1.jpg" /></a>
+					<div class="col-md-12">
+						<div class="border"></div>
 					</div>
-				</div>
-				<div class="col-md-4 col-xs-6">
-					<div class="categoria-box">
-						<a href="#"><img src="img/img-categoria-2.jpg" /></a>
-					</div>
-				</div>
-				<div class="col-md-4 col-xs-6">
-					<div class="categoria-box">
-						<a href="#"><img src="img/img-categoria-3.jpg" /></a>
-					</div>
-				</div>
-				<div class="col-md-4 col-xs-6">
-					<div class="categoria-box">
-						<a href="#"><img src="img/img-categoria-1.jpg" /></a>
-					</div>
-				</div>
-				<div class="col-md-4 col-xs-6">
-					<div class="categoria-box">
-						<a href="#"><img src="img/img-categoria-2.jpg" /></a>
-					</div>
-				</div>
-				<div class="col-md-4 col-xs-6">
-					<div class="categoria-box">
-						<a href="#"><img src="img/img-categoria-3.jpg" /></a>
-					</div>
-				</div>
-				<div class="col-md-4 col-xs-6">
-					<div class="categoria-box">
-						<a href="#"><img src="img/img-categoria-1.jpg" /></a>
-					</div>
-				</div>
-				<div class="col-md-4 col-xs-6">
-					<div class="categoria-box">
-						<a href="#"><img src="img/img-categoria-2.jpg" /></a>
-					</div>
-				</div>
-				<div class="col-md-4 col-xs-6">
-					<div class="categoria-box">
-						<a href="#"><img src="img/img-categoria-3.jpg" /></a>
+					<div class="categoria-list">
+						<div class="col-md-4 col-xs-6">
+							<div class="categoria-box">
+								<a href="#"><img src="img/img-categoria-1.jpg" /></a>
+							</div>
+						</div>
+						<div class="col-md-4 col-xs-6">
+							<div class="categoria-box">
+								<a href="#"><img src="img/img-categoria-2.jpg" /></a>
+							</div>
+						</div>
+						<div class="col-md-4 col-xs-6">
+							<div class="categoria-box">
+								<a href="#"><img src="img/img-categoria-3.jpg" /></a>
+							</div>
+						</div>
+						<div class="col-md-4 col-xs-6">
+							<div class="categoria-box">
+								<a href="#"><img src="img/img-categoria-1.jpg" /></a>
+							</div>
+						</div>
+						<div class="col-md-4 col-xs-6">
+							<div class="categoria-box">
+								<a href="#"><img src="img/img-categoria-2.jpg" /></a>
+							</div>
+						</div>
+						<div class="col-md-4 col-xs-6">
+							<div class="categoria-box">
+								<a href="#"><img src="img/img-categoria-3.jpg" /></a>
+							</div>
+						</div>
+						<div class="col-md-4 col-xs-6">
+							<div class="categoria-box">
+								<a href="#"><img src="img/img-categoria-1.jpg" /></a>
+							</div>
+						</div>
+						<div class="col-md-4 col-xs-6">
+							<div class="categoria-box">
+								<a href="#"><img src="img/img-categoria-2.jpg" /></a>
+							</div>
+						</div>
+						<div class="col-md-4 col-xs-6">
+							<div class="categoria-box">
+								<a href="#"><img src="img/img-categoria-3.jpg" /></a>
+							</div>
+						</div>
+						<div class="col-md-4 col-xs-6">
+							<div class="categoria-box">
+								<a href="#"><img src="img/img-categoria-1.jpg" /></a>
+							</div>
+						</div>
+						<div class="col-md-4 col-xs-6">
+							<div class="categoria-box">
+								<a href="#"><img src="img/img-categoria-2.jpg" /></a>
+							</div>
+						</div>
+						<div class="col-md-4 col-xs-6">
+							<div class="categoria-box">
+								<a href="#"><img src="img/img-categoria-3.jpg" /></a>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-	</div>
-	</main>
-
-	<ui:include src="footer.xhtml" />
-
-	<p class="totop">
-		<a href="#top">Voltar para o topo</a>
-	</p>
-
-	<!-- jQuery -->
-	<script src="js/jquery.js"></script>
-
-	<!-- Bootstrap Core JavaScript -->
-	<script src="js/bootstrap.min.js"></script>
-
-	<!-- Slick Slide -->
-	<script src="js/slick.min.js"></script>
-	<script src="js/slider.js"></script>
-
-	<!-- Loadmore -->
-	<script src="js/loadmore.js"></script>
-
-</body>
-
-</html>
+		</h:form>
+	</ui:define>
+</ui:composition>
