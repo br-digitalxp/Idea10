@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
-import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.model.SelectItem;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -92,12 +91,11 @@ public class CadastrarOrdemServico {
 		CategoriaImagemModel categoriaImagem = new CategoriaImagemModel(imagem.getCategoria());
 		categoriaImagem.setUsuarioModel(usuario);
 		categoriaImagem = new CategoriaImagemRepository().SalvarNovoRegistroCategoria(categoriaImagem);
-		
+
 		imagem.getImagem().setUsuario(usuario);
 		imagem.getImagem().setCategoria(categoriaImagem);
 		ImagemModel imagemModel = new ImagemRepository().SalvarNovoRegistroImagem(imagem.getImagem());
-		
-		
+
 		ordemServico.setImagem(imagemModel);
 		SubstratoModel substrato = new SubstratoModel();
 		substrato.setCodigo(1);
@@ -108,7 +106,6 @@ public class CadastrarOrdemServico {
 		ordemServico.setUsuario(usuario);
 
 		ordemServicoRepository.SalvarNovoRegistro(ordemServico);
-
 
 		Uteis.MensagemInfo("Registro cadastrado com sucesso");
 

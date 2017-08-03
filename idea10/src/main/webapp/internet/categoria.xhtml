@@ -20,76 +20,18 @@
 						<p>It is a long established fact that a reader will be
 							distracted by the readable content of a page when looking at its
 							layout.</p>
-
-						<p>The point of using Lorem Ipsum is that it has a
-							more-or-less normal distribution of letters, as opposed to using
-							'Content here, content here', making it look like readable
-							English.</p>
 					</div>
 					<div class="col-md-12">
 						<div class="border"></div>
 					</div>
 					<div class="categoria-list">
-						<div class="col-md-4 col-xs-6">
-							<div class="categoria-box">
-								<a href="#"><img src="img/img-categoria-1.jpg" /></a>
+						<ui:repeat var="o" value="#{principalController.listaCategoria}">
+							<div class="col-md-4 col-xs-6">
+								<div class="categoria-box">
+									<a href="#"><img src="img/img-categoria-1.jpg" /></a>
+								</div>
 							</div>
-						</div>
-						<div class="col-md-4 col-xs-6">
-							<div class="categoria-box">
-								<a href="#"><img src="img/img-categoria-2.jpg" /></a>
-							</div>
-						</div>
-						<div class="col-md-4 col-xs-6">
-							<div class="categoria-box">
-								<a href="#"><img src="img/img-categoria-3.jpg" /></a>
-							</div>
-						</div>
-						<div class="col-md-4 col-xs-6">
-							<div class="categoria-box">
-								<a href="#"><img src="img/img-categoria-1.jpg" /></a>
-							</div>
-						</div>
-						<div class="col-md-4 col-xs-6">
-							<div class="categoria-box">
-								<a href="#"><img src="img/img-categoria-2.jpg" /></a>
-							</div>
-						</div>
-						<div class="col-md-4 col-xs-6">
-							<div class="categoria-box">
-								<a href="#"><img src="img/img-categoria-3.jpg" /></a>
-							</div>
-						</div>
-						<div class="col-md-4 col-xs-6">
-							<div class="categoria-box">
-								<a href="#"><img src="img/img-categoria-1.jpg" /></a>
-							</div>
-						</div>
-						<div class="col-md-4 col-xs-6">
-							<div class="categoria-box">
-								<a href="#"><img src="img/img-categoria-2.jpg" /></a>
-							</div>
-						</div>
-						<div class="col-md-4 col-xs-6">
-							<div class="categoria-box">
-								<a href="#"><img src="img/img-categoria-3.jpg" /></a>
-							</div>
-						</div>
-						<div class="col-md-4 col-xs-6">
-							<div class="categoria-box">
-								<a href="#"><img src="img/img-categoria-1.jpg" /></a>
-							</div>
-						</div>
-						<div class="col-md-4 col-xs-6">
-							<div class="categoria-box">
-								<a href="#"><img src="img/img-categoria-2.jpg" /></a>
-							</div>
-						</div>
-						<div class="col-md-4 col-xs-6">
-							<div class="categoria-box">
-								<a href="#"><img src="img/img-categoria-3.jpg" /></a>
-							</div>
-						</div>
+						</ui:repeat>
 					</div>
 				</div>
 			</div>
