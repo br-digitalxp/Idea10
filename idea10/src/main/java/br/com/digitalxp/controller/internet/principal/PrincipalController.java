@@ -9,6 +9,7 @@ import javax.inject.Named;
 
 import br.com.digitalxp.controller.internet.ordemservico.CategoriaGettyImage;
 import br.com.digitalxp.controller.internet.ordemservico.ImagemGettyImage;
+import br.com.digitalxp.gettyImages.GettyImagesAPI;
 import br.com.digitalxp.model.ImagemModel;
 
 @Named(value = "principalController")
@@ -44,9 +45,9 @@ public class PrincipalController {
 	}
 
 	private void popularimagem() {
-		listaImagens = new ArrayList<ImagemGettyImage>();
+		listaImagens = GettyImagesAPI.getInstance().search("esporte");
 
-		ImagemModel imagemModel = new ImagemModel();
+		/*ImagemModel imagemModel = new ImagemModel();
 		imagemModel.setCaminhoImagem("img/img-produto-4.jpg");
 		this.imagem.setImagem(imagemModel);
 		this.imagem.setTitulo("Janela em uma Casa de Campo");
@@ -87,7 +88,9 @@ public class PrincipalController {
 		cgi3.setNomeCategria("Passaros");
 		imagem3.setCategoria(cgi3);
 
-		listaImagens.add(imagem3);
+		listaImagens.add(imagem3);*/
+		
+		
 	}
 
 	public List<ImagemGettyImage> getListaImagens() {

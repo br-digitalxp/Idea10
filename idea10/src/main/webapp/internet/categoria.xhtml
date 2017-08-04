@@ -25,10 +25,10 @@
 						<div class="border"></div>
 					</div>
 					<div class="categoria-list">
-						<ui:repeat var="o" value="#{principalController.listaCategoria}">
+						<ui:repeat var="o" value="#{principalController.listaImagens}">
 							<div class="col-md-4 col-xs-6">
 								<div class="categoria-box">
-									<a href="#"><img src="img/img-categoria-1.jpg" /></a>
+									<a href="#"><img src="#{o.imagem.caminhoImagem}" /></a>
 								</div>
 							</div>
 						</ui:repeat>
