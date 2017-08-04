@@ -16,13 +16,15 @@
 								src="img/logo.png" alt="IDEA0" title="IDEA10" /></a>
 						</div>
 						<div class="col-md-6 search">
-							<form class="navbar-form">
+							<!-- <form class="navbar-form"> -->
 								<div class="form-group">
-									<input type="text" placeholder="Pesquisar..."
-										class="form-control" />
+									<h:inputText value="#{principalController.busca}" styleClass="form-control"></h:inputText>
+									<!-- <input type="text" placeholder="Pesquisar..."
+										class="form-control" /> -->
 								</div>
-								<button type="submit" class="btn btn-success"></button>
-							</form>
+								<p:commandButton value="submit" type="submit" styleClass="btn btn-success" action="#{principalController.buscarImagens}" ajax="false" />
+								<!-- <button type="submit" class="btn btn-success"></button> -->
+							<!-- </form> -->
 						</div>
 					</div>
 				</div>

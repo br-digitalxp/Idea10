@@ -39,7 +39,7 @@ public final class GettyImagesAPI {
 	public List<ImagemGettyImage> search(final String phrase) {
 		HttpClient httpClient = HttpClientBuilder.create().build();
 
-		HttpGet getRequest = new HttpGet(BASE_URL+BASE_SEARCH+SEARCH_BY_PHRASE+phrase+"&page_size=3");
+		HttpGet getRequest = new HttpGet(BASE_URL+BASE_SEARCH+SEARCH_BY_PHRASE+phrase);
 		getRequest.addHeader("Api-Key", API_KEY);
 
 		String json = null;
@@ -78,9 +78,11 @@ public final class GettyImagesAPI {
 				
 				ImagemModel imagemModel = new ImagemModel();
 				//imagemModel.setAutor(image.getArtist());
-				imagemModel.setCaminhoImagem(image.getDisplaySizes().get(0).getUri());
-				imagem.setImagem(imagemModel);
-				listaRetorno.add(imagem);
+				if(image.getDisplaySizes() != null && image.getDisplaySizes().size() > 0 ) {
+					imagemModel.setCaminhoImagem(image.getDisplaySizes().get(0).getUri());
+					imagem.setImagem(imagemModel);
+					listaRetorno.add(imagem);
+				}
 			}
 		}
 		return listaRetorno;

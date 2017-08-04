@@ -1,5 +1,6 @@
 <ui:composition template="template.xhtml"
 	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui">
@@ -25,13 +26,19 @@
 						<div class="border"></div>
 					</div>
 					<div class="categoria-list">
-						<ui:repeat var="o" value="#{principalController.listaImagens}">
+						<ui:repeat var="o" value="#{principalController.paginator.model}">
 							<div class="col-md-4 col-xs-6">
 								<div class="categoria-box">
-									<a href="#"><img src="#{o.imagem.caminhoImagem}" /></a>
+									<h:commandLink	action="#{cadastrarOrdemServico.iniciarPagina(o)}"	class="galeria-cart" >
+										<img src="#{o.imagem.caminhoImagem}" />
+									</h:commandLink>
 								</div>
 							</div>
-						</ui:repeat>
+						</ui:repeat> 
+						<p:commandButton value="&lt; Anterior" action="#{principalController.paginator.prev}"/>
+				        <h:outputText value="#{principalController.paginator.pageIndex} / #{principalController.paginator.pages}"/>
+				        <p:commandButton value="Proxima &gt;" ajax="true" action="#{principalController.paginator.next}"/>
+				        <h:inputHidden value="#{principalController.paginator.pageIndex}"/>
 					</div>
 				</div>
 			</div>

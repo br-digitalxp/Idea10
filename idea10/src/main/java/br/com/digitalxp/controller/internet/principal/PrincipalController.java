@@ -3,28 +3,31 @@ package br.com.digitalxp.controller.internet.principal;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
-import javax.enterprise.context.RequestScoped;
-import javax.inject.Named;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 
 import br.com.digitalxp.controller.internet.ordemservico.CategoriaGettyImage;
 import br.com.digitalxp.controller.internet.ordemservico.ImagemGettyImage;
 import br.com.digitalxp.gettyImages.GettyImagesAPI;
-import br.com.digitalxp.model.ImagemModel;
+import br.com.digitalxp.model.gettyimages.RepeatPaginator;
 
-@Named(value = "principalController")
-@RequestScoped
+
+@ManagedBean(name="principalController")
+@SessionScoped
 public class PrincipalController {
 
 	private ImagemGettyImage imagem = new ImagemGettyImage();
 	private List<ImagemGettyImage> listaImagens;
 	private List<CategoriaGettyImage> listaCategoria;
+	private String busca;
+	private RepeatPaginator paginator;
 
-	@PostConstruct
+	/*@PostConstruct
 	public void init() {
 		this.popularimagem();
 		this.popularcategoria();
-	}
+	}*/
 
 	private void popularcategoria() {
 		CategoriaGettyImage categoria = new CategoriaGettyImage();
@@ -43,54 +46,16 @@ public class PrincipalController {
 		listaCategoria.add(categoria2);
 		listaCategoria.add(categoria3);
 	}
-
+	
 	private void popularimagem() {
 		listaImagens = GettyImagesAPI.getInstance().search("esporte");
-
-		/*ImagemModel imagemModel = new ImagemModel();
-		imagemModel.setCaminhoImagem("img/img-produto-4.jpg");
-		this.imagem.setImagem(imagemModel);
-		this.imagem.setTitulo("Janela em uma Casa de Campo");
-		this.imagem.setDescricao(
-				"It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using Content here, content here, making it look like readable English.");
-		this.imagem.setMiniDescricao("Janela em uma Casa de Campo");
-		CategoriaGettyImage cgi = new CategoriaGettyImage();
-		cgi.setNomeCategria("Casas");
-		this.imagem.setCategoria(cgi);
-
-		listaImagens.add(imagem);
-
-		ImagemGettyImage imagem2 = new ImagemGettyImage();
-
-		ImagemModel imagemModel2 = new ImagemModel();
-		imagemModel2.setCaminhoImagem("img/img-produto-5.jpg");
-		imagem2.setImagem(imagemModel2);
-		imagem2.setTitulo("Igreja na frança");
-		imagem2.setDescricao(
-				"It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using Content here, content here, making it look like readable English.");
-		imagem2.setMiniDescricao("Janela em uma Casa de Campo");
-		CategoriaGettyImage cgi2 = new CategoriaGettyImage();
-		cgi2.setNomeCategria("Castelos");
-		imagem2.setCategoria(cgi2);
-
-		listaImagens.add(imagem2);
-
-		ImagemGettyImage imagem3 = new ImagemGettyImage();
-
-		ImagemModel imagemModel3 = new ImagemModel();
-		imagemModel3.setCaminhoImagem("img/img-produto-6.jpg");
-		imagem3.setImagem(imagemModel3);
-		imagem3.setTitulo("Passaro Azul");
-		imagem3.setDescricao(
-				"It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using Content here, content here, making it look like readable English.");
-		imagem3.setMiniDescricao("Janela em uma Casa de Campo");
-		CategoriaGettyImage cgi3 = new CategoriaGettyImage();
-		cgi3.setNomeCategria("Passaros");
-		imagem3.setCategoria(cgi3);
-
-		listaImagens.add(imagem3);*/
-		
-		
+		paginator = new RepeatPaginator(this.listaImagens);
+	}
+	
+	public String buscarImagens(){
+		listaImagens = GettyImagesAPI.getInstance().search(busca);
+		paginator = new RepeatPaginator(this.listaImagens);
+		return "categoria";
 	}
 
 	public List<ImagemGettyImage> getListaImagens() {
@@ -117,4 +82,20 @@ public class PrincipalController {
 		this.listaCategoria = listaCategoria;
 	}
 
+	public String getBusca() {
+		return busca;
+	}
+
+	public void setBusca(String busca) {
+		this.busca = busca;
+	}
+
+	public RepeatPaginator getPaginator() {
+		return paginator;
+	}
+
+	public void setPaginator(RepeatPaginator paginator) {
+		this.paginator = paginator;
+	}
+	
 }
