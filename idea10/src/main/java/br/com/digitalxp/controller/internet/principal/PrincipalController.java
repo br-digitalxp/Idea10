@@ -18,6 +18,7 @@ import br.com.digitalxp.model.gettyimages.RepeatPaginator;
 public class PrincipalController {
 
 	private ImagemGettyImage imagem = new ImagemGettyImage();
+	private ImagemGettyImage imagemDestaque = new ImagemGettyImage();
 	private List<ImagemGettyImage> listaImagens;
 	private List<CategoriaGettyImage> listaCategoria;
 	private String busca;
@@ -47,13 +48,17 @@ public class PrincipalController {
 		listaCategoria.add(categoria3);
 	}
 	
-	private void popularimagem() {
+	/*private void popularimagem() {
 		listaImagens = GettyImagesAPI.getInstance().search("esporte");
 		paginator = new RepeatPaginator(this.listaImagens);
-	}
+	}*/
 	
 	public String buscarImagens(){
 		listaImagens = GettyImagesAPI.getInstance().search(busca);
+		if(listaImagens != null && !listaImagens.isEmpty()){
+			imagemDestaque = listaImagens.get(0);
+			listaImagens.remove(0);
+		}		
 		paginator = new RepeatPaginator(this.listaImagens);
 		return "categoria";
 	}
@@ -96,6 +101,13 @@ public class PrincipalController {
 
 	public void setPaginator(RepeatPaginator paginator) {
 		this.paginator = paginator;
+	}
+	public ImagemGettyImage getImagemDestaque() {
+		return imagemDestaque;
+	}
+
+	public void setImagemDestaque(ImagemGettyImage imagemDestaque) {
+		this.imagemDestaque = imagemDestaque;
 	}
 	
 }
