@@ -1,26 +1,22 @@
-<ui:composition template="template.xhtml"
-	xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui">
+<ui:composition template="template.xhtml" xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui">
 	<ui:define name="content">
 		<h:form>
-		
+
 			<div class="container categoria">
 				<div class="row">
 					<div class="col-md-12">
 						<p class="categoria-title">Destaques</p>
-						<h1 class="title"><h:outputText value="#{principalController.busca}"></h:outputText></h1>
+						<h1 class="title">
+							<h:outputText value="#{principalController.busca}"></h:outputText>
+						</h1>
 					</div>
 					<div class="col-md-4 categoria-img">
-						<img src="#{principalController.imagemDestaque.imagem.caminhoImagem}"
-							alt="#{principalController.imagemDestaque.titulo}"
-							title="#{principalController.imagemDestaque.titulo}" />
+						<img src="#{principalController.imagemDestaque.imagem.caminhoImagem}" alt="#{principalController.imagemDestaque.titulo}" title="#{principalController.imagemDestaque.titulo}" />
 					</div>
 					<div class="col-md-8 categoria-descricao">
 						<p>
-							<h:outputText value="#{principalController.imagemDestaque.descricao}" ></h:outputText>
+							<h:outputText value="#{principalController.imagemDestaque.descricao}"></h:outputText>
 						</p>
 					</div>
 					<div class="col-md-12">
@@ -33,13 +29,11 @@
 					  </section>
 					</ui:repeat>
 					</div> -->
-					<div  id="categoriaList" class="categoria-list">
+					<div id="categoriaList" class="categoria-list">
 						<ui:repeat var="o" value="#{principalController.paginator.model}">
 							<div class="col-md-4 col-xs-6">
 								<div class="categoria-box">
-									<h:commandLink
-										action="#{cadastrarOrdemServico.iniciarPagina(o)}"
-										class="galeria-cart">
+									<h:commandLink action="#{cadastrarOrdemServico.iniciarPagina(o)}" class="galeria-cart">
 										<img src="#{o.imagem.caminhoImagem}" />
 									</h:commandLink>
 								</div>
@@ -47,12 +41,12 @@
 						</ui:repeat>
 					</div>
 				</div>
-				<div class="pagination clearfix"> 
-					<h:commandButton  value="&lt; Anterior" action="#{principalController.paginator.prev}"/>
-			        <h:outputText value="#{principalController.paginator.pageIndex} / #{principalController.paginator.pages}"/>
-			        <h:commandButton value="Proxima &gt;" action="#{principalController.paginator.next}"/>
-			        <h:inputHidden value="#{principalController.paginator.pageIndex}"/>
-			    </div>
+				<div class="pagination clearfix">
+					<h:commandButton value="&lt; Anterior" action="#{principalController.paginator.prev}" />
+					<h:outputText value="#{principalController.paginator.pageIndex} / #{principalController.paginator.pages}" />
+					<h:commandButton value="Proxima &gt;" action="#{principalController.paginator.next}" />
+					<h:inputHidden value="#{principalController.paginator.pageIndex}" />
+				</div>
 			</div>
 		</h:form>
 	</ui:define>
