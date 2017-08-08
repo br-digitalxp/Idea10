@@ -10,7 +10,7 @@
 				<div class="row">
 					<div class="col-md-12">
 						<p class="categoria-title">Destaques</p>
-						<h1 class="title">Esportes</h1>
+						<h1 class="title"><h:outputText value="#{principalController.busca}"></h:outputText></h1>
 					</div>
 					<div class="col-md-4 categoria-img">
 						<img src="img/img-categoria.jpg"
@@ -25,6 +25,13 @@
 					<div class="col-md-12">
 						<div class="border"></div>
 					</div>
+					<!-- <div class="wrapper">
+					<ui:repeat var="o" value="#{principalController.paginator.model}">
+					  <section class="column">
+					    <img src="#{o.imagem.caminhoImagem}" />
+					  </section>
+					</ui:repeat>
+					</div> -->
 					<div class="categoria-list">
 						<ui:repeat var="o" value="#{principalController.paginator.model}">
 							<div class="col-md-4 col-xs-6">

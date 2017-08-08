@@ -4,7 +4,7 @@ import java.util.List;
 
 public class RepeatPaginator {
 
-    private static final int DEFAULT_RECORDS_NUMBER = 6;
+    private static final int DEFAULT_RECORDS_NUMBER = 9;
     private static final int DEFAULT_PAGE_INDEX = 1;
 
     private int records;

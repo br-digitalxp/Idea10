@@ -1,6 +1,8 @@
 package br.com.digitalxp.gettyImages;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,15 +41,20 @@ public final class GettyImagesAPI {
 	public List<ImagemGettyImage> search(final String phrase) {
 		HttpClient httpClient = HttpClientBuilder.create().build();
 
-		HttpGet getRequest = new HttpGet(BASE_URL+BASE_SEARCH+SEARCH_BY_PHRASE+phrase);
-		getRequest.addHeader("Api-Key", API_KEY);
-
+		HttpGet getRequest = null;
 		String json = null;
 		try {
+			getRequest = new HttpGet(BASE_URL+BASE_SEARCH+SEARCH_BY_PHRASE+URLEncoder.encode(phrase, "UTF-8"));
+		
+			getRequest.addHeader("Api-Key", API_KEY);
+		
 			HttpResponse response = httpClient.execute(getRequest);
 
-			json = EntityUtils.toString(response.getEntity(), "UTF-8");
-		} catch (ClientProtocolException e) {
+			json =  EntityUtils.toString(response.getEntity(), "UTF-8");
+		} catch (UnsupportedEncodingException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}catch (ClientProtocolException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (ParseException e) {
@@ -92,5 +99,6 @@ public final class GettyImagesAPI {
 		final List<ImagemGettyImage> response =  GettyImagesAPI.getInstance().search("kitties");
 
 		System.out.println(response);
+		
 	}
 }
