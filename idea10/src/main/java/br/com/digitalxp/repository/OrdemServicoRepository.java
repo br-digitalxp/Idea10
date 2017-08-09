@@ -35,7 +35,7 @@ public class OrdemServicoRepository {
 	 * 
 	 * @param ordemServicoModel
 	 */
-	public void SalvarNovoRegistro(OrdemServicoModel ordemServicoModel) {
+	public long SalvarNovoRegistro(OrdemServicoModel ordemServicoModel) {
 
 		entityManager = Uteis.JpaEntityManager();
 
@@ -63,6 +63,8 @@ public class OrdemServicoRepository {
 		ordemServicoEntity.setUsuarioEntity(usuarioEntity);
 
 		entityManager.persist(ordemServicoEntity);
+		
+		return ordemServicoEntity.getCodigo();
 
 	}
 

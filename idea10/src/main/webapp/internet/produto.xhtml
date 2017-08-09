@@ -36,9 +36,9 @@
 								</h3>
 							</p:outputPanel>
 							<p:outputPanel style="display:block" styleClass="produto-list-item">
-								<p:selectOneMenu id="inputText-categoria" style="width:350px;" value="#{cadastrarOrdemServico.substratoModel}">
+								<p:selectOneMenu id="inputText-categoria" style="width:350px;" value="#{cadastrarOrdemServico.substratoModel.codigo}">
 									<f:selectItems value="#{cadastrarOrdemServico.listaSubstrato}" var="substrato" itemLabel="#{substrato.material}" itemValue="#{substrato}" />
-									<p:ajax listener="#{cadastrarOrdemServico.consultarTamanhoSubstrato}" update="inputText-tamanho" event="change" />
+									<p:ajax listener="#{cadastrarOrdemServico.buscarTamanhoSubstrato}" update="inputText-tamanho,valorFinal" event="change" />
 								</p:selectOneMenu>
 							</p:outputPanel>
 						</p:outputPanel>
@@ -50,8 +50,8 @@
 								</h3>
 							</p:outputPanel>
 							<p:outputPanel style="display:block" styleClass="produto-list-item">
-								<p:selectOneMenu id="inputText-tamanho" style="width:350px;" value="#{cadastrarOrdemServico.tamanho}">
-									<f:selectItems value="#{cadastrarOrdemServico.listaTamanhoSubstrato}" var="tamanho" itemLabel="#{tamanho.valorX} X #{tamanho.valorY}" itemValue="#{tamanho}" />
+								<p:selectOneMenu id="inputText-tamanho" style="width:350px;" value="#{cadastrarOrdemServico.tamanho.codigo}">
+									<f:selectItems value="#{cadastrarOrdemServico.listaTamanhoSubstrato}" var="tamanho" itemLabel="#{substrato.valorX} X #{substrato.valorY}" itemValue="tamanho" />
 									<p:ajax listener="#{cadastrarOrdemServico.calcularValor}" update="valorFinal" event="change" />
 								</p:selectOneMenu>
 							</p:outputPanel>
@@ -100,8 +100,17 @@
 								</h:panelGrid>
 							</p:outputPanel>
 							<p:outputPanel style="display:block;margin-top:30px;" styleClass="col-md-3 catalogo-completo">
-								<p:commandButton value="Cadastrar Ordem de Serviço" id="commandButton-cadastrar-ordem-servico" styleClass="btn btn-default" actionListener="#{cadastrarOrdemServico.cadastraOrdemServico}" type="submit" />
+								<p:commandButton value="Cadastrar Ordem de Serviço" id="commandButton-cadastrar-ordem-servico" styleClass="btn btn-default" actionListener="#{cadastrarOrdemServico.cadastraOrdemServico}" onsuccess="PF('dlg').show();" type="submit" />
 							</p:outputPanel>
+							<p:dialog header="Sucesso" widgetVar="dlg" modal="true" id="sucessoDlg" height="100">
+								<p:outputPanel style="display:block; margin-top:30px;" styleClass="produto-formato">
+									<p:outputPanel style="display:block" styleClass="etapa">
+										<h3>
+											<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+										</h3>
+									</p:outputPanel>
+								</p:outputPanel>							    
+							</p:dialog>  
 						</p:outputPanel>
 					</p:outputPanel>
 				</p:outputPanel>

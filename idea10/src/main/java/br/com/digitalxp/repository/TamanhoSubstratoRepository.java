@@ -105,7 +105,7 @@ public class TamanhoSubstratoRepository {
 	 * @param codigo
 	 * @return
 	 */
-	private TamanhoSubstratoEntity getTamanhoSubstrato(int codigo) {
+	public TamanhoSubstratoEntity getTamanhoSubstrato(int codigo) {
 
 		entityManager = Uteis.JpaEntityManager();
 
