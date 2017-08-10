@@ -1,5 +1,6 @@
 package br.com.digitalxp.repository;
 
+import java.math.BigInteger;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -39,16 +40,17 @@ public class ClienteRepository {
 		clienteEntity.setNome(ClienteModel.getNome());
 		clienteEntity.setTelefone(ClienteModel.getTelefone());
 
-		UsuarioEntity usuarioEntity = entityManager.find(UsuarioEntity.class, ClienteModel.getUsuarioModel().getCodigo());
+		UsuarioEntity usuarioEntity = entityManager.find(UsuarioEntity.class,
+				ClienteModel.getUsuarioModel().getCodigo());
 
 		clienteEntity.setUsuarioEntity(usuarioEntity);
 
 		entityManager.persist(clienteEntity);
-		
+
 		return new ClienteModel(clienteEntity);
 
 	}
-	
+
 	public void SalvarNovoRegistro(ClienteModel ClienteModel) {
 		SalvarNovoRegistroCliente(ClienteModel);
 	}
@@ -74,7 +76,6 @@ public class ClienteRepository {
 		for (ClienteEntity ClienteEntity : ClientesEntity) {
 
 			ClienteModel = new ClienteModel();
-			ClienteModel.setCodigo(ClienteEntity.getCodigo());
 			ClienteModel.setCpf(ClienteEntity.getCpf());
 			ClienteModel.setDataCadastro(ClienteEntity.getDataCadastro());
 			ClienteModel.setEmail(ClienteEntity.getEmail());
@@ -102,7 +103,7 @@ public class ClienteRepository {
 	 * @param codigo
 	 * @return
 	 */
-	private ClienteEntity GetCliente(int codigo) {
+	private ClienteEntity GetCliente(BigInteger codigo) {
 
 		entityManager = Uteis.JpaEntityManager();
 
@@ -118,7 +119,7 @@ public class ClienteRepository {
 
 		entityManager = Uteis.JpaEntityManager();
 
-		ClienteEntity ClienteEntity = this.GetCliente(ClienteModel.getCodigo());
+		ClienteEntity ClienteEntity = this.GetCliente(ClienteModel.getCpf());
 
 		ClienteEntity.setEmail(ClienteModel.getEmail());
 		ClienteEntity.setCpf(ClienteModel.getCpf());
@@ -133,7 +134,7 @@ public class ClienteRepository {
 	 * 
 	 * @param codigo
 	 */
-	public void ExcluirRegistro(int codigo) {
+	public void ExcluirRegistro(BigInteger codigo) {
 
 		entityManager = Uteis.JpaEntityManager();
 

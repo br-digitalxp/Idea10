@@ -10,8 +10,10 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import br.com.digitalxp.controller.usuario.UsuarioAdmController;
+import br.com.digitalxp.model.ArtistaModel;
 import br.com.digitalxp.model.CategoriaImagemModel;
 import br.com.digitalxp.model.ImagemModel;
+import br.com.digitalxp.repository.ArtistaRepository;
 import br.com.digitalxp.repository.CategoriaImagemRepository;
 import br.com.digitalxp.repository.ImagemRepository;
 import br.com.digitalxp.uteis.Uteis;
@@ -29,8 +31,14 @@ public class CadastrarImagemController {
 	@Inject
 	ImagemRepository ImagemRepository;
 
+	@Inject
+	ArtistaRepository artistaRepository;
+
 	private CategoriaImagemModel categoriaImagem;
 	private List<SelectItem> listaCategoria;
+
+	private ArtistaModel artista;
+	private List<SelectItem> listaArtistas;
 
 	/**
 	 * @return the ImagemModel
@@ -63,6 +71,22 @@ public class CadastrarImagemController {
 		this.categoriaImagem = categoriaImagem;
 	}
 
+	public ArtistaModel getArtista() {
+		return artista;
+	}
+
+	public void setArtista(ArtistaModel artista) {
+		this.artista = artista;
+	}
+
+	public List<SelectItem> getListaArtistas() {
+		return listaArtistas;
+	}
+
+	public void setListaArtistas(List<SelectItem> listaArtistas) {
+		this.listaArtistas = listaArtistas;
+	}
+
 	/**
 	 * SALVA UM NOVO REGISTRO VIA INPUT
 	 */
@@ -70,6 +94,7 @@ public class CadastrarImagemController {
 
 		imagemModel.setUsuario(this.usuarioController.GetUsuarioSession());
 		imagemModel.setCategoria(this.categoriaImagem);
+		imagemModel.setArtista(this.getArtista());
 
 		ImagemRepository.SalvarNovoRegistro(this.imagemModel);
 
@@ -83,86 +108,21 @@ public class CadastrarImagemController {
 
 		CategoriaImagemRepository categoriaImagemRepository = new CategoriaImagemRepository();
 		this.setListaCategoria(new ArrayList<SelectItem>());
-		// RETORNAR AS CategoriaImagemS CADASTRADAS
+		// RETORNAR AS artistas CADASTRADAS
 		for (CategoriaImagemModel selectItem : categoriaImagemRepository.GetCategoriaImagem()) {
 			this.getListaCategoria().add(new SelectItem(selectItem.getCodigo(), selectItem.getNomeCategoriaImagem()));
 		}
 
 		categoriaImagem = new CategoriaImagemModel();
-	}
 
-	/**
-	 * REALIZANDO UPLOAD DE ARQUIVO
-	 */
-	public void UploadRegistros() {
+		ArtistaRepository artistaRepository = new ArtistaRepository();
+		this.setListaArtistas(new ArrayList<SelectItem>());
+		// RETORNAR OS artistas CADASTRADAS
+		for (ArtistaModel selectItem : artistaRepository.GetArtistas()) {
+			this.getListaArtistas().add(new SelectItem(selectItem.getCodigo(), selectItem.getNome()));
+		}
 
-		// DocumentBuilderFactory factory =
-		// DocumentBuilderFactory.newInstance();
-		//
-		// try {
-		//
-		// if (this.file.getFileName().equals("")) {
-		// Uteis.MensagemAtencao("Nenhum arquivo selecionado!");
-		// return;
-		// }
-		//
-		// DocumentBuilder builder = factory.newDocumentBuilder();
-		//
-		// Document doc = builder.parse(this.file.getInputstream());
-		//
-		// Element element = doc.getDocumentElement();
-		//
-		// NodeList nodes = element.getChildNodes();
-		//
-		// for (int i = 0; i < nodes.getLength(); i++) {
-		//
-		// Node node = nodes.item(i);
-		//
-		// if (node.getNodeType() == Node.ELEMENT_NODE) {
-		//
-		// Element elementCliente = (Element) node;
-		//
-		// // PEGANDO OS VALORES DO ARQUIVO XML
-		// String nome =
-		// elementCliente.getElementsByTagName("nome").item(0).getChildNodes().item(0).getNodeValue();
-		// String email =
-		// elementCliente.getElementsByTagName("email").item(0).getChildNodes().item(0).getNodeValue();
-		// String cpf =
-		// elementCliente.getElementsByTagName("cpf").item(0).getChildNodes().item(0).getNodeValue();
-		// String telefone =
-		// elementCliente.getElementsByTagName("telefone").item(0).getChildNodes().item(0).getNodeValue();
-		// String endereco =
-		// elementCliente.getElementsByTagName("endereco").item(0).getChildNodes().item(0).getNodeValue();
-		//
-		// ClienteModel newClienteModel = new ClienteModel();
-		//
-		// newClienteModel.setUsuarioModel(this.usuarioController.GetUsuarioSession());
-		// newClienteModel.setCpf(cpf);
-		// newClienteModel.setEmail(email);
-		// newClienteModel.setEndereco(endereco);
-		// newClienteModel.setNome(nome);
-		// newClienteModel.setTelefone(telefone);
-		//
-		// // SALVANDO UM REGISTRO QUE VEIO DO ARQUIVO XML
-		// ImagemRepository.SalvarNovoRegistro(newClienteModel);
-		// }
-		// }
-		//
-		// Uteis.MensagemInfo("Registros cadastrados com sucesso!");
-		//
-		// } catch (ParserConfigurationException e) {
-		//
-		// e.printStackTrace();
-		//
-		// } catch (SAXException e) {
-		//
-		// e.printStackTrace();
-		//
-		// } catch (IOException e) {
-		//
-		// e.printStackTrace();
-		// }
-
+		artista = new ArtistaModel();
 	}
 
 }

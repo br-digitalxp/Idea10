@@ -27,9 +27,6 @@ public class ImagemEntity {
 	@Column(name = "id_imagem")
 	private Integer codigo;
 
-	@Column(name = "id_autor")
-	private Integer autor;
-
 	@Column(name = "ds_caminho_imagem")
 	private String caminhoImagem;
 
@@ -38,6 +35,10 @@ public class ImagemEntity {
 
 	@Column(name = "fl_exclusivo")
 	private boolean exclusivo;
+
+	 @OneToOne
+	 @JoinColumn(name = "id_artista")
+	private ArtistaEntity artista;
 
 	@OneToOne
 	@JoinColumn(name = "id_categoria_imagem")
@@ -62,19 +63,12 @@ public class ImagemEntity {
 		this.codigo = codigo;
 	}
 
-	/**
-	 * @return the autor
-	 */
-	public Integer getAutor() {
-		return autor;
+	public ArtistaEntity getArtista() {
+		return artista;
 	}
 
-	/**
-	 * @param autor
-	 *            the autor to set
-	 */
-	public void setAutor(Integer autor) {
-		this.autor = autor;
+	public void setArtista(ArtistaEntity artista) {
+		this.artista = artista;
 	}
 
 	/**

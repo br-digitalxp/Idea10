@@ -17,16 +17,22 @@
 
 		<p:tabView style="width:600px;height:400px;margin:auto;">
 			<p:tab title="Cadastro de Cliente">
-			<p:messages showDetail="true" autoUpdate="true" closable="true"
-				severity="warn" />
-			<p:messages autoUpdate="true" closable="true" severity="error" />
-			<p:messages showDetail="true" autoUpdate="true" closable="true"
-				severity="info" />
+				<p:messages showDetail="true" autoUpdate="true" closable="true"
+					severity="warn" />
+				<p:messages autoUpdate="true" closable="true" severity="error" />
+				<p:messages showDetail="true" autoUpdate="true" closable="true"
+					severity="info" />
 
 				<h:form id="form-cadastro">
 
 					<h:panelGrid id="panelGrid-campos-form" columns="2"
 						cellpadding="10">
+
+						<p:outputLabel value="CPF" for="inputText-cpf" />
+						<p:inputText id="inputText-cpf" style="width:100px" maxlength="11"
+							value="#{cadastrarClienteController.clienteModel.cpf}"
+							required="true"
+							requiredMessage="O CPF é de preenchimento obrigatório" />
 
 						<p:outputLabel value="Nome" for="inputText-nome" />
 						<p:inputText id="inputText-nome" style="width:300px"
@@ -41,13 +47,6 @@
 							value="#{cadastrarClienteController.clienteModel.email}"
 							required="true"
 							requiredMessage="O email é de preenchimento obrigatório" />
-
-						<p:outputLabel value="CPF" for="inputText-cpf" />
-						<p:inputMask id="inputText-cpf" style="width:100px"
-							mask="999.999.999-99" maxlength="200"
-							value="#{cadastrarClienteController.clienteModel.cpf}"
-							required="true"
-							requiredMessage="O CPF é de preenchimento obrigatório" />
 
 						<p:outputLabel value="Telefone" for="inputText-telefone" />
 						<p:inputMask id="inputText-telefone" style="width:100px"

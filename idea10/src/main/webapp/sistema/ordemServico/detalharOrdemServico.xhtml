@@ -2,7 +2,8 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:format="http://digitalxp.com.br/LocalDateTimeConverter">
 
 	<h:form>
 
@@ -40,6 +41,12 @@
 				<p:outputLabel value="Caminho da Imagem: " />
 				<p:inputText style="width:320px" readonly="true"
 					value="#{consultarOrdemServicoController.ordemServicoModel.imagem.caminhoImagem}" />
+				<p:outputLabel value="Número Leroy Merlin: " />
+				<p:inputText style="width:320px" readonly="true"
+					value="#{consultarOrdemServicoController.ordemServicoModel.numeroPedidoLeroy}" />
+				<p:outputLabel value="Data de entrega: " />
+				<p:inputText style="width:320px" readonly="true"
+					value="#{consultarOrdemServicoController.ordemServicoModel.dataEntrega}" />
 				<p:outputLabel value="Cliente - Nome: " for="inputText-nome" />
 				<p:inputText id="inputText-nome"
 					value="#{consultarOrdemServicoController.ordemServicoModel.cliente.nome}"

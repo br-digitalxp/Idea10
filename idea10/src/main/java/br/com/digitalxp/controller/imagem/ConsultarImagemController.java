@@ -11,8 +11,10 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import br.com.digitalxp.model.ArtistaModel;
 import br.com.digitalxp.model.CategoriaImagemModel;
 import br.com.digitalxp.model.ImagemModel;
+import br.com.digitalxp.repository.ArtistaRepository;
 import br.com.digitalxp.repository.CategoriaImagemRepository;
 import br.com.digitalxp.repository.ImagemRepository;
 
@@ -30,6 +32,9 @@ public class ConsultarImagemController implements Serializable {
 
 	private CategoriaImagemModel categoriaImagem;
 	private List<SelectItem> listaCategoria;
+
+	private ArtistaModel artista;
+	private List<SelectItem> listaArtista;
 
 	@Inject
 	transient private ImagemRepository imagemRepository;
@@ -105,6 +110,22 @@ public class ConsultarImagemController implements Serializable {
 		this.listaCategoria = listaCategoria;
 	}
 
+	public ArtistaModel getArtista() {
+		return artista;
+	}
+
+	public void setArtista(ArtistaModel artista) {
+		this.artista = artista;
+	}
+
+	public List<SelectItem> getListaArtista() {
+		return listaArtista;
+	}
+
+	public void setListaArtista(List<SelectItem> listaArtista) {
+		this.listaArtista = listaArtista;
+	}
+
 	/***
 	 * CARREGA AS ImagemS NA INICIALIZAÇÃO
 	 */
@@ -118,6 +139,15 @@ public class ConsultarImagemController implements Serializable {
 		}
 
 		categoriaImagem = new CategoriaImagemModel();
+
+		ArtistaRepository artistaepository = new ArtistaRepository();
+		this.setListaArtista(new ArrayList<SelectItem>());
+		// RETORNAR AS CategoriaImagemS CADASTRADAS
+		for (ArtistaModel selectItem : artistaepository.GetArtistas()) {
+			this.getListaArtista().add(new SelectItem(selectItem.getCodigo(), selectItem.getNome()));
+		}
+
+		artista = new ArtistaModel();
 		// RETORNAR AS ImagemS CADASTRADAS
 		this.imagens = imagemRepository.GetImagem();
 	}

@@ -1,11 +1,11 @@
 package br.com.digitalxp.repository.entity;
 
+import java.math.BigInteger;
 import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
@@ -24,9 +24,8 @@ import javax.persistence.Table;
 public class OrdemServicoEntity {
 
 	@Id
-	@GeneratedValue
 	@Column(name = "id_ordem_servico")
-	private Integer codigo;
+	private BigInteger codigo;
 
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_substato")
@@ -50,30 +49,36 @@ public class OrdemServicoEntity {
 	@Column(name = "dt_cadastro")
 	private LocalDateTime dataCadastro;
 
+	@Column(name = "dt_entrega")
+	private LocalDateTime dataEntrega;
+
+	@Column(name = "nu_prazo_acordado")
+	private int prazoAcordado;
+
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_usuario_cadastro")
 	private UsuarioEntity usuarioEntity;
 
+	@Column(name = "nm_pedido_leroy")
+	private String numeroPedidoLeroy;
+
 	/**
 	 * @return the codigo
 	 */
-	public Integer getCodigo() {
-		return codigo;
-	}
-
-	/**
-	 * @param codigo
-	 *            the codigo to set
-	 */
-	public void setCodigo(Integer codigo) {
-		this.codigo = codigo;
-	}
 
 	/**
 	 * @return the substrato
 	 */
 	public SubstratoEntity getSubstrato() {
 		return substrato;
+	}
+
+	public BigInteger getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(BigInteger codigo) {
+		this.codigo = codigo;
 	}
 
 	/**
@@ -172,6 +177,30 @@ public class OrdemServicoEntity {
 	 */
 	public void setUsuarioEntity(UsuarioEntity usuarioEntity) {
 		this.usuarioEntity = usuarioEntity;
+	}
+
+	public LocalDateTime getDataEntrega() {
+		return dataEntrega;
+	}
+
+	public void setDataEntrega(LocalDateTime dataEntrega) {
+		this.dataEntrega = dataEntrega;
+	}
+
+	public int getPrazoAcordado() {
+		return prazoAcordado;
+	}
+
+	public void setPrazoAcordado(int prazoAcordado) {
+		this.prazoAcordado = prazoAcordado;
+	}
+
+	public String getNumeroPedidoLeroy() {
+		return numeroPedidoLeroy;
+	}
+
+	public void setNumeroPedidoLeroy(String numeroPedidoLeroy) {
+		this.numeroPedidoLeroy = numeroPedidoLeroy;
 	}
 
 }

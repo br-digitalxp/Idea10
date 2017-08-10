@@ -24,16 +24,12 @@
                                                  {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 				rowsPerPageTemplate="5,10,15,50" style="width:98%;">
 
-				<p:column headerText="Código">
-					<h:outputText value="#{cliente.codigo}" />
+				<p:column headerText="CPF">
+					<h:outputText value="#{cliente.cpf}" />
 				</p:column>
 
 				<p:column headerText="Nome">
 					<h:outputText value="#{cliente.nome}" />
-				</p:column>
-
-				<p:column headerText="CPF">
-					<h:outputText value="#{cliente.cpf}" />
 				</p:column>
 
 				<p:column headerText="E-mail" style="width:200px;">

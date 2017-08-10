@@ -7,7 +7,7 @@ import br.com.digitalxp.repository.entity.ImagemEntity;
 public class ImagemModel {
 
 	private Integer codigo;
-	private Integer autor;
+	private ArtistaModel artista;
 	private String caminhoImagem;
 	private String caminhoImagemComp;
 	private LocalDateTime dataCadastro;
@@ -21,7 +21,7 @@ public class ImagemModel {
 
 	public ImagemModel(ImagemEntity entity) {
 		this.codigo = entity.getCodigo();
-		this.autor = entity.getAutor();
+		this.artista = new ArtistaModel(entity.getArtista());
 		this.caminhoImagem = entity.getCaminhoImagem();
 		this.dataCadastro = entity.getDataCadastro();
 		this.exclusivo = entity.isExclusivo();
@@ -44,19 +44,12 @@ public class ImagemModel {
 		this.codigo = codigo;
 	}
 
-	/**
-	 * @return the autor
-	 */
-	public Integer getAutor() {
-		return autor;
+	public ArtistaModel getArtista() {
+		return artista;
 	}
 
-	/**
-	 * @param autor
-	 *            the autor to set
-	 */
-	public void setAutor(Integer autor) {
-		this.autor = autor;
+	public void setArtista(ArtistaModel artista) {
+		this.artista = artista;
 	}
 
 	/**

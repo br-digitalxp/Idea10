@@ -8,23 +8,17 @@
 
 		<h:panelGrid id="panelGrid-campos-form" columns="2" cellpadding="10">
 
-			<p:outputLabel value="Código" for="inputText-nome" />
-			<p:inputText id="inputText-codigo"
-				value="#{consultarClienteController.clienteModel.codigo}"
-				style="width:50px" readonly="true" />
-
+			<p:outputLabel value="CPF" for="inputText-cpf" />
+			<p:inputText id="inputText-cpf" style="width:300px" maxlength="11"
+				value="#{consultarClienteController.clienteModel.cpf}"
+				required="true"
+				requiredMessage="O cpf é de preenchimento obrigatório" />
 
 			<p:outputLabel value="Nome" for="inputText-nome" />
 			<p:inputText id="inputText-nome" style="width:300px" maxlength="70"
 				value="#{consultarClienteController.clienteModel.nome}"
 				required="true"
 				requiredMessage="O nome é de preenchimento obrigatório" />
-
-			<p:outputLabel value="CPF" for="inputText-cpf" />
-			<p:inputText id="inputText-cpf" style="width:300px" maxlength="70"
-				value="#{consultarClienteController.clienteModel.cpf}"
-				required="true"
-				requiredMessage="O cpf é de preenchimento obrigatório" />
 
 			<p:outputLabel value="E-mail" for="inputText-email" />
 			<p:inputText id="inputText-email" style="width:300px" maxlength="80"

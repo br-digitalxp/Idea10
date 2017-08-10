@@ -15,7 +15,7 @@
 
 	<ui:define name="content">
 
-		<p:tabView style="width:600px;height:270px;margin:auto;">
+		<p:tabView style="width:600px;height:370px;margin:auto;">
 			<p:tab title="Cadastro de Imagem">
 				<p:messages showDetail="true" autoUpdate="true" closable="true"
 					severity="warn" />
@@ -37,6 +37,13 @@
 								value="#{cadastrarImagemController.listaCategoria}"
 								var="categoria" itemLabel="#{categoria.nomeCategoriaImagem}"
 								itemValue="#{categoria}" />
+						</p:selectOneMenu>
+
+						<p:outputLabel value="Artista" for="inputText-artista" />
+						<p:selectOneMenu id="inputText-artista"
+							value="#{cadastrarImagemController.artista.codigo}" effect="fade"
+							style="width:160px">
+							<f:selectItems value="#{cadastrarImagemController.listaArtistas}" />
 						</p:selectOneMenu>
 
 						<p:outputLabel value="Caminho da Imagem" for="inputText-caminho" />

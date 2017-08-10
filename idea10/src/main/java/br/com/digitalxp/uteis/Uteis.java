@@ -43,4 +43,11 @@ public class Uteis {
 		facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", mensagem));
 	}
 
+	public static String completaZerosEsquerda(String numero) {
+		while (numero.length() < 5) {
+			numero = "0".concat(numero);
+		}
+
+		return numero;
+	}
 }

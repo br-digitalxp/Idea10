@@ -1,5 +1,6 @@
 package br.com.digitalxp.controller.internet.ordemservico;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -131,7 +132,7 @@ public class CadastrarOrdemServico {
 		ordemServico.setTamanho(1);
 		ordemServico.setUsuario(usuario);
 
-		Long numeroPedido = ordemServicoRepository.SalvarNovoRegistro(ordemServico);
+		BigInteger numeroPedido = ordemServicoRepository.SalvarNovoRegistro(ordemServico);
 
 		Uteis.MensagemInfo("Pedido Nº"+numeroPedido+" realizado com sucesso");
 		

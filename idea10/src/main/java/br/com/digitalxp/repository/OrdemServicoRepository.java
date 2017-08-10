@@ -1,8 +1,11 @@
 package br.com.digitalxp.repository;
 
+import java.math.BigInteger;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -35,11 +38,16 @@ public class OrdemServicoRepository {
 	 * 
 	 * @param ordemServicoModel
 	 */
-	public long SalvarNovoRegistro(OrdemServicoModel ordemServicoModel) {
+	public BigInteger SalvarNovoRegistro(OrdemServicoModel ordemServicoModel) {
 
 		entityManager = Uteis.JpaEntityManager();
+		Query q = entityManager.createNativeQuery("SELECT nextval('ordemservicoSEQ')");
+
+		StringBuilder codigo = new StringBuilder().append(new SimpleDateFormat("yyyyMMdd").format(new Date())
+				.concat(Uteis.completaZerosEsquerda(q.getSingleResult().toString())));
 
 		ordemServicoEntity = new OrdemServicoEntity();
+		ordemServicoEntity.setCodigo(new BigInteger(codigo.toString()));
 		ordemServicoEntity.setTamanho(ordemServicoModel.getTamanho());
 		ordemServicoEntity.setDataCadastro(LocalDateTime.now());
 
@@ -51,8 +59,7 @@ public class OrdemServicoRepository {
 				ordemServicoModel.getTamanhoSubstrato().getCodigo());
 		ordemServicoEntity.setTamanhoSubstrato(tamanhoSubstratoEntity);
 
-		ClienteEntity clienteEntity = entityManager.find(ClienteEntity.class,
-				ordemServicoModel.getCliente().getCodigo());
+		ClienteEntity clienteEntity = entityManager.find(ClienteEntity.class, ordemServicoModel.getCliente().getCpf());
 		ordemServicoEntity.setCliente(clienteEntity);
 
 		ImagemEntity imagemEntity = entityManager.find(ImagemEntity.class, ordemServicoModel.getImagem().getCodigo());
@@ -63,7 +70,7 @@ public class OrdemServicoRepository {
 		ordemServicoEntity.setUsuarioEntity(usuarioEntity);
 
 		entityManager.persist(ordemServicoEntity);
-		
+
 		return ordemServicoEntity.getCodigo();
 
 	}
@@ -112,7 +119,9 @@ public class OrdemServicoRepository {
 			usuarioModel.setUsuario(usuarioEntity.getUsuario());
 
 			ordemServicoModel.setUsuario(usuarioModel);
-
+			ordemServicoModel.setPrazoAcordado(ordemServicoEntity.getPrazoAcordado());
+			ordemServicoModel.setDataEntrega(ordemServicoEntity.getDataEntrega());
+			ordemServicoModel.setNumeroPedidoLeroy(ordemServicoEntity.getNumeroPedidoLeroy());
 			OredemServicosModel.add(ordemServicoModel);
 		}
 
@@ -126,7 +135,7 @@ public class OrdemServicoRepository {
 	 * @param codigo
 	 * @return
 	 */
-	private OrdemServicoEntity GetOrdemServico(int codigo) {
+	public OrdemServicoEntity GetOrdemServico(BigInteger codigo) {
 
 		entityManager = Uteis.JpaEntityManager();
 
@@ -138,11 +147,11 @@ public class OrdemServicoRepository {
 	 * 
 	 * @param ordemServicoModel
 	 */
-	public void AlterarRegistro(OrdemServicoModel ordemServicoModel) {
+	public OrdemServicoEntity AlterarRegistro(OrdemServicoModel ordemServicoModel) {
 
 		entityManager = Uteis.JpaEntityManager();
 
-		OrdemServicoEntity OrdemServicoEntity = this.GetOrdemServico(ordemServicoModel.getCodigo());
+		ordemServicoEntity = this.GetOrdemServico(ordemServicoModel.getCodigo());
 
 		ordemServicoEntity.setTamanho(ordemServicoModel.getTamanho());
 		SubstratoEntity substratoEntity = entityManager.find(SubstratoEntity.class,
@@ -153,14 +162,18 @@ public class OrdemServicoRepository {
 				ordemServicoModel.getTamanhoSubstrato().getCodigo());
 		ordemServicoEntity.setTamanhoSubstrato(tamanhoSubstratoEntity);
 
-		ClienteEntity clienteEntity = entityManager.find(ClienteEntity.class,
-				ordemServicoModel.getCliente().getCodigo());
+		ClienteEntity clienteEntity = entityManager.find(ClienteEntity.class, ordemServicoModel.getCliente().getCpf());
 		ordemServicoEntity.setCliente(clienteEntity);
 
 		ImagemEntity imagemEntity = entityManager.find(ImagemEntity.class, ordemServicoModel.getImagem().getCodigo());
 		ordemServicoEntity.setImagem(imagemEntity);
 
-		entityManager.merge(OrdemServicoEntity);
+		ordemServicoEntity.setPrazoAcordado(ordemServicoModel.getPrazoAcordado());
+		ordemServicoEntity.setDataEntrega(ordemServicoModel.getDataEntrega());
+		ordemServicoEntity.setNumeroPedidoLeroy(ordemServicoModel.getNumeroPedidoLeroy());
+		entityManager.merge(ordemServicoEntity);
+
+		return ordemServicoEntity;
 	}
 
 	/***
@@ -168,7 +181,7 @@ public class OrdemServicoRepository {
 	 * 
 	 * @param codigo
 	 */
-	public void ExcluirRegistro(int codigo) {
+	public void ExcluirRegistro(BigInteger codigo) {
 
 		entityManager = Uteis.JpaEntityManager();
 
@@ -176,5 +189,4 @@ public class OrdemServicoRepository {
 
 		entityManager.remove(OrdemServicoEntity);
 	}
-
 }

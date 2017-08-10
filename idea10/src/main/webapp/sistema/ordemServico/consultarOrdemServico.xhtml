@@ -6,7 +6,8 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:format="http://digitalxp.com.br/LocalDateTimeConverter">
 
 <h:head>
 </h:head>
@@ -16,6 +17,18 @@
 	<ui:define name="content">
 		<h:form style="margin:auto;margin-left:1%;" id="form-consulta">
 			<h1>Consultar Ordem de Serviço</h1>
+
+			<h:panelGrid columns="3">
+				<p:outputLabel value="Código da Ordem de Serviço: " />
+				<p:inputText id="inputText-codigo"
+					value="#{consultarOrdemServicoController.ordemServicoModel.codigo}"
+					style="width:160px" />
+				<p:commandButton value="Pesquisar" id="commandButton-pesquisar"
+					icon="ui-icon-search"
+					actionListener="#{consultarOrdemServicoController.consultarOrdemServico}"
+					update="form-consulta" />
+			</h:panelGrid>
+
 			<p:dataTable id="dataTable-registros" var="ordemServico"
 				value="#{consultarOrdemServicoController.ordemServicos}" rows="50"
 				paginator="true"
@@ -45,8 +58,26 @@
 					<h:outputText value="#{ordemServico.cliente.nome}" />
 				</p:column>
 
-				<p:column headerText="Quantidade">
-					<h:outputText value="#{ordemServico.tamanho}" />
+				<p:column headerText="Data de Entrega do Produto">
+					<h:outputText value="#{ordemServico.dataEntrega}">
+						<format:LocalDateTimeConverter pattern="dd/MM/yyyy" />
+					</h:outputText>
+				</p:column>
+
+				<p:column headerText="Código Pedido Leroy">
+					<h:outputText value="#{ordemServico.numeroPedidoLeroy}" />
+				</p:column>
+
+				<p:column headerText="Aprovar Ordem de Serviço"
+					style="text-align:center;">
+
+					<p:commandButton icon="ui-icon-gear"
+						title="Confirmar Ordem de Servico" ajax="true"
+						disabled="#{ordemServico.disabledBotaoAprovar}"
+						actionListener="#{consultarOrdemServicoController.Editar(ordemServico)}"
+						oncomplete="PF('dialog-modal-aprovar').show();"
+						update="dialog-modal-aprovar" />
+
 				</p:column>
 
 				<p:column headerText="" style="width:25px;">
@@ -59,10 +90,17 @@
 
 				</p:column>
 
-
 			</p:dataTable>
 
 		</h:form>
+
+		<p:dialog header="Aprovar Ordem de Serviço" id="dialog-modal-aprovar"
+			widgetVar="dialog-modal-aprovar" modal="true" height="250px"
+			width="650px">
+
+			<ui:include src="/sistema/ordemServico/aprovarOrdemServico.xhtml" />
+
+		</p:dialog>
 
 		<p:dialog header="Detalhar Ordem de Serviço" id="dialog-modal-editar"
 			widgetVar="dialog-modal-editar" modal="true" height="450px"

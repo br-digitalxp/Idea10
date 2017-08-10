@@ -57,7 +57,7 @@ public class ConsultarClienteController implements Serializable {
 	public void ExcluirCliente(ClienteModel ClienteModel) {
 
 		// EXCLUI A Cliente DO BANCO DE DADOS
-		this.clienteRepository.ExcluirRegistro(ClienteModel.getCodigo());
+		this.clienteRepository.ExcluirRegistro(ClienteModel.getCpf());
 
 		// REMOVENDO A Cliente DA LISTA
 		// ASSIM QUE É A Cliente É REMOVIDA DA LISTA O DATATABLE É ATUALIZADO

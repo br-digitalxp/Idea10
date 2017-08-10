@@ -1,6 +1,9 @@
 package br.com.digitalxp.controller.ordemServico;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -8,9 +11,13 @@ import javax.enterprise.inject.Produces;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.mail.MessagingException;
+import javax.mail.internet.AddressException;
 
+import br.com.digitalxp.mail.MailSender;
 import br.com.digitalxp.model.OrdemServicoModel;
 import br.com.digitalxp.repository.OrdemServicoRepository;
+import br.com.digitalxp.repository.entity.OrdemServicoEntity;
 
 @Named(value = "consultarOrdemServicoController")
 @ViewScoped
@@ -18,8 +25,10 @@ public class ConsultarOrdemServicoController implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	private static final String ASSUNTO_EMAIL = "Novo Pedido Idea10!";
+
 	@Inject
-	transient private OrdemServicoModel OrdemServicoModel;
+	transient private OrdemServicoModel ordemServicoModel;
 
 	@Produces
 	private List<OrdemServicoModel> OrdemServicos;
@@ -34,7 +43,7 @@ public class ConsultarOrdemServicoController implements Serializable {
 	 */
 	public void Editar(OrdemServicoModel OrdemServicoModel) {
 
-		this.OrdemServicoModel = OrdemServicoModel;
+		this.ordemServicoModel = OrdemServicoModel;
 
 	}
 
@@ -43,7 +52,21 @@ public class ConsultarOrdemServicoController implements Serializable {
 	 */
 	public void AlterarRegistro() {
 
-		this.clienteRepository.AlterarRegistro(this.OrdemServicoModel);
+		this.ordemServicoModel.setDataEntrega(LocalDateTime.now().plusDays(this.ordemServicoModel.getPrazoAcordado()));
+		OrdemServicoEntity entity = this.clienteRepository.AlterarRegistro(this.ordemServicoModel);
+
+		MailSender envioEmail = new MailSender();
+
+		try {
+			envioEmail.enviarEmail(ASSUNTO_EMAIL.concat(" - ".concat(entity.getCodigo().toString())),
+					montarCorpoEmail(ordemServicoModel));
+		} catch (AddressException e) {
+			e.printStackTrace();
+		} catch (MessagingException e) {
+			e.printStackTrace();
+		}
+
+		this.ordemServicoModel = new OrdemServicoModel();
 
 		/* RECARREGA OS REGISTROS */
 		this.init();
@@ -66,6 +89,32 @@ public class ConsultarOrdemServicoController implements Serializable {
 
 	}
 
+	public void consultarOrdemServico() {
+		this.setOrdemServicos(new ArrayList<OrdemServicoModel>());
+		this.getOrdemServicos().add(new OrdemServicoModel(
+				new OrdemServicoRepository().GetOrdemServico(this.getOrdemServicoModel().getCodigo())));
+	}
+
+	private String montarCorpoEmail(OrdemServicoModel entity) {
+		StringBuilder corpoEmail = new StringBuilder();
+
+		corpoEmail.append("Olá, temos uma nova ordem de serviço cadastrada: ".concat("\n\n\n"));
+		corpoEmail.append("Código da Ordem de Serviço: ".concat(entity.getCodigo().toString()).concat("\n"));
+		corpoEmail.append("Substrato: ".concat(entity.getSubstrato().getMaterial()).concat("\n"));
+		corpoEmail.append("Tamanho do Material: ".concat(entity.getTamanhoSubstrato().getValorX().toString()
+				.concat(" X ").concat(entity.getTamanhoSubstrato().getValorY().toString())).concat("\n"));
+		corpoEmail.append("Quantidade de Peças: ".concat(entity.getTamanho().toString()).concat("\n"));
+		corpoEmail.append("Id da Imagem: ".concat(entity.getImagem().getCodigo().toString()).concat("\n"));
+		corpoEmail.append("Número Lery Merlin: ".concat(entity.getNumeroPedidoLeroy()).concat("\n"));
+		corpoEmail.append("Data de Entrega: "
+				.concat(DateTimeFormatter.ofPattern("dd/MM/yyyy").format(entity.getDataEntrega())).concat("\n"));
+		corpoEmail.append("Cliente: ".concat(entity.getCliente().getNome()).concat("\n\n"));
+		corpoEmail.append("Obrigado!".concat("\n"));
+		corpoEmail.append("Idea10.");
+
+		return corpoEmail.toString();
+	}
+
 	public List<OrdemServicoModel> getOrdemServicos() {
 		return OrdemServicos;
 	}
@@ -75,11 +124,11 @@ public class ConsultarOrdemServicoController implements Serializable {
 	}
 
 	public OrdemServicoModel getOrdemServicoModel() {
-		return OrdemServicoModel;
+		return ordemServicoModel;
 	}
 
 	public void setOrdemServicoModel(OrdemServicoModel OrdemServicoModel) {
-		this.OrdemServicoModel = OrdemServicoModel;
+		this.ordemServicoModel = OrdemServicoModel;
 	}
 
 	/***

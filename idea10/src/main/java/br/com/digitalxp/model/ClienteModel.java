@@ -1,14 +1,14 @@
 package br.com.digitalxp.model;
 
+import java.math.BigInteger;
 import java.time.LocalDateTime;
 
 import br.com.digitalxp.repository.entity.ClienteEntity;
 
 public class ClienteModel {
 
-	private Integer codigo;
+	private BigInteger cpf;
 	private String nome;
-	private String cpf;
 	private LocalDateTime dataCadastro;
 	private String email;
 	private String endereco;
@@ -19,9 +19,8 @@ public class ClienteModel {
 	}
 
 	public ClienteModel(ClienteEntity entity) {
-		this.codigo = entity.getCodigo();
-		this.nome = entity.getNome();
 		this.cpf = entity.getCpf();
+		this.nome = entity.getNome();
 		this.dataCadastro = entity.getDataCadastro();
 		this.email = entity.getEmail();
 		this.endereco = entity.getEndereco();
@@ -29,19 +28,12 @@ public class ClienteModel {
 		this.usuarioModel = new UsuarioModel(entity.getUsuarioEntity());
 	}
 
-	/**
-	 * @return the codigo
-	 */
-	public Integer getCodigo() {
-		return codigo;
+	public BigInteger getCpf() {
+		return cpf;
 	}
 
-	/**
-	 * @param codigo
-	 *            the codigo to set
-	 */
-	public void setCodigo(Integer codigo) {
-		this.codigo = codigo;
+	public void setCpf(BigInteger cpf) {
+		this.cpf = cpf;
 	}
 
 	/**
@@ -57,21 +49,6 @@ public class ClienteModel {
 	 */
 	public void setNome(String nome) {
 		this.nome = nome;
-	}
-
-	/**
-	 * @return the cpf
-	 */
-	public String getCpf() {
-		return cpf;
-	}
-
-	/**
-	 * @param cpf
-	 *            the cpf to set
-	 */
-	public void setCpf(String cpf) {
-		this.cpf = cpf;
 	}
 
 	/**

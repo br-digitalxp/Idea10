@@ -1,10 +1,10 @@
 package br.com.digitalxp.repository.entity;
 
+import java.math.BigInteger;
 import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
@@ -23,15 +23,11 @@ import javax.persistence.Table;
 public class ClienteEntity {
 
 	@Id
-	@GeneratedValue
-	@Column(name = "id_cliente")
-	private Integer codigo;
+	@Column(name = "id_cpf")
+	private BigInteger cpf;
 
 	@Column(name = "nm_cliente")
 	private String nome;
-
-	@Column(name = "ds_cpf")
-	private String cpf;
 
 	@Column(name = "dt_cadastro")
 	private LocalDateTime dataCadastro;
@@ -49,19 +45,12 @@ public class ClienteEntity {
 	@JoinColumn(name = "id_usuario_cadastro")
 	private UsuarioEntity usuarioEntity;
 
-	/**
-	 * @return the codigo
-	 */
-	public Integer getCodigo() {
-		return codigo;
+	public BigInteger getCpf() {
+		return cpf;
 	}
 
-	/**
-	 * @param codigo
-	 *            the codigo to set
-	 */
-	public void setCodigo(Integer codigo) {
-		this.codigo = codigo;
+	public void setCpf(BigInteger cpf) {
+		this.cpf = cpf;
 	}
 
 	/**
@@ -77,21 +66,6 @@ public class ClienteEntity {
 	 */
 	public void setNome(String nome) {
 		this.nome = nome;
-	}
-
-	/**
-	 * @return the cpf
-	 */
-	public String getCpf() {
-		return cpf;
-	}
-
-	/**
-	 * @param cpf
-	 *            the cpf to set
-	 */
-	public void setCpf(String cpf) {
-		this.cpf = cpf;
 	}
 
 	/**

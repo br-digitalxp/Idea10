@@ -14,7 +14,7 @@ import br.com.digitalxp.repository.LoginRepository;
 import br.com.digitalxp.repository.entity.UsuarioEntity;
 import br.com.digitalxp.uteis.Uteis;
 
-@Named
+@Named(value = "usuarioAdmController")
 @SessionScoped
 public class UsuarioAdmController implements Serializable {
 

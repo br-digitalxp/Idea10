@@ -10,6 +10,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
 import br.com.digitalxp.model.ImagemModel;
+import br.com.digitalxp.repository.entity.ArtistaEntity;
 import br.com.digitalxp.repository.entity.CategoriaImagemEntity;
 import br.com.digitalxp.repository.entity.ImagemEntity;
 import br.com.digitalxp.repository.entity.UsuarioEntity;
@@ -32,7 +33,6 @@ public class ImagemRepository {
 		entityManager = Uteis.JpaEntityManager();
 
 		imagemEntity = new ImagemEntity();
-		imagemEntity.setAutor(0);
 		imagemEntity.setCaminhoImagem(imagemModel.getCaminhoImagem());
 		imagemEntity.setExclusivo(imagemModel.getExclusivo());
 		imagemEntity.setDataCadastro(LocalDateTime.now());
@@ -41,6 +41,13 @@ public class ImagemRepository {
 		CategoriaImagemEntity categoria = entityManager.find(CategoriaImagemEntity.class,
 				imagemModel.getCategoria().getCodigo());
 		imagemEntity.setCategoria(categoria);
+
+		Query query = entityManager.createNamedQuery("ArtistaEntity.findGettyImages");
+		query.setParameter("nome", "Getty Images");
+
+		
+		ArtistaEntity artista = (ArtistaEntity) query.getSingleResult();
+		imagemEntity.setArtista(artista);
 
 		UsuarioEntity usuarioEntity = entityManager.find(UsuarioEntity.class, imagemModel.getUsuario().getCodigo());
 		imagemEntity.setUsuarioEntity(usuarioEntity);
@@ -115,7 +122,7 @@ public class ImagemRepository {
 
 		ImagemEntity imagemEntity = this.getImagem(imagemModel.getCodigo());
 
-		imagemEntity.setAutor(imagemModel.getAutor());
+		imagemEntity.setArtista(entityManager.find(ArtistaEntity.class, imagemModel.getArtista().getCodigo()));
 		imagemEntity.setCaminhoImagem(imagemModel.getCaminhoImagem());
 		imagemEntity
 				.setCategoria(entityManager.find(CategoriaImagemEntity.class, imagemModel.getCategoria().getCodigo()));

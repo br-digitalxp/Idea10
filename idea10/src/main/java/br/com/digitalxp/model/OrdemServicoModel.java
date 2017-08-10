@@ -1,38 +1,51 @@
 package br.com.digitalxp.model;
 
+import java.math.BigInteger;
 import java.time.LocalDateTime;
+
+import br.com.digitalxp.repository.entity.OrdemServicoEntity;
 
 public class OrdemServicoModel {
 
-	private Integer codigo;
+	private BigInteger codigo;
 	private SubstratoModel substrato;
 	private TamanhoSubstratoModel tamanhoSubstrato;
 	private ClienteModel cliente;
 	private Integer tamanho;
 	private ImagemModel imagem;
 	private LocalDateTime dataCadastro;
+	private LocalDateTime dataEntrega;
+	private int prazoAcordado;
 	private UsuarioModel usuario;
-	
-	/**
-	 * @return the codigo
-	 */
-	public Integer getCodigo() {
+	private String numeroPedidoLeroy;
+
+	public OrdemServicoModel() {
+	}
+
+	public OrdemServicoModel(OrdemServicoEntity ordem) {
+		this.codigo = ordem.getCodigo();
+		this.substrato = new SubstratoModel(ordem.getSubstrato());
+		this.tamanhoSubstrato = new TamanhoSubstratoModel(ordem.getTamanhoSubstrato());
+		this.cliente = new ClienteModel(ordem.getCliente());
+		this.tamanho = ordem.getTamanho();
+		this.imagem = new ImagemModel(ordem.getImagem());
+		this.dataCadastro = ordem.getDataCadastro();
+		this.dataEntrega = ordem.getDataEntrega();
+		this.prazoAcordado = ordem.getPrazoAcordado();
+		this.usuario = new UsuarioModel(ordem.getUsuarioEntity());
+		this.numeroPedidoLeroy = ordem.getNumeroPedidoLeroy();
+	}
+
+	public SubstratoModel getSubstrato() {
+		return substrato;
+	}
+
+	public BigInteger getCodigo() {
 		return codigo;
 	}
 
-	/**
-	 * @param codigo
-	 *            the codigo to set
-	 */
-	public void setCodigo(Integer codigo) {
+	public void setCodigo(BigInteger codigo) {
 		this.codigo = codigo;
-	}
-
-	/**
-	 * @return the substrato
-	 */
-	public SubstratoModel getSubstrato() {
-		return substrato;
 	}
 
 	/**
@@ -131,6 +144,37 @@ public class OrdemServicoModel {
 	 */
 	public void setUsuario(UsuarioModel usuario) {
 		this.usuario = usuario;
+	}
+
+	public String getNumeroPedidoLeroy() {
+		return numeroPedidoLeroy;
+	}
+
+	public void setNumeroPedidoLeroy(String numeroPedidoLeroy) {
+		this.numeroPedidoLeroy = numeroPedidoLeroy;
+	}
+
+	public LocalDateTime getDataEntrega() {
+		return dataEntrega;
+	}
+
+	public void setDataEntrega(LocalDateTime dataEntrega) {
+		this.dataEntrega = dataEntrega;
+	}
+
+	public int getPrazoAcordado() {
+		return prazoAcordado;
+	}
+
+	public void setPrazoAcordado(int prazoAcordado) {
+		this.prazoAcordado = prazoAcordado;
+	}
+
+	public boolean getDisabledBotaoAprovar() {
+		if (this.getNumeroPedidoLeroy() != null && !this.getNumeroPedidoLeroy().isEmpty())
+			return true;
+		else
+			return false;
 	}
 
 }

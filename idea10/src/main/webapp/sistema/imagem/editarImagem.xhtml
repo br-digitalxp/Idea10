@@ -17,9 +17,14 @@
 			<p:selectOneMenu id="inputText-categoria"
 				value="#{consultarImagemController.categoriaImagem.codigo}"
 				effect="fade" style="width:160px">
-				<f:selectItems value="#{cadastrarImagemController.listaCategoria}"
-					var="categoria" itemLabel="#{categoria.nomeCategoriaImagem}"
-					itemValue="#{categoria}" />
+				<f:selectItems value="#{consultarImagemController.listaCategoria}" />
+			</p:selectOneMenu>
+
+			<p:outputLabel value="Artistas" for="inputText-artistas" />
+			<p:selectOneMenu id="inputText-artistas"
+				value="#{consultarImagemController.artista.codigo}" effect="fade"
+				style="width:160px">
+				<f:selectItems value="#{consultarImagemController.listaArtista}" />
 			</p:selectOneMenu>
 
 			<p:outputLabel value="Caminho da Imagem" for="inputText-caminho" />
