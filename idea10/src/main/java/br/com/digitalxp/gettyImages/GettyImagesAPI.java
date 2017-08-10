@@ -15,10 +15,11 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
 
 import br.com.digitalxp.controller.internet.ordemservico.CategoriaGettyImage;
+import br.com.digitalxp.controller.internet.ordemservico.GettyImagePaginator;
 import br.com.digitalxp.controller.internet.ordemservico.ImagemGettyImage;
 import br.com.digitalxp.model.ImagemModel;
 import br.com.digitalxp.model.gettyimages.DisplaySize;
-import br.com.digitalxp.model.gettyimages.GettyImagesPOJO;
+import br.com.digitalxp.model.gettyimages.GettyImagesResponse;
 import br.com.digitalxp.model.gettyimages.Image;
 
 public final class GettyImagesAPI {
@@ -31,6 +32,7 @@ public final class GettyImagesAPI {
 	private static final String SECRET = "Bearer mfM8EtNbUpssBbcygADYajdnCcnt3vUCyE5UnevPN7NF8";
 	private static final String THUMBNAIL = "thumb";
 	private static final String COMP = "comp";
+	private static final String DEFAULT_RECORDS_NUMBER = "&page_size=10&page=";
 	private static final GettyImagesAPI INSTANCE = new GettyImagesAPI();
 
 	private GettyImagesAPI() {
@@ -41,13 +43,13 @@ public final class GettyImagesAPI {
 		return INSTANCE;
 	}
 
-	public List<ImagemGettyImage> search(final String phrase) {
+	public GettyImagePaginator search(final String phrase, int page) {
 		HttpClient httpClient = HttpClientBuilder.create().build();
 
 		HttpGet getRequest = null;
 		String json = null;
 		try {
-			getRequest = new HttpGet(BASE_URL+BASE_SEARCH+SEARCH_BY_PHRASE+URLEncoder.encode(phrase, "UTF-8"));
+			getRequest = new HttpGet(BASE_URL+BASE_SEARCH+DEFAULT_RECORDS_NUMBER+page+SEARCH_BY_PHRASE+URLEncoder.encode(phrase, "UTF-8"));
 		
 			getRequest.addHeader("Api-Key", API_KEY);
 		
@@ -69,12 +71,16 @@ public final class GettyImagesAPI {
 		}
 
         com.google.gson.Gson gson = new com.google.gson.Gson();
-        GettyImagesPOJO resposta = gson.fromJson(json, GettyImagesPOJO.class);
-        
-		return popular(resposta);
+        GettyImagesResponse resposta = gson.fromJson(json, GettyImagesResponse.class);
+        GettyImagePaginator paginator = new GettyImagePaginator();
+        List<ImagemGettyImage> listaRetorno = popular(resposta);
+        paginator.setLista(listaRetorno);
+        paginator.setTotal(resposta.getResultCount());
+        paginator.setPagina(page);
+		return paginator;
 	}
 	
-	private List<ImagemGettyImage> popular(GettyImagesPOJO imagesGI){
+	private List<ImagemGettyImage> popular(GettyImagesResponse imagesGI){		
 		List<ImagemGettyImage> listaRetorno = new ArrayList<ImagemGettyImage>();
 		if(imagesGI.getImages() != null){
 			for(Image image : imagesGI.getImages()){
@@ -87,6 +93,7 @@ public final class GettyImagesAPI {
 				imagem.setCategoria(categoria);
 				
 				ImagemModel imagemModel = new ImagemModel();
+				imagemModel.setCodigo(Integer.valueOf(image.getId()));
 				//imagemModel.setAutor(image.getArtist());
 				if(image.getDisplaySizes() != null && image.getDisplaySizes().size() > 0 ) {
 					for(DisplaySize ds : image.getDisplaySizes()){
@@ -96,18 +103,12 @@ public final class GettyImagesAPI {
 							imagemModel.setCaminhoImagem(ds.getUri());
 						}
 					}
+					
 					imagem.setImagem(imagemModel);
 					listaRetorno.add(imagem);
 				}
 			}
 		}
 		return listaRetorno;
-	}
-	
-	public static void main(String[] args) throws ClientProtocolException, IOException {
-		final List<ImagemGettyImage> response =  GettyImagesAPI.getInstance().search("kitties");
-
-		System.out.println(response);
-		
 	}
 }

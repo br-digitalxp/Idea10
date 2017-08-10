@@ -23,7 +23,7 @@ import javax.persistence.Table;
 public class ImagemEntity {
 
 	@Id
-	@GeneratedValue
+	//@GeneratedValue
 	@Column(name = "id_imagem")
 	private Integer codigo;
 

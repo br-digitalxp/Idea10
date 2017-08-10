@@ -36,6 +36,7 @@ public class ImagemRepository {
 		imagemEntity.setCaminhoImagem(imagemModel.getCaminhoImagem());
 		imagemEntity.setExclusivo(imagemModel.getExclusivo());
 		imagemEntity.setDataCadastro(LocalDateTime.now());
+		imagemEntity.setCodigo(imagemModel.getCodigo());
 
 		CategoriaImagemEntity categoria = entityManager.find(CategoriaImagemEntity.class,
 				imagemModel.getCategoria().getCodigo());
