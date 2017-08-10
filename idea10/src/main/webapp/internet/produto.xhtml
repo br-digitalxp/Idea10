@@ -15,8 +15,11 @@
 					</p:outputPanel>
 					<p:outputPanel style="display:block" styleClass="col-md-6">
 						<p:outputPanel style="display:block" styleClass="produto-img">
-							<img src="#{cadastrarOrdemServico.imagem.imagem.caminhoImagem}" alt="#{cadastrarOrdemServico.imagem.titulo}" title="#{cadastrarOrdemServico.imagem.titulo}" />
+							<img src="#{cadastrarOrdemServico.imagem.imagem.caminhoImagemComp}" id="imagemLoupe" alt="#{cadastrarOrdemServico.imagem.titulo}" title="#{cadastrarOrdemServico.imagem.titulo}" />
 						</p:outputPanel>
+						<script>
+							$('#imagemLoupe').loupe();
+						</script>
 						<p:outputPanel style="display:block" styleClass="produto-descricao">
 							<h3>Sobre esta imagem:</h3>
 							<p>
@@ -37,70 +40,109 @@
 							</p:outputPanel>
 							<p:outputPanel style="display:block" styleClass="produto-list-item">
 								<p:selectOneMenu id="inputText-categoria" style="width:350px;" value="#{cadastrarOrdemServico.substratoModel.codigo}">
+									<f:selectItem noSelectionOption="true"></f:selectItem>
 									<f:selectItems value="#{cadastrarOrdemServico.listaSubstrato}" var="substrato" itemLabel="#{substrato.material}" itemValue="#{substrato}" />
-									<p:ajax listener="#{cadastrarOrdemServico.buscarTamanhoSubstrato}" update="inputText-tamanho,valorFinal" event="change" />
+									<p:ajax listener="#{cadastrarOrdemServico.buscarTamanhoSubstrato}" update="panel-2,panel-3,panel-4,panel-5,panel-6" event="change" />
 								</p:selectOneMenu>
 							</p:outputPanel>
 						</p:outputPanel>
-						<p:outputPanel style="display:block" styleClass="produto-formato">
-							<p:outputPanel style="display:block" styleClass="etapa">
+						<p:outputPanel style="display:block" id="panel-2" styleClass="produto-formato">
+							<p:outputPanel style="display:block" rendered="#{cadastrarOrdemServico.substratoModel.codigo != null}" styleClass="etapa">
 								<span class="etp">2</span>
 								<h3>
 									<strong>PASSO 2 :</strong> SELECIONE O FORMATO
 								</h3>
 							</p:outputPanel>
-							<p:outputPanel style="display:block" styleClass="produto-list-item">
+							<p:outputPanel style="display:block" rendered="#{cadastrarOrdemServico.substratoModel.codigo != null}" styleClass="produto-list-item">
 								<p:selectOneMenu id="inputText-tamanho" style="width:350px;" value="#{cadastrarOrdemServico.tamanho.codigo}">
-									<f:selectItems value="#{cadastrarOrdemServico.listaTamanhoSubstrato}" var="tamanho" itemLabel="#{substrato.valorX} X #{substrato.valorY}" itemValue="tamanho" />
-									<p:ajax listener="#{cadastrarOrdemServico.calcularValor}" update="valorFinal" event="change" />
+									<f:selectItem noSelectionOption="true"></f:selectItem>
+									<f:selectItems value="#{cadastrarOrdemServico.listaTamanhoSubstrato}" var="tamanho" itemLabel="#{substrato.valorX} cm X #{substrato.valorY} cm" itemValue="tamanho" />
+									<p:ajax listener="#{cadastrarOrdemServico.resetQuantidade}" update="panel-3,panel-4,panel-5,panel-6" event="change" />
 								</p:selectOneMenu>
 							</p:outputPanel>
 						</p:outputPanel>
-						<p:outputPanel style="display:block; margin-top:30px;" styleClass="produto-formato">
-							<p:outputPanel style="display:block" styleClass="etapa">
+						<p:outputPanel style="display:block; margin-top:30px;" id="panel-3" styleClass="produto-formato">
+							<p:outputPanel style="display:block" rendered="#{cadastrarOrdemServico.tamanho.codigo != null}"  styleClass="etapa">
 								<span class="etp">3</span>
 								<h3>
-									<strong>PASSO 3 :</strong> VALOR
+									<strong>PASSO 3 :</strong> QUANTIDADE
 								</h3>
 							</p:outputPanel>
-							<p:outputPanel style="display:block" styleClass="produto-list-item">
+							<p:outputPanel style="display:block" rendered="#{cadastrarOrdemServico.tamanho.codigo != null}"  styleClass="produto-list-item">
 								<h:panelGrid columns="2">
-									<h:outputLabel value="Valor: R$" />
-									<h:outputText value="#{cadastrarOrdemServico.valor}" id="valorFinal" />
+									<h:outputLabel value="M²: " />
+									<p:inputText value="#{cadastrarOrdemServico.quantidade}" id="quantidade" size="3">
+										<p:ajax listener="#{cadastrarOrdemServico.calcularValor}" update="panel-4,panel-5,panel-6" event="change" />
+									</p:inputText>
 								</h:panelGrid>
 							</p:outputPanel>
 						</p:outputPanel>
-						<p:outputPanel style="display:block; margin-top:30px;" styleClass="produto-formato">
-							<p:outputPanel style="display:block" styleClass="etapa">
+						<p:outputPanel style="display:block; margin-top:30px;" id="panel-4" styleClass="produto-formato">
+							<p:outputPanel style="display:block" rendered="#{cadastrarOrdemServico.quantidade != null}"  styleClass="etapa">
 								<span class="etp">4</span>
 								<h3>
-									<strong>PASSO 4 :</strong> DADOS DO CLIENTE
+									<strong>PASSO 4 :</strong> VALOR
 								</h3>
 							</p:outputPanel>
-							<p:outputPanel style="display:block" styleClass="produto-list-item">
+							<p:outputPanel style="display:block" rendered="#{cadastrarOrdemServico.quantidade != null}"  styleClass="produto-list-item">
+								<h:panelGrid columns="2">
+									<h:outputLabel value="Valor: " />
+									<h:outputText value="#{cadastrarOrdemServico.valor}" id="valorFinal" >
+										<f:convertNumber currencyCode="BRL" type="currency" />
+									</h:outputText>
+								</h:panelGrid>
+							</p:outputPanel>
+						</p:outputPanel>
+						<p:outputPanel style="display:block; margin-top:30px;" id="panel-5" styleClass="produto-formato">
+							<p:outputPanel style="display:block" rendered="#{cadastrarOrdemServico.quantidade != null}" styleClass="etapa">
+								<span class="etp">5</span>
+								<h3>
+									<strong>PASSO 5 :</strong> DADOS DO CLIENTE
+								</h3>
+							</p:outputPanel>
+							<p:outputPanel style="display:block" rendered="#{cadastrarOrdemServico.quantidade != null}" styleClass="produto-list-item">
 								<h:panelGrid columns="2">
 									<h:outputLabel value="Nome Completo:" />
-									<h:inputText value="#{cadastrarOrdemServico.cliente.nome}" />
+									<p:inputText value="#{cadastrarOrdemServico.cliente.nome}" />
 									<h:outputLabel />
 									<h:outputLabel />
 									<h:outputLabel value="CPF:" />
-									<h:inputText value="#{cadastrarOrdemServico.cliente.cpf}" maxlength="14" />
+									<p:inputMask id="CPF"
+												 value="#{cadastrarOrdemServico.cliente.cpf}"
+							                     mask="999.999.999-99"
+							                     required="true"
+							                     requiredMessage="CPF inválido"
+							                     maxlength="11">
+							            <!-- <f:convertNumber integerOnly="true"/> -->
+							        </p:inputMask>
+									<!-- <h:inputText value="#{cadastrarOrdemServico.cliente.cpf}" maxlength="14" /> -->
 									<h:outputLabel />
 									<h:outputLabel />
 									<h:outputLabel value="E-mail:" />
-									<h:inputText value="#{cadastrarOrdemServico.cliente.email}" />
+									<p:inputText value="#{cadastrarOrdemServico.cliente.email}" />
 									<h:outputLabel />
 									<h:outputLabel />
 									<h:outputLabel value="Endereço:" />
-									<h:inputText value="#{cadastrarOrdemServico.cliente.endereco}" />
+									<p:inputText value="#{cadastrarOrdemServico.cliente.endereco}" />
 									<h:outputLabel />
 									<h:outputLabel />
 									<h:outputLabel value="Telefone:" />
-									<h:inputText value="#{cadastrarOrdemServico.cliente.telefone}" maxlength="15" />
+									<p:inputMask id="telefone"
+							                     mask="(99)99999-999?9"
+							                     required="true"
+							                     requiredMessage="Telefone inválido"
+							                     value="#{cadastrarOrdemServico.cliente.telefone}"
+							                     maxlength="11">
+							            <!-- <f:convertNumber integerOnly="true"/> -->
+							            <p:ajax update="panel-6" event="change" />
+							        </p:inputMask>
+									<!-- <h:inputText value="#{cadastrarOrdemServico.cliente.telefone}" maxlength="15" >
+										<p:ajax update="panel-6" event="change" />
+									</h:inputText> -->
 								</h:panelGrid>
 							</p:outputPanel>
-							<p:outputPanel style="display:block;margin-top:30px;" styleClass="col-md-3 catalogo-completo">
-								<p:commandButton value="Cadastrar Ordem de Serviço" id="commandButton-cadastrar-ordem-servico" styleClass="btn btn-default" actionListener="#{cadastrarOrdemServico.cadastraOrdemServico}" onsuccess="PF('dlg').show();" type="submit" />
+							<p:outputPanel style="display:block;margin-top:30px;" id="panel-6" styleClass="col-md-3 catalogo-completo">
+								<p:commandButton value="Cadastrar Ordem de Serviço" rendered="#{cadastrarOrdemServico.cliente.telefone != null}" id="commandButton-cadastrar-ordem-servico" styleClass="btn btn-default" actionListener="#{cadastrarOrdemServico.cadastraOrdemServico}" onsuccess="PF('dlg').show();" type="submit" />
 							</p:outputPanel>
 							<p:dialog header="Sucesso" widgetVar="dlg" modal="true" id="sucessoDlg" height="100">
 								<p:outputPanel style="display:block; margin-top:30px;" styleClass="produto-formato">

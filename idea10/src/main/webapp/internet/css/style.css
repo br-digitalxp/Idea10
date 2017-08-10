@@ -617,6 +617,7 @@ main {
 /* Produto */
 .produto .produto-img img {
 	border-radius: 3px;
+	width: 450px;
 }
 
 .produto .produto-descricao h3 {

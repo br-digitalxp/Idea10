@@ -17,6 +17,7 @@ import org.apache.http.util.EntityUtils;
 import br.com.digitalxp.controller.internet.ordemservico.CategoriaGettyImage;
 import br.com.digitalxp.controller.internet.ordemservico.ImagemGettyImage;
 import br.com.digitalxp.model.ImagemModel;
+import br.com.digitalxp.model.gettyimages.DisplaySize;
 import br.com.digitalxp.model.gettyimages.GettyImagesPOJO;
 import br.com.digitalxp.model.gettyimages.Image;
 
@@ -24,10 +25,12 @@ public final class GettyImagesAPI {
 
 	// TODO: configurable
 	private static final String BASE_URL = "https://api.gettyimages.com/v3/";
-	private static final String BASE_SEARCH = "search/images?fields=id,title,artist,caption,collection_name,thumb&sort_order=best";
+	private static final String BASE_SEARCH = "search/images?fields=id,title,artist,caption,collection_name,thumb,comp&sort_order=best";
 	private static final String SEARCH_BY_PHRASE = "&phrase=";
 	private static final String API_KEY = "zn792qr9d2anmpay4zhg2xdr";
 	private static final String SECRET = "Bearer mfM8EtNbUpssBbcygADYajdnCcnt3vUCyE5UnevPN7NF8";
+	private static final String THUMBNAIL = "thumb";
+	private static final String COMP = "comp";
 	private static final GettyImagesAPI INSTANCE = new GettyImagesAPI();
 
 	private GettyImagesAPI() {
@@ -86,7 +89,13 @@ public final class GettyImagesAPI {
 				ImagemModel imagemModel = new ImagemModel();
 				//imagemModel.setAutor(image.getArtist());
 				if(image.getDisplaySizes() != null && image.getDisplaySizes().size() > 0 ) {
-					imagemModel.setCaminhoImagem(image.getDisplaySizes().get(0).getUri());
+					for(DisplaySize ds : image.getDisplaySizes()){
+						if(COMP.equals(ds.getName())){
+							imagemModel.setCaminhoImagemComp(ds.getUri());
+						}else if(THUMBNAIL.equals(ds.getName())){
+							imagemModel.setCaminhoImagem(ds.getUri());
+						}
+					}
 					imagem.setImagem(imagemModel);
 					listaRetorno.add(imagem);
 				}

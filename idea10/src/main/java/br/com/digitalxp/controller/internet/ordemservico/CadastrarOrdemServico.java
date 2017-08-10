@@ -59,6 +59,8 @@ public class CadastrarOrdemServico {
 	private ImagemGettyImage imagem;
 	private Long numeroPedido;
 	private Double valor;
+	private Integer quantidade;
+	private static final Double conversor = 0.0001;
 
 	@Inject
 	ClienteModel cliente;
@@ -72,22 +74,29 @@ public class CadastrarOrdemServico {
 			this.getListaSubstrato().add(new SelectItem(selectItem.getCodigo(), selectItem.getMaterial()));
 		}
 		substratoModel = new SubstratoModel();
-		substratoModel.setCodigo(listSubstrato.get(0).getCodigo());
-		consultarTamanhoSubstrato(this.getListaSubstrato().get(0));		
+		//substratoModel.setCodigo(listSubstrato.get(0).getCodigo());
+		//consultarTamanhoSubstrato(this.getListaSubstrato().get(0));		
 		String retorno = "/internet/produto.xhtml";
-
+		tamanho = null;
+		resetQuantidade();
 		return retorno;
 	}
 
 	public void buscarTamanhoSubstrato() {
 		this.setListaTamanhoSubstrato(new ArrayList<SelectItem>());		
 		for (TamanhoSubstratoModel tamanhoSubstrato : tamanhoSubstratoRepository.getTamanhoSubstratosBySubstrato(substratoModel.getCodigo())) {
-			this.getListaTamanhoSubstrato().add(new SelectItem(tamanhoSubstrato.getCodigo(), tamanhoSubstrato.getValorX().toString().concat(" X ".concat(tamanhoSubstrato.getValorY().toString()))));
+			this.getListaTamanhoSubstrato().add(new SelectItem(tamanhoSubstrato.getCodigo(), tamanhoSubstrato.getValorX().toString().concat("cm X ".concat(tamanhoSubstrato.getValorY().toString().concat(" cm")))));
 		}
 
 		tamanho = new TamanhoSubstratoModel();
-		tamanho.setCodigo((int)this.getListaTamanhoSubstrato().get(0).getValue());
-		calcularValor();
+		
+		//tamanho.setCodigo((int)this.getListaTamanhoSubstrato().get(0).getValue());
+		//calcularValor();
+		resetQuantidade();
+	}
+	
+	public void resetQuantidade(){
+		quantidade =null;
 	}
 
 	/**
@@ -127,7 +136,7 @@ public class CadastrarOrdemServico {
 		this.setListaTamanhoSubstrato(new ArrayList<SelectItem>());
 		// RETORNAR AS CategoriaImagemS CADASTRADAS
 		for (TamanhoSubstratoModel tamanhoSubstrato : tamanhoSubstratoRepository.getTamanhoSubstratosBySubstrato((Integer) item.getValue())) {
-			this.getListaTamanhoSubstrato().add(new SelectItem(tamanhoSubstrato.getCodigo(), tamanhoSubstrato.getValorX().toString().concat(" X ".concat(tamanhoSubstrato.getValorY().toString()))));
+			this.getListaTamanhoSubstrato().add(new SelectItem(tamanhoSubstrato.getCodigo(), tamanhoSubstrato.getValorX().toString().concat(" CM X ".concat(tamanhoSubstrato.getValorY().toString().concat(" CM")))));
 		}
 
 		tamanho = new TamanhoSubstratoModel();
@@ -188,7 +197,8 @@ public class CadastrarOrdemServico {
 		Double valorM2 = st.getValorMaterial();
 		TamanhoSubstratoEntity et = tamanhoSubstratoRepository.getTamanhoSubstrato(tamanho.getCodigo());
 		int area = et.getValorX() * et.getValorY();
-		valor = valorM2*area;
+		
+		valor = valorM2*area*conversor*quantidade;
 	}
 
 	public Double getValor() {
@@ -206,6 +216,14 @@ public class CadastrarOrdemServico {
 
 	public void setNumeroPedido(Long numeroPedido) {
 		this.numeroPedido = numeroPedido;
+	}
+	
+	public Integer getQuantidade() {
+		return quantidade;
+	}
+
+	public void setQuantidade(Integer quantidade) {
+		this.quantidade = quantidade;
 	}
 
 	@PostConstruct

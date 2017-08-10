@@ -9,6 +9,7 @@ public class ImagemModel {
 	private Integer codigo;
 	private Integer autor;
 	private String caminhoImagem;
+	private String caminhoImagemComp;
 	private LocalDateTime dataCadastro;
 	private boolean exclusivo;
 	private CategoriaImagemModel categoria;
@@ -132,5 +133,15 @@ public class ImagemModel {
 	public void setUsuario(UsuarioModel usuario) {
 		this.usuario = usuario;
 	}
+
+	public String getCaminhoImagemComp() {
+		return caminhoImagemComp;
+	}
+
+	public void setCaminhoImagemComp(String caminhoImagemComp) {
+		this.caminhoImagemComp = caminhoImagemComp;
+	}
+	
+	
 
 }
