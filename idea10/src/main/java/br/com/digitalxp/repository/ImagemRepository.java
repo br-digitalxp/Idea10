@@ -85,6 +85,18 @@ public class ImagemRepository {
 	 * @param codigo
 	 * @return
 	 */
+	public ImagemModel getImagemById(int codigo) {
+
+		ImagemEntity ie = getImagem(codigo);
+		return new ImagemModel(ie);
+	}
+	
+	/***
+	 * CONSULTA UMA Categoria CADASTRADA PELO CÓDIGO
+	 * 
+	 * @param codigo
+	 * @return
+	 */
 	private ImagemEntity getImagem(int codigo) {
 
 		entityManager = Uteis.JpaEntityManager();

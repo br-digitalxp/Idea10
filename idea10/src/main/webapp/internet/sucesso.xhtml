@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<ui:composition template="template.xhtml" xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:p="http://primefaces.org/ui">
+	<ui:define name="content">
+		<h:form>
+			<p:outputPanel style="display:block" styleClass="container produto">
+				<p:outputPanel style="display:block" styleClass="row">
+					<p:outputPanel style="display:block;margin-top:30px;" styleClass="col-md-12">
+						
+					</p:outputPanel>
+					<p:outputPanel style="display:block" styleClass="col-md-6">
+						<p:outputPanel style="display:block" styleClass="etapa">
+								<span class="etp"></span>
+								<h3>
+									<strong><p:messages id="messages" showDetail="true" autoUpdate="true" severity="info"/></strong> 
+								</h3>								
+						</p:outputPanel>
+						<p:outputPanel style="display:block" styleClass="etapa">
+							<h:commandLink value="Voltar para página inicial" action="index" ></h:commandLink>
+						</p:outputPanel>
+					</p:outputPanel>
+					<p:outputPanel style="display:block" styleClass="col-md-6">
+						<p:outputPanel style="display:block" styleClass="produto-material">
+							
+						</p:outputPanel>
+						<p:outputPanel style="display:block" styleClass="produto-material">
+							
+						</p:outputPanel>
+					</p:outputPanel>
+					<p:outputPanel style="display:block" styleClass="col-md-6">
+						<p:outputPanel style="display:block" styleClass="produto-material">
+							
+						</p:outputPanel>
+						<p:outputPanel style="display:block" styleClass="produto-material">
+							
+						</p:outputPanel>
+					</p:outputPanel>
+					<p:outputPanel style="display:block" styleClass="col-md-6">
+						<p:outputPanel style="display:block" styleClass="produto-material">
+							
+						</p:outputPanel>
+						<p:outputPanel style="display:block" styleClass="produto-material">
+							
+						</p:outputPanel>
+					</p:outputPanel>
+				</p:outputPanel>
+			</p:outputPanel>
+		</h:form>
+	</ui:define>
+</ui:composition>

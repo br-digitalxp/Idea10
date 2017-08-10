@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.context.RequestScoped;
 import javax.faces.model.SelectItem;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -23,6 +24,7 @@ import br.com.digitalxp.repository.ImagemRepository;
 import br.com.digitalxp.repository.OrdemServicoRepository;
 import br.com.digitalxp.repository.SubstratoRepository;
 import br.com.digitalxp.repository.TamanhoSubstratoRepository;
+import br.com.digitalxp.repository.entity.ImagemEntity;
 import br.com.digitalxp.repository.entity.SubstratoEntity;
 import br.com.digitalxp.repository.entity.TamanhoSubstratoEntity;
 import br.com.digitalxp.uteis.Uteis;
@@ -101,7 +103,7 @@ public class CadastrarOrdemServico {
 	/**
 	 * SALVA UM NOVO REGISTRO VIA INPUT
 	 */
-	public void cadastraOrdemServico() {
+	public String cadastraOrdemServico() {
 		UsuarioModel usuario = new UsuarioModel();
 		usuario.setCodigo(1);
 		cliente.setUsuarioModel(usuario);
@@ -115,7 +117,13 @@ public class CadastrarOrdemServico {
 
 		imagem.getImagem().setUsuario(usuario);
 		imagem.getImagem().setCategoria(categoriaImagem);
-		ImagemModel imagemModel = new ImagemRepository().SalvarNovoRegistroImagem(imagem.getImagem());
+		
+		//ImagemModel ImagemModel imagemModel = null;
+		ImagemRepository ir = new ImagemRepository();
+		ImagemModel imagemModel = ir.getImagemById(imagem.getImagem().getCodigo());
+		if(imagemModel == null || imagemModel.getCodigo() == null || imagemModel.getCodigo() == 0){
+			imagemModel = ir.SalvarNovoRegistroImagem(imagem.getImagem());
+		}
 
 		ordemServico.setImagem(imagemModel);
 		ordemServico.setSubstrato(substratoModel);
@@ -126,7 +134,8 @@ public class CadastrarOrdemServico {
 		Long numeroPedido = ordemServicoRepository.SalvarNovoRegistro(ordemServico);
 
 		Uteis.MensagemInfo("Pedido Nº"+numeroPedido+" realizado com sucesso");
-
+		
+		return "sucesso";
 		/*substratoModel = null;
 		tamanho = new TamanhoSubstratoModel();*/
 	}
