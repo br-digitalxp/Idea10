@@ -50,6 +50,7 @@ public class OrdemServicoRepository {
 		ordemServicoEntity.setCodigo(new BigInteger(codigo.toString()));
 		ordemServicoEntity.setTamanho(ordemServicoModel.getTamanho());
 		ordemServicoEntity.setDataCadastro(LocalDateTime.now());
+		ordemServicoEntity.setValorOrdemServico(ordemServicoModel.getValorOrdemServico());
 
 		SubstratoEntity substratoEntity = entityManager.find(SubstratoEntity.class,
 				ordemServicoModel.getSubstrato().getCodigo());
@@ -99,6 +100,7 @@ public class OrdemServicoRepository {
 			ordemServicoModel.setCodigo(ordemServicoEntity.getCodigo());
 			ordemServicoModel.setTamanho(ordemServicoEntity.getTamanho());
 			ordemServicoModel.setDataCadastro(ordemServicoEntity.getDataCadastro());
+			ordemServicoEntity.setValorOrdemServico(ordemServicoEntity.getValorOrdemServico());
 
 			SubstratoModel substratoModel = new SubstratoModel(ordemServicoEntity.getSubstrato());
 			ordemServicoModel.setSubstrato(substratoModel);
@@ -171,6 +173,7 @@ public class OrdemServicoRepository {
 		ordemServicoEntity.setPrazoAcordado(ordemServicoModel.getPrazoAcordado());
 		ordemServicoEntity.setDataEntrega(ordemServicoModel.getDataEntrega());
 		ordemServicoEntity.setNumeroPedidoLeroy(ordemServicoModel.getNumeroPedidoLeroy());
+		ordemServicoEntity.setValorOrdemServico(ordemServicoModel.getValorOrdemServico());
 		entityManager.merge(ordemServicoEntity);
 
 		return ordemServicoEntity;

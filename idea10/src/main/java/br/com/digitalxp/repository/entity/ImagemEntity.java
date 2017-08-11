@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
@@ -23,9 +22,8 @@ import javax.persistence.Table;
 public class ImagemEntity {
 
 	@Id
-	//@GeneratedValue
 	@Column(name = "id_imagem")
-	private Integer codigo;
+	private String codigo;
 
 	@Column(name = "ds_caminho_imagem")
 	private String caminhoImagem;
@@ -36,8 +34,8 @@ public class ImagemEntity {
 	@Column(name = "fl_exclusivo")
 	private boolean exclusivo;
 
-	 @OneToOne
-	 @JoinColumn(name = "id_artista")
+	@OneToOne
+	@JoinColumn(name = "id_artista")
 	private ArtistaEntity artista;
 
 	@OneToOne
@@ -48,18 +46,11 @@ public class ImagemEntity {
 	@JoinColumn(name = "id_usuario_cadastro")
 	private UsuarioEntity usuarioEntity;
 
-	/**
-	 * @return the codigo
-	 */
-	public Integer getCodigo() {
+	public String getCodigo() {
 		return codigo;
 	}
 
-	/**
-	 * @param codigo
-	 *            the codigo to set
-	 */
-	public void setCodigo(Integer codigo) {
+	public void setCodigo(String codigo) {
 		this.codigo = codigo;
 	}
 

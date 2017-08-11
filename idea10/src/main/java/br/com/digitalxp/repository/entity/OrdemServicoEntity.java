@@ -62,6 +62,9 @@ public class OrdemServicoEntity {
 	@Column(name = "nm_pedido_leroy")
 	private String numeroPedidoLeroy;
 
+	@Column(name = "vl_ordem_servico")
+	private Double valorOrdemServico;
+
 	/**
 	 * @return the codigo
 	 */
@@ -201,6 +204,14 @@ public class OrdemServicoEntity {
 
 	public void setNumeroPedidoLeroy(String numeroPedidoLeroy) {
 		this.numeroPedidoLeroy = numeroPedidoLeroy;
+	}
+
+	public Double getValorOrdemServico() {
+		return valorOrdemServico;
+	}
+
+	public void setValorOrdemServico(Double valorOrdemServico) {
+		this.valorOrdemServico = valorOrdemServico;
 	}
 
 }

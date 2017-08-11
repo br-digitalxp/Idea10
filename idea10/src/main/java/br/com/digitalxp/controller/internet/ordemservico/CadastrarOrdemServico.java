@@ -108,7 +108,14 @@ public class CadastrarOrdemServico {
 		UsuarioModel usuario = new UsuarioModel();
 		usuario.setCodigo(1);
 		cliente.setUsuarioModel(usuario);
-		ClienteModel clienteModel = new ClienteRepository().SalvarNovoRegistroCliente(cliente);
+
+		// ImagemModel ImagemModel imagemModel = null;
+		ClienteRepository cr = new ClienteRepository();
+		ClienteModel clienteModel = cr.getClienteByCPF(cliente.getCpf());
+		if (clienteModel == null || clienteModel.getCpf() == null
+				|| clienteModel.getCpf().equals(new BigInteger("0"))) {
+			clienteModel = cr.SalvarNovoRegistroCliente(cliente);
+		}
 
 		ordemServico.setCliente(clienteModel);
 
@@ -122,7 +129,7 @@ public class CadastrarOrdemServico {
 		//ImagemModel ImagemModel imagemModel = null;
 		ImagemRepository ir = new ImagemRepository();
 		ImagemModel imagemModel = ir.getImagemById(imagem.getImagem().getCodigo());
-		if(imagemModel == null || imagemModel.getCodigo() == null || imagemModel.getCodigo() == 0){
+		if (imagemModel == null || imagemModel.getCodigo() == null || imagemModel.getCodigo().isEmpty()) {
 			imagemModel = ir.SalvarNovoRegistroImagem(imagem.getImagem());
 		}
 
@@ -134,11 +141,12 @@ public class CadastrarOrdemServico {
 
 		BigInteger numeroPedido = ordemServicoRepository.SalvarNovoRegistro(ordemServico);
 
-		Uteis.MensagemInfo("Pedido Nº"+numeroPedido+" realizado com sucesso");
-		
+		Uteis.MensagemInfo("Pedido Nº" + numeroPedido + " realizado com sucesso");
+
 		return "sucesso";
-		/*substratoModel = null;
-		tamanho = new TamanhoSubstratoModel();*/
+		/*
+		 * substratoModel = null; tamanho = new TamanhoSubstratoModel();
+		 */
 	}
 
 	public void consultarTamanhoSubstrato(SelectItem item) {
@@ -149,7 +157,7 @@ public class CadastrarOrdemServico {
 		}
 
 		tamanho = new TamanhoSubstratoModel();
-		tamanho.setCodigo((int)this.getListaTamanhoSubstrato().get(0).getValue());
+		tamanho.setCodigo((int) this.getListaTamanhoSubstrato().get(0).getValue());
 		calcularValor();
 	}
 
@@ -200,14 +208,14 @@ public class CadastrarOrdemServico {
 	public void setCliente(ClienteModel cliente) {
 		this.cliente = cliente;
 	}
-	
-	public void calcularValor(){
-		SubstratoEntity st = substratoRepository.getSubstrato(substratoModel.getCodigo());		
+
+	public void calcularValor() {
+		SubstratoEntity st = substratoRepository.getSubstrato(substratoModel.getCodigo());
 		Double valorM2 = st.getValorMaterial();
 		TamanhoSubstratoEntity et = tamanhoSubstratoRepository.getTamanhoSubstrato(tamanho.getCodigo());
 		int area = et.getValorX() * et.getValorY();
-		
-		valor = valorM2*area*conversor*quantidade;
+
+		valor = valorM2 * area * conversor * quantidade;
 	}
 
 	public Double getValor() {
@@ -217,7 +225,6 @@ public class CadastrarOrdemServico {
 	public void setValor(Double valor) {
 		this.valor = valor;
 	}
-	
 
 	public Long getNumeroPedido() {
 		return numeroPedido;
@@ -226,7 +233,7 @@ public class CadastrarOrdemServico {
 	public void setNumeroPedido(Long numeroPedido) {
 		this.numeroPedido = numeroPedido;
 	}
-	
+
 	public Integer getQuantidade() {
 		return quantidade;
 	}

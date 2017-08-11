@@ -18,6 +18,7 @@ public class OrdemServicoModel {
 	private int prazoAcordado;
 	private UsuarioModel usuario;
 	private String numeroPedidoLeroy;
+	private Double valorOrdemServico;
 
 	public OrdemServicoModel() {
 	}
@@ -34,6 +35,7 @@ public class OrdemServicoModel {
 		this.prazoAcordado = ordem.getPrazoAcordado();
 		this.usuario = new UsuarioModel(ordem.getUsuarioEntity());
 		this.numeroPedidoLeroy = ordem.getNumeroPedidoLeroy();
+		this.valorOrdemServico = ordem.getValorOrdemServico();
 	}
 
 	public SubstratoModel getSubstrato() {
@@ -168,6 +170,14 @@ public class OrdemServicoModel {
 
 	public void setPrazoAcordado(int prazoAcordado) {
 		this.prazoAcordado = prazoAcordado;
+	}
+
+	public Double getValorOrdemServico() {
+		return valorOrdemServico;
+	}
+
+	public void setValorOrdemServico(Double valorOrdemServico) {
+		this.valorOrdemServico = valorOrdemServico;
 	}
 
 	public boolean getDisabledBotaoAprovar() {
