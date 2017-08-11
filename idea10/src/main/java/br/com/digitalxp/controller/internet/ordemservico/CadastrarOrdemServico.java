@@ -138,6 +138,7 @@ public class CadastrarOrdemServico {
 		ordemServico.setTamanhoSubstrato(tamanho);
 		ordemServico.setTamanho(1);
 		ordemServico.setUsuario(usuario);
+		ordemServico.setValorOrdemServico(valor);
 
 		BigInteger numeroPedido = ordemServicoRepository.SalvarNovoRegistro(ordemServico);
 
