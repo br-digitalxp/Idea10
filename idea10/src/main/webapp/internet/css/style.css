@@ -755,6 +755,10 @@ main {
 	opacity: 0.8;
 }
 
+label .output-produto{
+	margin-bottom: 0px;
+}
+
 /* Rodapé */
 footer {
 	background: #000000;

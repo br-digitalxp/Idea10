@@ -70,7 +70,7 @@
 							</p:outputPanel>
 							<p:outputPanel style="display:block" rendered="#{cadastrarOrdemServico.tamanho.codigo != null}"  styleClass="produto-list-item">
 								<h:panelGrid columns="2">
-									<h:outputLabel value="M²: " />
+									<h:outputLabel value="Quantidade de material: " />
 									<p:inputText value="#{cadastrarOrdemServico.quantidade}" id="quantidade" size="3">
 										<p:ajax listener="#{cadastrarOrdemServico.calcularValor}" update="panel-4,panel-5,panel-6" event="change" />
 									</p:inputText>
@@ -86,9 +86,9 @@
 							</p:outputPanel>
 							<p:outputPanel style="display:block" rendered="#{cadastrarOrdemServico.quantidade != null}"  styleClass="produto-list-item">
 								<h:panelGrid columns="2">
-									<h:outputLabel value="Valor: " />
-									<h:outputText value="#{cadastrarOrdemServico.valor}" id="valorFinal" >
-										<f:convertNumber currencyCode="BRL" type="currency" />
+									<h:outputLabel styleClass="output-produto" value="Valor: " />
+									<h:outputText value=" R$ #{cadastrarOrdemServico.valor}" id="valorFinal" >
+										<f:convertNumber pattern="#,##0.00" minFractionDigits="2"/>
 									</h:outputText>
 								</h:panelGrid>
 							</p:outputPanel>
@@ -142,17 +142,8 @@
 								</h:panelGrid>
 							</p:outputPanel>
 							<p:outputPanel style="display:block;margin-top:30px;" id="panel-6" styleClass="col-md-3 catalogo-completo">
-								<p:commandButton value="Cadastrar Ordem de Serviço" rendered="#{cadastrarOrdemServico.cliente.telefone != null}" id="commandButton-cadastrar-ordem-servico" styleClass="btn btn-default" actionListener="#{cadastrarOrdemServico.cadastraOrdemServico}" onsuccess="PF('dlg').show();" type="submit" />
+								<p:commandButton value="Cadastrar Ordem de Serviço"  rendered="#{cadastrarOrdemServico.quantidade != null}" id="commandButton-cadastrar-ordem-servico" styleClass="btn btn-default"  action="#{cadastrarOrdemServico.cadastraOrdemServico}"  />
 							</p:outputPanel>
-							<p:dialog header="Sucesso" widgetVar="dlg" modal="true" id="sucessoDlg" height="100">
-								<p:outputPanel style="display:block; margin-top:30px;" styleClass="produto-formato">
-									<p:outputPanel style="display:block" styleClass="etapa">
-										<h3>
-											<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
-										</h3>
-									</p:outputPanel>
-								</p:outputPanel>							    
-							</p:dialog>  
 						</p:outputPanel>
 					</p:outputPanel>
 				</p:outputPanel>

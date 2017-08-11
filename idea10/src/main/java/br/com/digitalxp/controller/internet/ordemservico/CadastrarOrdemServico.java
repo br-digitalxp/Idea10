@@ -206,8 +206,9 @@ public class CadastrarOrdemServico {
 		Double valorM2 = st.getValorMaterial();
 		TamanhoSubstratoEntity et = tamanhoSubstratoRepository.getTamanhoSubstrato(tamanho.getCodigo());
 		int area = et.getValorX() * et.getValorY();
+		Double areaM2 = area*conversor;
 		
-		valor = valorM2*area*conversor*quantidade;
+		valor = valorM2*areaM2*quantidade;
 	}
 
 	public Double getValor() {
