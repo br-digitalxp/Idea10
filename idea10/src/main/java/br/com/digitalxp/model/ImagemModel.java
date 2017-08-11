@@ -6,7 +6,7 @@ import br.com.digitalxp.repository.entity.ImagemEntity;
 
 public class ImagemModel {
 
-	private Integer codigo;
+	private String codigo;
 	private ArtistaModel artista;
 	private String caminhoImagem;
 	private String caminhoImagemComp;
@@ -20,27 +20,23 @@ public class ImagemModel {
 	}
 
 	public ImagemModel(ImagemEntity entity) {
-		this.codigo = entity.getCodigo();
-		this.artista = new ArtistaModel(entity.getArtista());
-		this.caminhoImagem = entity.getCaminhoImagem();
-		this.dataCadastro = entity.getDataCadastro();
-		this.exclusivo = entity.isExclusivo();
-		this.categoria = new CategoriaImagemModel(entity.getCategoria());
-		this.usuario = new UsuarioModel(entity.getUsuarioEntity());
+		if (entity != null) {
+			this.codigo = entity.getCodigo();
+			this.artista = new ArtistaModel(entity.getArtista());
+			this.caminhoImagem = entity.getCaminhoImagem();
+			this.dataCadastro = entity.getDataCadastro();
+			this.exclusivo = entity.isExclusivo();
+			this.categoria = new CategoriaImagemModel(entity.getCategoria());
+			this.usuario = new UsuarioModel(entity.getUsuarioEntity());
+		}
 	}
 
-	/**
-	 * @return the codigo
-	 */
-	public Integer getCodigo() {
+
+	public String getCodigo() {
 		return codigo;
 	}
 
-	/**
-	 * @param codigo
-	 *            the codigo to set
-	 */
-	public void setCodigo(Integer codigo) {
+	public void setCodigo(String codigo) {
 		this.codigo = codigo;
 	}
 
@@ -134,7 +130,5 @@ public class ImagemModel {
 	public void setCaminhoImagemComp(String caminhoImagemComp) {
 		this.caminhoImagemComp = caminhoImagemComp;
 	}
-	
-	
 
 }

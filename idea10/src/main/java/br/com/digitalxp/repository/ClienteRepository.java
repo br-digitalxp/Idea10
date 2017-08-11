@@ -110,6 +110,10 @@ public class ClienteRepository {
 		return entityManager.find(ClienteEntity.class, codigo);
 	}
 
+	public ClienteModel getClienteByCPF(BigInteger codigo) {
+		return new ClienteModel(GetCliente(codigo));
+	}
+
 	/***
 	 * ALTERA UM REGISTRO CADASTRADO NO BANCO DE DADOS
 	 * 

@@ -19,13 +19,15 @@ public class ClienteModel {
 	}
 
 	public ClienteModel(ClienteEntity entity) {
-		this.cpf = entity.getCpf();
-		this.nome = entity.getNome();
-		this.dataCadastro = entity.getDataCadastro();
-		this.email = entity.getEmail();
-		this.endereco = entity.getEndereco();
-		this.telefone = entity.getTelefone();
-		this.usuarioModel = new UsuarioModel(entity.getUsuarioEntity());
+		if (entity != null) {
+			this.cpf = entity.getCpf();
+			this.nome = entity.getNome();
+			this.dataCadastro = entity.getDataCadastro();
+			this.email = entity.getEmail();
+			this.endereco = entity.getEndereco();
+			this.telefone = entity.getTelefone();
+			this.usuarioModel = new UsuarioModel(entity.getUsuarioEntity());
+		}
 	}
 
 	public BigInteger getCpf() {

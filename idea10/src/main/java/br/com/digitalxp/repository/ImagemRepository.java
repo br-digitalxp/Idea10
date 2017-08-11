@@ -45,7 +45,6 @@ public class ImagemRepository {
 		Query query = entityManager.createNamedQuery("ArtistaEntity.findGettyImages");
 		query.setParameter("nome", "Getty Images");
 
-		
 		ArtistaEntity artista = (ArtistaEntity) query.getSingleResult();
 		imagemEntity.setArtista(artista);
 
@@ -92,19 +91,19 @@ public class ImagemRepository {
 	 * @param codigo
 	 * @return
 	 */
-	public ImagemModel getImagemById(int codigo) {
+	public ImagemModel getImagemById(String codigo) {
 
 		ImagemEntity ie = getImagem(codigo);
 		return new ImagemModel(ie);
 	}
-	
+
 	/***
 	 * CONSULTA UMA Categoria CADASTRADA PELO CÓDIGO
 	 * 
 	 * @param codigo
 	 * @return
 	 */
-	private ImagemEntity getImagem(int codigo) {
+	private ImagemEntity getImagem(String codigo) {
 
 		entityManager = Uteis.JpaEntityManager();
 
@@ -136,7 +135,7 @@ public class ImagemRepository {
 	 * 
 	 * @param codigo
 	 */
-	public void ExcluirRegistro(int codigo) {
+	public void ExcluirRegistro(String codigo) {
 
 		entityManager = Uteis.JpaEntityManager();
 
