@@ -1,8 +1,10 @@
 package br.com.digitalxp.controller.internet.ordemservico;
 
 import java.math.BigInteger;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
@@ -58,7 +60,7 @@ public class CadastrarOrdemServico {
 	private List<SelectItem> listaSubstrato;
 	private ImagemGettyImage imagem;
 	private Long numeroPedido;
-	private Double valor;
+	private String valor;
 	private Integer quantidade;
 	private static final Double conversor = 0.0001;
 
@@ -139,7 +141,7 @@ public class CadastrarOrdemServico {
 		ordemServico.setTamanhoSubstrato(tamanho);
 		ordemServico.setTamanho(1);
 		ordemServico.setUsuario(usuario);
-		ordemServico.setValorOrdemServico(valor);
+		ordemServico.setValorOrdemServico(Double.valueOf(valor));
 
 		BigInteger numeroPedido = ordemServicoRepository.SalvarNovoRegistro(ordemServico);
 
@@ -220,14 +222,16 @@ public class CadastrarOrdemServico {
 		TamanhoSubstratoEntity et = tamanhoSubstratoRepository.getTamanhoSubstrato(tamanho.getCodigo());
 		int area = et.getValorX() * et.getValorY();
 		Double areaM2 = area * conversor;
-		valor = valorM2 * areaM2 * quantidade;
+		Double valorFinal = valorM2 * areaM2 * quantidade;
+		Locale ptBr = new Locale("pt", "BR");
+		valor = NumberFormat.getCurrencyInstance(ptBr).format(valorFinal);
 	}
 
-	public Double getValor() {
+	public String getValor() {
 		return valor;
 	}
 
-	public void setValor(Double valor) {
+	public void setValor(String valor) {
 		this.valor = valor;
 	}
 

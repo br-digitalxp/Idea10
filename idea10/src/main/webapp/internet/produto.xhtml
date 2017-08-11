@@ -87,8 +87,7 @@
 							<p:outputPanel style="display:block" rendered="#{cadastrarOrdemServico.quantidade != null}"  styleClass="produto-list-item">
 								<h:panelGrid columns="2">
 									<h:outputLabel styleClass="output-produto" value="Valor: " />
-									<h:outputText value=" R$ #{cadastrarOrdemServico.valor}" id="valorFinal" >
-										<f:convertNumber pattern="#,##0.00" minFractionDigits="2"/>
+									<h:outputText value="#{cadastrarOrdemServico.valor}" id="valorFinal" >
 									</h:outputText>
 								</h:panelGrid>
 							</p:outputPanel>

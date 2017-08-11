@@ -93,7 +93,7 @@ public final class GettyImagesAPI {
 				imagem.setCategoria(categoria);
 				
 				ImagemModel imagemModel = new ImagemModel();
-				imagemModel.setCodigo(Integer.valueOf(image.getId()));
+				imagemModel.setCodigo(image.getId());
 				//imagemModel.setAutor(image.getArtist());
 				if(image.getDisplaySizes() != null && image.getDisplaySizes().size() > 0 ) {
 					for(DisplaySize ds : image.getDisplaySizes()){
