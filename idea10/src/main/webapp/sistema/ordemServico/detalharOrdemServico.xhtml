@@ -13,7 +13,7 @@
 				<p:outputLabel value="Código: " for="inputText-codigo" />
 				<p:inputText id="inputText-codigo"
 					value="#{consultarOrdemServicoController.ordemServicoModel.codigo}"
-					style="width:50px" readonly="true" />
+					style="width:100px" readonly="true" />
 
 				<p:outputLabel value="Substrato: " for="inputText-substrato" />
 				<p:inputText id="inputText-substrato"
@@ -22,7 +22,7 @@
 
 				<p:outputLabel value="Tamanho: " for="inputText-tamanho" />
 				<p:inputText id="inputText-tamanho"
-					value="#{consultarOrdemServicoController.ordemServicoModel.tamanhoSubstrato.valorX} X #{consultarOrdemServicoController.ordemServicoModel.tamanhoSubstrato.valorY}"
+					value="#{consultarOrdemServicoController.ordemServicoModel.valorX} X #{consultarOrdemServicoController.ordemServicoModel.valorY}"
 					style="width:50px" readonly="true" />
 
 				<p:outputLabel value="Metros M²: " for="inputText-metros" />
@@ -38,34 +38,15 @@
 					height="150px" width="100px" style="text-align: center;" />
 			</h:panelGrid>
 			<h:panelGrid id="panelGrid-campos-cliente" columns="2">
-				<p:outputLabel value="Caminho da Imagem: " />
+				<p:outputLabel value="Id Imagem Getty Images: " />
 				<p:inputText style="width:320px" readonly="true"
-					value="#{consultarOrdemServicoController.ordemServicoModel.imagem.caminhoImagem}" />
+					value="#{consultarOrdemServicoController.ordemServicoModel.imagem.codigo}" />
 				<p:outputLabel value="Número Leroy Merlin: " />
 				<p:inputText style="width:320px" readonly="true"
 					value="#{consultarOrdemServicoController.ordemServicoModel.numeroPedidoLeroy}" />
 				<p:outputLabel value="Data de entrega: " />
 				<p:inputText style="width:320px" readonly="true"
 					value="#{consultarOrdemServicoController.ordemServicoModel.dataEntrega}" />
-				<p:outputLabel value="Cliente - Nome: " for="inputText-nome" />
-				<p:inputText id="inputText-nome"
-					value="#{consultarOrdemServicoController.ordemServicoModel.cliente.nome}"
-					style="width:200px" readonly="true" />
-
-				<p:outputLabel value="Cliente - CPF: " for="inputText-cpf" />
-				<p:inputText id="inputText-cpf"
-					value="#{consultarOrdemServicoController.ordemServicoModel.cliente.cpf}"
-					style="width:100px" readonly="true" />
-
-				<p:outputLabel value="Cliente - E-mail: " for="inputText-email" />
-				<p:inputText id="inputText-email"
-					value="#{consultarOrdemServicoController.ordemServicoModel.cliente.email}"
-					style="width:150px" readonly="true" />
-
-				<p:outputLabel value="Cliente - Telefone: " for="inputText-telefone" />
-				<p:inputText id="inputText-telefone"
-					value="#{consultarOrdemServicoController.ordemServicoModel.cliente.telefone}"
-					style="width:150px" readonly="true" />
 			</h:panelGrid>
 
 			<p:spacer />

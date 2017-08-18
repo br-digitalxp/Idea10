@@ -9,8 +9,8 @@ public class OrdemServicoModel {
 
 	private BigInteger codigo;
 	private SubstratoModel substrato;
-	private TamanhoSubstratoModel tamanhoSubstrato;
-	private ClienteModel cliente;
+	private Integer valorX;
+	private Integer valorY;
 	private Integer tamanho;
 	private ImagemModel imagem;
 	private LocalDateTime dataCadastro;
@@ -19,6 +19,9 @@ public class OrdemServicoModel {
 	private UsuarioModel usuario;
 	private String numeroPedidoLeroy;
 	private Double valorOrdemServico;
+	private Boolean flagCmyk;
+	private Boolean flagFundoBranco;
+	private Boolean flagVernizLocalizado;
 
 	public OrdemServicoModel() {
 	}
@@ -26,9 +29,9 @@ public class OrdemServicoModel {
 	public OrdemServicoModel(OrdemServicoEntity ordem) {
 		this.codigo = ordem.getCodigo();
 		this.substrato = new SubstratoModel(ordem.getSubstrato());
-		this.tamanhoSubstrato = new TamanhoSubstratoModel(ordem.getTamanhoSubstrato());
-		this.cliente = new ClienteModel(ordem.getCliente());
 		this.tamanho = ordem.getTamanho();
+		this.valorX = ordem.getValorX();
+		this.valorY = ordem.getValorY();
 		this.imagem = new ImagemModel(ordem.getImagem());
 		this.dataCadastro = ordem.getDataCadastro();
 		this.dataEntrega = ordem.getDataEntrega();
@@ -36,6 +39,9 @@ public class OrdemServicoModel {
 		this.usuario = new UsuarioModel(ordem.getUsuarioEntity());
 		this.numeroPedidoLeroy = ordem.getNumeroPedidoLeroy();
 		this.valorOrdemServico = ordem.getValorOrdemServico();
+		this.flagCmyk = ordem.getFlagCmyk();
+		this.flagFundoBranco = ordem.getFlagFundoBranco();
+		this.flagVernizLocalizado = ordem.getFlagVernizLocalizado();
 	}
 
 	public SubstratoModel getSubstrato() {
@@ -58,34 +64,20 @@ public class OrdemServicoModel {
 		this.substrato = substrato;
 	}
 
-	/**
-	 * @return the tamanhoSubstrato
-	 */
-	public TamanhoSubstratoModel getTamanhoSubstrato() {
-		return tamanhoSubstrato;
+	public Integer getValorX() {
+		return valorX;
 	}
 
-	/**
-	 * @param tamanhoSubstrato
-	 *            the tamanhoSubstrato to set
-	 */
-	public void setTamanhoSubstrato(TamanhoSubstratoModel tamanhoSubstrato) {
-		this.tamanhoSubstrato = tamanhoSubstrato;
+	public void setValorX(Integer valorX) {
+		this.valorX = valorX;
 	}
 
-	/**
-	 * @return the cliente
-	 */
-	public ClienteModel getCliente() {
-		return cliente;
+	public Integer getValorY() {
+		return valorY;
 	}
 
-	/**
-	 * @param cliente
-	 *            the cliente to set
-	 */
-	public void setCliente(ClienteModel cliente) {
-		this.cliente = cliente;
+	public void setValorY(Integer valorY) {
+		this.valorY = valorY;
 	}
 
 	/**
@@ -180,7 +172,31 @@ public class OrdemServicoModel {
 		this.valorOrdemServico = valorOrdemServico;
 	}
 
-	public boolean getDisabledBotaoAprovar() {
+	public Boolean getFlagCmyk() {
+		return flagCmyk;
+	}
+
+	public void setFlagCmyk(Boolean flagCmyk) {
+		this.flagCmyk = flagCmyk;
+	}
+
+	public Boolean getFlagFundoBranco() {
+		return flagFundoBranco;
+	}
+
+	public void setFlagFundoBranco(Boolean flagFundoBranco) {
+		this.flagFundoBranco = flagFundoBranco;
+	}
+
+	public Boolean getFlagVernizLocalizado() {
+		return flagVernizLocalizado;
+	}
+
+	public void setFlagVernizLocalizado(Boolean flagVernizLocalizado) {
+		this.flagVernizLocalizado = flagVernizLocalizado;
+	}
+
+	public Boolean getDisabledBotaoAprovar() {
 		if (this.getNumeroPedidoLeroy() != null && !this.getNumeroPedidoLeroy().isEmpty())
 			return true;
 		else

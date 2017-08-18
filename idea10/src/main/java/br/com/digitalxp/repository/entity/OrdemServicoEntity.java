@@ -31,13 +31,11 @@ public class OrdemServicoEntity {
 	@JoinColumn(name = "id_substato")
 	private SubstratoEntity substrato;
 
-	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_tamanho_substrato")
-	private TamanhoSubstratoEntity tamanhoSubstrato;
+	@Column(name = "vl_tamanho_x")
+	private Integer valorX;
 
-	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_cliente")
-	private ClienteEntity cliente;
+	@Column(name = "vl_tamanho_y")
+	private Integer valorY;
 
 	@Column(name = "nm_tamanho")
 	private Integer tamanho;
@@ -65,6 +63,15 @@ public class OrdemServicoEntity {
 	@Column(name = "vl_ordem_servico")
 	private Double valorOrdemServico;
 
+	@Column(name = "fl_cmyk")
+	private Boolean flagCmyk;
+
+	@Column(name = "fl_fundo_branco")
+	private Boolean flagFundoBranco;
+
+	@Column(name = "fl_verniz_localizado")
+	private Boolean flagVernizLocalizado;
+	
 	/**
 	 * @return the codigo
 	 */
@@ -92,34 +99,20 @@ public class OrdemServicoEntity {
 		this.substrato = substrato;
 	}
 
-	/**
-	 * @return the tamanhoSubstrato
-	 */
-	public TamanhoSubstratoEntity getTamanhoSubstrato() {
-		return tamanhoSubstrato;
+	public Integer getValorX() {
+		return valorX;
 	}
 
-	/**
-	 * @param tamanhoSubstrato
-	 *            the tamanhoSubstrato to set
-	 */
-	public void setTamanhoSubstrato(TamanhoSubstratoEntity tamanhoSubstrato) {
-		this.tamanhoSubstrato = tamanhoSubstrato;
+	public void setValorX(Integer valorX) {
+		this.valorX = valorX;
 	}
 
-	/**
-	 * @return the cliente
-	 */
-	public ClienteEntity getCliente() {
-		return cliente;
+	public Integer getValorY() {
+		return valorY;
 	}
 
-	/**
-	 * @param cliente
-	 *            the cliente to set
-	 */
-	public void setCliente(ClienteEntity cliente) {
-		this.cliente = cliente;
+	public void setValorY(Integer valorY) {
+		this.valorY = valorY;
 	}
 
 	/**
@@ -212,6 +205,30 @@ public class OrdemServicoEntity {
 
 	public void setValorOrdemServico(Double valorOrdemServico) {
 		this.valorOrdemServico = valorOrdemServico;
+	}
+
+	public Boolean getFlagCmyk() {
+		return flagCmyk;
+	}
+
+	public void setFlagCmyk(Boolean flagCmyk) {
+		this.flagCmyk = flagCmyk;
+	}
+
+	public Boolean getFlagFundoBranco() {
+		return flagFundoBranco;
+	}
+
+	public void setFlagFundoBranco(Boolean flagFundoBranco) {
+		this.flagFundoBranco = flagFundoBranco;
+	}
+
+	public Boolean getFlagVernizLocalizado() {
+		return flagVernizLocalizado;
+	}
+
+	public void setFlagVernizLocalizado(Boolean flagVernizLocalizado) {
+		this.flagVernizLocalizado = flagVernizLocalizado;
 	}
 
 }

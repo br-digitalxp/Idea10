@@ -27,15 +27,15 @@ import br.com.digitalxp.repository.OrdemServicoRepository;
 import br.com.digitalxp.repository.SubstratoRepository;
 import br.com.digitalxp.repository.TamanhoSubstratoRepository;
 import br.com.digitalxp.repository.entity.SubstratoEntity;
-import br.com.digitalxp.repository.entity.TamanhoSubstratoEntity;
 import br.com.digitalxp.uteis.Uteis;
 
+/**
+ * @author bruno.bmoraes
+ *
+ */
 @Named(value = "cadastrarOrdemServico")
 @ApplicationScoped
 public class CadastrarOrdemServico {
-
-	@Inject
-	TamanhoSubstratoModel tamanho;
 
 	@Inject
 	SubstratoModel substratoModel;
@@ -60,9 +60,14 @@ public class CadastrarOrdemServico {
 	private List<SelectItem> listaSubstrato;
 	private ImagemGettyImage imagem;
 	private Long numeroPedido;
+	private Integer valorX;
+	private Integer valorY;
 	private String valor;
 	private Integer quantidade;
 	private static final Double conversor = 0.0001;
+	private Double valorFinal;
+	private boolean renderizaPasso2 = false;
+	private boolean renderizaPasso3 = false;
 
 	@Inject
 	ClienteModel cliente;
@@ -76,32 +81,25 @@ public class CadastrarOrdemServico {
 			this.getListaSubstrato().add(new SelectItem(selectItem.getCodigo(), selectItem.getMaterial()));
 		}
 		substratoModel = new SubstratoModel();
-		// substratoModel.setCodigo(listSubstrato.get(0).getCodigo());
-		// consultarTamanhoSubstrato(this.getListaSubstrato().get(0));
 		String retorno = "/internet/produto.xhtml";
-		tamanho = null;
 		resetQuantidade();
+		renderizaPasso2 = false;
+		renderizaPasso3 = false;
 		return retorno;
 	}
 
 	public void buscarTamanhoSubstrato() {
-		this.setListaTamanhoSubstrato(new ArrayList<SelectItem>());
-		for (TamanhoSubstratoModel tamanhoSubstrato : tamanhoSubstratoRepository
-				.getTamanhoSubstratosBySubstrato(substratoModel.getCodigo())) {
-			this.getListaTamanhoSubstrato()
-					.add(new SelectItem(tamanhoSubstrato.getCodigo(), tamanhoSubstrato.getValorX().toString()
-							.concat("cm X ".concat(tamanhoSubstrato.getValorY().toString().concat(" cm")))));
-		}
-
-		tamanho = new TamanhoSubstratoModel();
-
-		// tamanho.setCodigo((int)this.getListaTamanhoSubstrato().get(0).getValue());
-		// calcularValor();
-		resetQuantidade();
+		this.setRenderizaPasso2(true);
 	}
 
 	public void resetQuantidade() {
 		quantidade = null;
+	}
+
+	public void renderizaPasso3() {
+		this.resetQuantidade();
+		if (this.getValorX() != null && this.getValorY() != null)
+			renderizaPasso3 = true;
 	}
 
 	/**
@@ -113,14 +111,14 @@ public class CadastrarOrdemServico {
 		cliente.setUsuarioModel(usuario);
 
 		// ImagemModel ImagemModel imagemModel = null;
-		ClienteRepository cr = new ClienteRepository();
-		ClienteModel clienteModel = cr.getClienteByCPF(cliente.getCpf());
-		if (clienteModel == null || clienteModel.getCpf() == null
-				|| clienteModel.getCpf().equals(new BigInteger("0"))) {
-			clienteModel = cr.SalvarNovoRegistroCliente(cliente);
+		if (cliente.getCpf() != null && cliente.getCpf().longValue() != 0) {
+			ClienteRepository cr = new ClienteRepository();
+			ClienteModel clienteModel = cr.getClienteByCPF(cliente.getCpf());
+			if (clienteModel == null || clienteModel.getCpf() == null
+					|| clienteModel.getCpf().equals(new BigInteger("0"))) {
+				clienteModel = cr.SalvarNovoRegistroCliente(cliente);
+			}
 		}
-
-		ordemServico.setCliente(clienteModel);
 
 		CategoriaImagemModel categoriaImagem = new CategoriaImagemModel(imagem.getCategoria());
 		categoriaImagem.setUsuarioModel(usuario);
@@ -138,10 +136,11 @@ public class CadastrarOrdemServico {
 
 		ordemServico.setImagem(imagemModel);
 		ordemServico.setSubstrato(substratoModel);
-		ordemServico.setTamanhoSubstrato(tamanho);
+		ordemServico.setValorX(this.valorX);
+		ordemServico.setValorY(this.valorY);
 		ordemServico.setTamanho(1);
 		ordemServico.setUsuario(usuario);
-		ordemServico.setValorOrdemServico(Double.valueOf(valor));
+		ordemServico.setValorOrdemServico(valorFinal);
 
 		BigInteger numeroPedido = ordemServicoRepository.SalvarNovoRegistro(ordemServico);
 
@@ -163,8 +162,6 @@ public class CadastrarOrdemServico {
 							.concat(" CM X ".concat(tamanhoSubstrato.getValorY().toString().concat(" CM")))));
 		}
 
-		tamanho = new TamanhoSubstratoModel();
-		tamanho.setCodigo((int) this.getListaTamanhoSubstrato().get(0).getValue());
 		calcularValor();
 	}
 
@@ -174,14 +171,6 @@ public class CadastrarOrdemServico {
 
 	public void setSubstratoModel(SubstratoModel substratoModel) {
 		this.substratoModel = substratoModel;
-	}
-
-	public TamanhoSubstratoModel getTamanho() {
-		return tamanho;
-	}
-
-	public void setTamanho(TamanhoSubstratoModel tamanho) {
-		this.tamanho = tamanho;
 	}
 
 	public List<SelectItem> getListaTamanhoSubstrato() {
@@ -219,10 +208,16 @@ public class CadastrarOrdemServico {
 	public void calcularValor() {
 		SubstratoEntity st = substratoRepository.getSubstrato(substratoModel.getCodigo());
 		Double valorM2 = st.getValorMaterial();
-		TamanhoSubstratoEntity et = tamanhoSubstratoRepository.getTamanhoSubstrato(tamanho.getCodigo());
-		int area = et.getValorX() * et.getValorY();
+		int area = this.getValorX() * this.getValorY();
 		Double areaM2 = area * conversor;
-		Double valorFinal = valorM2 * areaM2 * quantidade;
+		Double valorParcial = valorM2 * areaM2 * quantidade;
+		valorFinal = valorParcial;
+		if (this.getOrdemServico().getFlagCmyk())
+			valorFinal = valorParcial * 0.3 + valorFinal;
+		if (this.getOrdemServico().getFlagFundoBranco())
+			valorFinal = valorParcial * 0.3 + valorFinal;
+		if (this.getOrdemServico().getFlagVernizLocalizado())
+			valorFinal = valorParcial * 0.3 + valorFinal;
 		Locale ptBr = new Locale("pt", "BR");
 		valor = NumberFormat.getCurrencyInstance(ptBr).format(valorFinal);
 	}
@@ -249,6 +244,46 @@ public class CadastrarOrdemServico {
 
 	public void setQuantidade(Integer quantidade) {
 		this.quantidade = quantidade;
+	}
+
+	public Integer getValorX() {
+		return valorX;
+	}
+
+	public void setValorX(Integer valorX) {
+		this.valorX = valorX;
+	}
+
+	public Integer getValorY() {
+		return valorY;
+	}
+
+	public void setValorY(Integer valorY) {
+		this.valorY = valorY;
+	}
+
+	public boolean getRenderizaPasso2() {
+		return renderizaPasso2;
+	}
+
+	public void setRenderizaPasso2(boolean renderizaPasso2) {
+		this.renderizaPasso2 = renderizaPasso2;
+	}
+
+	public boolean getRenderizaPasso3() {
+		return renderizaPasso3;
+	}
+
+	public void setRenderizaPasso3(boolean renderizaPasso3) {
+		this.renderizaPasso3 = renderizaPasso3;
+	}
+
+	public OrdemServicoModel getOrdemServico() {
+		return ordemServico;
+	}
+
+	public void setOrdemServico(OrdemServicoModel ordemServico) {
+		this.ordemServico = ordemServico;
 	}
 
 	@PostConstruct

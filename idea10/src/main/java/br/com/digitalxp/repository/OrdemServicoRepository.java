@@ -12,17 +12,13 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
-import br.com.digitalxp.model.ClienteModel;
 import br.com.digitalxp.model.ImagemModel;
 import br.com.digitalxp.model.OrdemServicoModel;
 import br.com.digitalxp.model.SubstratoModel;
-import br.com.digitalxp.model.TamanhoSubstratoModel;
 import br.com.digitalxp.model.UsuarioModel;
-import br.com.digitalxp.repository.entity.ClienteEntity;
 import br.com.digitalxp.repository.entity.ImagemEntity;
 import br.com.digitalxp.repository.entity.OrdemServicoEntity;
 import br.com.digitalxp.repository.entity.SubstratoEntity;
-import br.com.digitalxp.repository.entity.TamanhoSubstratoEntity;
 import br.com.digitalxp.repository.entity.UsuarioEntity;
 import br.com.digitalxp.uteis.Uteis;
 
@@ -51,17 +47,15 @@ public class OrdemServicoRepository {
 		ordemServicoEntity.setTamanho(ordemServicoModel.getTamanho());
 		ordemServicoEntity.setDataCadastro(LocalDateTime.now());
 		ordemServicoEntity.setValorOrdemServico(ordemServicoModel.getValorOrdemServico());
+		ordemServicoEntity.setValorX(ordemServicoModel.getValorX());
+		ordemServicoEntity.setValorY(ordemServicoModel.getValorY());
+		ordemServicoEntity.setFlagCmyk(ordemServicoModel.getFlagCmyk());
+		ordemServicoEntity.setFlagFundoBranco(ordemServicoModel.getFlagFundoBranco());
+		ordemServicoEntity.setFlagVernizLocalizado(ordemServicoModel.getFlagVernizLocalizado());
 
 		SubstratoEntity substratoEntity = entityManager.find(SubstratoEntity.class,
 				ordemServicoModel.getSubstrato().getCodigo());
 		ordemServicoEntity.setSubstrato(substratoEntity);
-
-		TamanhoSubstratoEntity tamanhoSubstratoEntity = entityManager.find(TamanhoSubstratoEntity.class,
-				ordemServicoModel.getTamanhoSubstrato().getCodigo());
-		ordemServicoEntity.setTamanhoSubstrato(tamanhoSubstratoEntity);
-
-		ClienteEntity clienteEntity = entityManager.find(ClienteEntity.class, ordemServicoModel.getCliente().getCpf());
-		ordemServicoEntity.setCliente(clienteEntity);
 
 		ImagemEntity imagemEntity = entityManager.find(ImagemEntity.class, ordemServicoModel.getImagem().getCodigo());
 		ordemServicoEntity.setImagem(imagemEntity);
@@ -101,16 +95,14 @@ public class OrdemServicoRepository {
 			ordemServicoModel.setTamanho(ordemServicoEntity.getTamanho());
 			ordemServicoModel.setDataCadastro(ordemServicoEntity.getDataCadastro());
 			ordemServicoEntity.setValorOrdemServico(ordemServicoEntity.getValorOrdemServico());
+			ordemServicoEntity.setValorX(ordemServicoEntity.getValorX());
+			ordemServicoEntity.setValorY(ordemServicoEntity.getValorY());
+			ordemServicoEntity.setFlagCmyk(ordemServicoModel.getFlagCmyk());
+			ordemServicoEntity.setFlagFundoBranco(ordemServicoModel.getFlagFundoBranco());
+			ordemServicoEntity.setFlagVernizLocalizado(ordemServicoModel.getFlagVernizLocalizado());
 
 			SubstratoModel substratoModel = new SubstratoModel(ordemServicoEntity.getSubstrato());
 			ordemServicoModel.setSubstrato(substratoModel);
-
-			TamanhoSubstratoModel tamanhoSubstratoModel = new TamanhoSubstratoModel(
-					ordemServicoEntity.getTamanhoSubstrato());
-			ordemServicoModel.setTamanhoSubstrato(tamanhoSubstratoModel);
-
-			ClienteModel clienteModel = new ClienteModel(ordemServicoEntity.getCliente());
-			ordemServicoModel.setCliente(clienteModel);
 
 			ImagemModel imagemModel = new ImagemModel(ordemServicoEntity.getImagem());
 			ordemServicoModel.setImagem(imagemModel);
@@ -160,13 +152,6 @@ public class OrdemServicoRepository {
 				ordemServicoModel.getSubstrato().getCodigo());
 		ordemServicoEntity.setSubstrato(substratoEntity);
 
-		TamanhoSubstratoEntity tamanhoSubstratoEntity = entityManager.find(TamanhoSubstratoEntity.class,
-				ordemServicoModel.getTamanhoSubstrato().getCodigo());
-		ordemServicoEntity.setTamanhoSubstrato(tamanhoSubstratoEntity);
-
-		ClienteEntity clienteEntity = entityManager.find(ClienteEntity.class, ordemServicoModel.getCliente().getCpf());
-		ordemServicoEntity.setCliente(clienteEntity);
-
 		ImagemEntity imagemEntity = entityManager.find(ImagemEntity.class, ordemServicoModel.getImagem().getCodigo());
 		ordemServicoEntity.setImagem(imagemEntity);
 
@@ -174,6 +159,12 @@ public class OrdemServicoRepository {
 		ordemServicoEntity.setDataEntrega(ordemServicoModel.getDataEntrega());
 		ordemServicoEntity.setNumeroPedidoLeroy(ordemServicoModel.getNumeroPedidoLeroy());
 		ordemServicoEntity.setValorOrdemServico(ordemServicoModel.getValorOrdemServico());
+		ordemServicoEntity.setValorX(ordemServicoModel.getValorX());
+		ordemServicoEntity.setValorY(ordemServicoModel.getValorY());
+		ordemServicoEntity.setFlagCmyk(ordemServicoModel.getFlagCmyk());
+		ordemServicoEntity.setFlagFundoBranco(ordemServicoModel.getFlagFundoBranco());
+		ordemServicoEntity.setFlagVernizLocalizado(ordemServicoModel.getFlagVernizLocalizado());
+
 		entityManager.merge(ordemServicoEntity);
 
 		return ordemServicoEntity;

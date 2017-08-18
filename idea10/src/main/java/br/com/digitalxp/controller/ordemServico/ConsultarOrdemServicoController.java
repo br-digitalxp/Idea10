@@ -101,14 +101,13 @@ public class ConsultarOrdemServicoController implements Serializable {
 		corpoEmail.append("Olá, temos uma nova ordem de serviço cadastrada: ".concat("\n\n\n"));
 		corpoEmail.append("Código da Ordem de Serviço: ".concat(entity.getCodigo().toString()).concat("\n"));
 		corpoEmail.append("Substrato: ".concat(entity.getSubstrato().getMaterial()).concat("\n"));
-		corpoEmail.append("Tamanho do Material: ".concat(entity.getTamanhoSubstrato().getValorX().toString()
-				.concat(" X ").concat(entity.getTamanhoSubstrato().getValorY().toString())).concat("\n"));
+		corpoEmail.append("Tamanho do Material: ".concat(entity.getValorX().toString()
+				.concat(" X ").concat(entity.getValorY().toString())).concat("\n"));
 		corpoEmail.append("Quantidade de Peças: ".concat(entity.getTamanho().toString()).concat("\n"));
 		corpoEmail.append("Id da Imagem: ".concat(entity.getImagem().getCodigo().toString()).concat("\n"));
 		corpoEmail.append("Número Lery Merlin: ".concat(entity.getNumeroPedidoLeroy()).concat("\n"));
 		corpoEmail.append("Data de Entrega: "
 				.concat(DateTimeFormatter.ofPattern("dd/MM/yyyy").format(entity.getDataEntrega())).concat("\n"));
-		corpoEmail.append("Cliente: ".concat(entity.getCliente().getNome()).concat("\n\n"));
 		corpoEmail.append("Obrigado!".concat("\n"));
 		corpoEmail.append("Idea10.");
 
