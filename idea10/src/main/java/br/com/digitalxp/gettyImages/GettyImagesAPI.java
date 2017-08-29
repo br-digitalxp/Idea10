@@ -15,6 +15,7 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
 
 import br.com.digitalxp.controller.internet.ordemservico.CategoriaGettyImage;
+import br.com.digitalxp.controller.internet.ordemservico.GettyImageFilters;
 import br.com.digitalxp.controller.internet.ordemservico.GettyImagePaginator;
 import br.com.digitalxp.controller.internet.ordemservico.ImagemGettyImage;
 import br.com.digitalxp.model.ImagemModel;
@@ -43,15 +44,40 @@ public final class GettyImagesAPI {
 		return INSTANCE;
 	}
 
-	public GettyImagePaginator search(final String phrase, int page) {
+	public GettyImagePaginator search(final String phrase, int page, GettyImageFilters filtros) {
 		HttpClient httpClient = HttpClientBuilder.create().build();
 
 		HttpGet getRequest = null;
 		String json = null;
 		try {
-			getRequest = new HttpGet(BASE_URL+BASE_SEARCH+DEFAULT_RECORDS_NUMBER+page+SEARCH_BY_PHRASE+URLEncoder.encode(phrase, "UTF-8"));
+			String filters = "";
+			if(filtros.isSemPessoas()){
+				filters+="&number_of_people=none";
+			}
+			if(filtros.isComPessoas()){
+				filters+="&number_of_people=one&number_of_people=two&number_of_people=group";
+			}
+			if(filtros.isHorizonalPanoramica()){
+				filters+="&orientations=PanoramicHorizontal";
+			}
+			if(filtros.isHorizontal()){
+				filters+="&orientations=Horizontal";
+			}
+			if(filtros.isQuadrado()){
+				filters+="&orientations=Square";
+			}
+			if(filtros.isVertical()){
+				filters+="&orientations=Vertical";
+			}
+			if(filtros.isVerticalPanoramica()){
+				filters+="&orientations=PanoramicVertical";
+			}
+			
+			getRequest = new HttpGet(BASE_URL+BASE_SEARCH+DEFAULT_RECORDS_NUMBER+page+filters+SEARCH_BY_PHRASE+URLEncoder.encode(phrase, "UTF-8"));
 		
 			getRequest.addHeader("Api-Key", API_KEY);
+			
+			getRequest.addHeader("Accept-Language", "pt-BR");
 		
 			HttpResponse response = httpClient.execute(getRequest);
 

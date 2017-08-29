@@ -2,9 +2,54 @@
 	xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui">
 	<ui:define name="content">
 		<h:form>
-
+			<style>
+				fieldset.group  { 
+				  margin: 0; 
+				  padding: 0; 
+				  margin-bottom: 1.25em; 
+				  padding: .125em; 
+				} 
+				
+				fieldset.group legend { 
+				  margin: 0; 
+				  padding: 0; 
+				  font-weight: bold; 
+				  margin-left: 20px; 
+				  font-size: 100%; 
+				  color: black; 
+				} 
+				
+				
+				ul.checkbox  { 
+				  margin: 0; 
+				  padding: 0; 
+				  margin-left: 20px; 
+				  list-style: none; 
+				} 
+				
+				ul.checkbox li input { 
+				  margin-right: .25em; 
+				} 
+				
+				ul.checkbox li { 
+				  border: 1px transparent solid; 
+				  display:inline-block;
+				  width:12em;
+				} 
+				
+				ul.checkbox li label { 
+				  margin-left:1px; 
+				} 
+				ul.checkbox li:hover, 
+				ul.checkbox li.focus  { 
+				  background-color: lightyellow; 
+				  border: 1px gray solid; 
+				  width: 12em; 
+				} 
+			</style>
 			<div class="container categoria">
 				<div class="row">
+					
 					<div class="col-md-12">
 						<p class="categoria-title">Destaques</p>
 						<h1 class="title">
@@ -21,6 +66,23 @@
 					</div>
 					<div class="col-md-12">
 						<div class="border"></div>
+					</div>
+					<div class="ui-fluid">
+						
+						<p:fieldset legend="Filtros" collapsed="true" toggleable="true" toggleSpeed="500">
+							<ul class="checkbox"> 
+							  <li><p:selectBooleanCheckbox value="#{principalController.filtros.comPessoas}" /><label for="cb1">Com Pessoas</label></li> 
+							  <li><p:selectBooleanCheckbox value="#{principalController.filtros.semPessoas}" /><label for="cb2">Sem Pessoas</label></li>
+							  </ul>
+							  <ul class="checkbox"> 
+							  <li><p:selectBooleanCheckbox value="#{principalController.filtros.horizontal}" /><label for="cb3">Horizontal</label></li> 
+							  <li><p:selectBooleanCheckbox value="#{principalController.filtros.vertical}" /><label for="cb4">Vertical</label></li> 
+							  <li><p:selectBooleanCheckbox value="#{principalController.filtros.horizonalPanoramica}" /><label for="cb5">Horizontal Panoramica</label></li> 
+							  <li><p:selectBooleanCheckbox value="#{principalController.filtros.verticalPanoramica}" /><label for="cb6>">Vertical Panoramica</label></li> 
+							  <li><p:selectBooleanCheckbox value="#{principalController.filtros.quadrado}" /><label for="cb7>">Quadrado</label></li> 
+							</ul>
+							<p:commandButton styleClass="btn btn-success" action="#{principalController.buscarImagens}" ajax="false" label="Filtrar"/>
+						</p:fieldset>
 					</div>
 					<!-- <div class="wrapper">
 					<ui:repeat var="o" value="#{principalController.paginator.model}">
@@ -57,6 +119,7 @@
 					<p:commandButton value="Próxima &gt;" actionListener="#{principalController.proxima}" ajax="false" />
 					<!-- <h:inputHidden value="#{principalController.paginator.pageIndex}" /> -->
 				</div>
+				
 			</div>
 		</h:form>
 	</ui:define>

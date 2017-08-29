@@ -9,6 +9,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.event.ActionEvent;
 
 import br.com.digitalxp.controller.internet.ordemservico.CategoriaGettyImage;
+import br.com.digitalxp.controller.internet.ordemservico.GettyImageFilters;
 import br.com.digitalxp.controller.internet.ordemservico.GettyImagePaginator;
 import br.com.digitalxp.controller.internet.ordemservico.ImagemGettyImage;
 import br.com.digitalxp.gettyImages.GettyImagesAPI;
@@ -24,6 +25,7 @@ public class PrincipalController {
 	private List<CategoriaGettyImage> listaCategoria;
 	private String busca;
 	GettyImagePaginator paginator;
+	GettyImageFilters filtros = new GettyImageFilters();
 
 		
 	public String buscarImagens(){
@@ -32,7 +34,7 @@ public class PrincipalController {
 	}
 	
 	private void buscarImagens(int page){
-		paginator = GettyImagesAPI.getInstance().search(busca,page);
+		paginator = GettyImagesAPI.getInstance().search(busca,page,filtros);
 		if(paginator.getLista() != null && !paginator.getLista().isEmpty()){
 			imagemDestaque = paginator.getLista().get(0);
 			paginator.getLista().remove(0);
@@ -97,6 +99,14 @@ public class PrincipalController {
 		int pagina = paginator.getPagina();
 		buscarImagens(--pagina);
 		return "categoria";
+	}
+
+	public GettyImageFilters getFiltros() {
+		return filtros;
+	}
+
+	public void setFiltros(GettyImageFilters filtros) {
+		this.filtros = filtros;
 	}
 	
 }

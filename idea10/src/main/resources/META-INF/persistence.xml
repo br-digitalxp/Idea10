@@ -19,7 +19,7 @@
 			name="hibernate.hbm2ddl.auto" value="update" /> <property name="hibernate.show_sql" 
 			value="false" /> <property name="hibernate.format_sql" value="false" /> </properties> -->
 		<!-- Homologação -->
-		<properties>
+		<!-- <properties>
 			<property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />
 			<property name="javax.persistence.jdbc.url"
 				value="jdbc:postgresql://pellefant.db.elephantsql.com:5432/pfjugdri" />
@@ -29,17 +29,17 @@
 			<property name="hibernate.connection.shutdown" value="true" />
 			<property name="hibernate.hbm2ddl.auto" value="update" />
 			<property name="hibernate.show_sql" value="false" />
-			<property name="hibernate.format_sql" value="false" />
-		</properties>
+			<property name="hibernate.format_sql" value="false" /> 
+		</properties>-->
 		<!-- Desenvolvimento -->
-		<!-- <properties> <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" 
+		<properties> <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" 
 			/> <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://stampy.db.elephantsql.com:5432/lxeshjuf" 
 			/> <property name="javax.persistence.jdbc.user" value="lxeshjuf" /> <property 
 			name="javax.persistence.jdbc.password" value="4GWcPI2JuEQzIxwbGKfvQqJetPBHTKXn" 
 			/> <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" 
 			/> <property name="hibernate.connection.shutdown" value="true" /> <property 
 			name="hibernate.hbm2ddl.auto" value="update" /> <property name="hibernate.show_sql" 
-			value="false" /> <property name="hibernate.format_sql" value="false" /> </properties> -->
+			value="false" /> <property name="hibernate.format_sql" value="false" /> </properties> 
 
 		<!-- <properties> <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" 
 			/> <property name="javax.persistence.jdbc.url" value="jdbc:mysql://us-cdbr-iron-east-05.cleardb.net:3306/ad_943d3f42e2bbd6e" 

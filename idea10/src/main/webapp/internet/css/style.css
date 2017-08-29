@@ -118,7 +118,7 @@ p.lead:after {
 	float: left;
 	border-bottom: 1px solid #b6b6b6;
 	padding-bottom: 48px;
-	margin-bottom: 70px;
+	/* margin-bottom: 70px; */
 }
 
 /* Topo */
