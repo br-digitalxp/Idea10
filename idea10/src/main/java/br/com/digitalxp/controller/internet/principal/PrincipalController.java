@@ -7,12 +7,14 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.event.ActionEvent;
+import javax.faces.model.SelectItem;
 
 import br.com.digitalxp.controller.internet.ordemservico.CategoriaGettyImage;
 import br.com.digitalxp.controller.internet.ordemservico.GettyImageFilters;
 import br.com.digitalxp.controller.internet.ordemservico.GettyImagePaginator;
 import br.com.digitalxp.controller.internet.ordemservico.ImagemGettyImage;
 import br.com.digitalxp.gettyImages.GettyImagesAPI;
+import br.com.digitalxp.model.SubstratoModel;
 
 
 @ManagedBean(name="principalController")
@@ -26,7 +28,23 @@ public class PrincipalController {
 	private String busca;
 	GettyImagePaginator paginator;
 	GettyImageFilters filtros = new GettyImageFilters();
+	
+	private Boolean enabled = false; // + getter/setter
+	public Boolean getEnabled() {
+		return enabled;
+	}
 
+	public void setEnabled(Boolean enabled) {
+		this.enabled = enabled;
+	}
+
+	public Boolean isEnabled() {
+		return enabled;
+	}
+
+	public void toggle() {
+	    enabled = !enabled;
+	}
 		
 	public String buscarImagens(){
 		buscarImagens(1);
@@ -40,7 +58,11 @@ public class PrincipalController {
 			paginator.getLista().remove(0);
 		}		
 	}
-
+	
+	public void abrirImagemAlta(ImagemGettyImage imagem) {
+		this.imagem = imagem;
+	}
+	
 	public List<ImagemGettyImage> getListaImagens() {
 		return listaImagens;
 	}

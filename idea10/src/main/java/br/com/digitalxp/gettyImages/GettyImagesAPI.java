@@ -55,7 +55,13 @@ public final class GettyImagesAPI {
 				filters+="&number_of_people=none";
 			}
 			if(filtros.isComPessoas()){
-				filters+="&number_of_people=one&number_of_people=two&number_of_people=group";
+				filters+="&number_of_people=group";
+			}
+			if(filtros.isUmaPessoas()){
+				filters+="&number_of_people=one";
+			}
+			if(filtros.isDuasPessoas()){
+				filters+="&number_of_people=two";
 			}
 			if(filtros.isHorizonalPanoramica()){
 				filters+="&orientations=PanoramicHorizontal";
@@ -72,6 +78,19 @@ public final class GettyImagesAPI {
 			if(filtros.isVerticalPanoramica()){
 				filters+="&orientations=PanoramicVertical";
 			}
+			if(filtros.isIlustracao()){
+				filters+="&graphical_styles=illustration";
+			}
+			if(filtros.isFotografia()){
+				filters+="&graphical_styles=photography";
+			}
+			if(filtros.isPretoBranco()){
+				filters+="&color_type=black_and_white";
+			}
+			if(filtros.isColorido()){
+				filters+="&color_type=color";
+			}
+			
 			
 			getRequest = new HttpGet(BASE_URL+BASE_SEARCH+DEFAULT_RECORDS_NUMBER+page+filters+SEARCH_BY_PHRASE+URLEncoder.encode(phrase, "UTF-8"));
 		
@@ -99,10 +118,12 @@ public final class GettyImagesAPI {
         com.google.gson.Gson gson = new com.google.gson.Gson();
         GettyImagesResponse resposta = gson.fromJson(json, GettyImagesResponse.class);
         GettyImagePaginator paginator = new GettyImagePaginator();
-        List<ImagemGettyImage> listaRetorno = popular(resposta);
-        paginator.setLista(listaRetorno);
-        paginator.setTotal(resposta.getResultCount());
-        paginator.setPagina(page);
+        if(resposta != null){        
+	        List<ImagemGettyImage> listaRetorno = popular(resposta);
+	        paginator.setLista(listaRetorno);
+	        paginator.setTotal(resposta.getResultCount());
+	        paginator.setPagina(page);
+        }
 		return paginator;
 	}
 	

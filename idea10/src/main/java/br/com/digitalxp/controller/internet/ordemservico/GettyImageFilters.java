@@ -10,6 +10,15 @@ public class GettyImageFilters implements Serializable{
 	private static final long serialVersionUID = 3654770158637235778L;
 	private boolean comPessoas;
 	private boolean semPessoas;
+	private boolean umaPessoas;
+	private boolean duasPessoas;
+	
+	private boolean colorido;
+	private boolean pretoBranco;
+	
+	private boolean fotografia;
+	private boolean ilustracao;
+	
 	private boolean horizontal;
 	private boolean vertical;
 	private boolean horizonalPanoramica;
@@ -56,6 +65,42 @@ public class GettyImageFilters implements Serializable{
 	}
 	public void setQuadrado(boolean quadrado) {
 		this.quadrado = quadrado;
+	}
+	public boolean isUmaPessoas() {
+		return umaPessoas;
+	}
+	public void setUmaPessoas(boolean umaPessoas) {
+		this.umaPessoas = umaPessoas;
+	}
+	public boolean isDuasPessoas() {
+		return duasPessoas;
+	}
+	public void setDuasPessoas(boolean duasPessoas) {
+		this.duasPessoas = duasPessoas;
+	}
+	public boolean isColorido() {
+		return colorido;
+	}
+	public void setColorido(boolean colorido) {
+		this.colorido = colorido;
+	}
+	public boolean isPretoBranco() {
+		return pretoBranco;
+	}
+	public void setPretoBranco(boolean pretoBranco) {
+		this.pretoBranco = pretoBranco;
+	}
+	public boolean isFotografia() {
+		return fotografia;
+	}
+	public void setFotografia(boolean fotografia) {
+		this.fotografia = fotografia;
+	}
+	public boolean isIlustracao() {
+		return ilustracao;
+	}
+	public void setIlustracao(boolean ilustracao) {
+		this.ilustracao = ilustracao;
 	}
 	
 	

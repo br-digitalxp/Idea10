@@ -3,49 +3,7 @@
 	<ui:define name="content">
 		<h:form>
 			<style>
-				fieldset.group  { 
-				  margin: 0; 
-				  padding: 0; 
-				  margin-bottom: 1.25em; 
-				  padding: .125em; 
-				} 
 				
-				fieldset.group legend { 
-				  margin: 0; 
-				  padding: 0; 
-				  font-weight: bold; 
-				  margin-left: 20px; 
-				  font-size: 100%; 
-				  color: black; 
-				} 
-				
-				
-				ul.checkbox  { 
-				  margin: 0; 
-				  padding: 0; 
-				  margin-left: 20px; 
-				  list-style: none; 
-				} 
-				
-				ul.checkbox li input { 
-				  margin-right: .25em; 
-				} 
-				
-				ul.checkbox li { 
-				  border: 1px transparent solid; 
-				  display:inline-block;
-				  width:12em;
-				} 
-				
-				ul.checkbox li label { 
-				  margin-left:1px; 
-				} 
-				ul.checkbox li:hover, 
-				ul.checkbox li.focus  { 
-				  background-color: lightyellow; 
-				  border: 1px gray solid; 
-				  width: 12em; 
-				} 
 			</style>
 			<div class="container categoria">
 				<div class="row">
@@ -64,33 +22,53 @@
 							<h:outputText value="#{principalController.imagemDestaque.descricao}"></h:outputText>
 						</p>
 					</div>
+					<br/>
+					<br/>
 					<div class="col-md-12">
+						<p:commandButton ajax="true" value="#{principalController.enabled ? '- Filtros' : '+ Filtros'}" action="#{principalController.toggle()}" update="filtros,@this"/>
 						<div class="border"></div>
 					</div>
-					<div class="ui-fluid">
+					<p:outputPanel id="filtros" style="display:block">
 						
-						<p:fieldset legend="Filtros" collapsed="true" toggleable="true" toggleSpeed="500">
-							<ul class="checkbox"> 
-							  <li><p:selectBooleanCheckbox value="#{principalController.filtros.comPessoas}" /><label for="cb1">Com Pessoas</label></li> 
+						<!-- <p:fieldset legend="Filtros" collapsed="true" toggleable="true" toggleSpeed="500"> -->
+						<p:fieldset  rendered="#{principalController.enabled}">
+							Número de pessoas:
+							<ul class="checkbox"> 							 
 							  <li><p:selectBooleanCheckbox value="#{principalController.filtros.semPessoas}" /><label for="cb2">Sem Pessoas</label></li>
-							  </ul>
-							  <ul class="checkbox"> 
+							  <li><p:selectBooleanCheckbox value="#{principalController.filtros.umaPessoas}" /><label for="cb2">Uma Pessoa</label></li>
+							  <li><p:selectBooleanCheckbox value="#{principalController.filtros.duasPessoas}" /><label for="cb2">Duas Pessoa</label></li>							  
+							  <li><p:selectBooleanCheckbox value="#{principalController.filtros.comPessoas}" /><label for="cb1">Grupo de Pessoas</label></li> 
+							</ul>
+						</p:fieldset>
+						<p:fieldset rendered="#{principalController.enabled}">
+							Orientação:
+							 <ul class="checkbox"> 
 							  <li><p:selectBooleanCheckbox value="#{principalController.filtros.horizontal}" /><label for="cb3">Horizontal</label></li> 
 							  <li><p:selectBooleanCheckbox value="#{principalController.filtros.vertical}" /><label for="cb4">Vertical</label></li> 
-							  <li><p:selectBooleanCheckbox value="#{principalController.filtros.horizonalPanoramica}" /><label for="cb5">Horizontal Panoramica</label></li> 
-							  <li><p:selectBooleanCheckbox value="#{principalController.filtros.verticalPanoramica}" /><label for="cb6>">Vertical Panoramica</label></li> 
+							  <li><p:selectBooleanCheckbox value="#{principalController.filtros.horizonalPanoramica}" /><label for="cb5">Horizontal Panorâmica</label></li> 
+							  <li><p:selectBooleanCheckbox value="#{principalController.filtros.verticalPanoramica}" /><label for="cb6>">Vertical Panorâmica</label></li> 
 							  <li><p:selectBooleanCheckbox value="#{principalController.filtros.quadrado}" /><label for="cb7>">Quadrado</label></li> 
 							</ul>
-							<p:commandButton styleClass="btn btn-success" action="#{principalController.buscarImagens}" ajax="false" label="Filtrar"/>
 						</p:fieldset>
-					</div>
-					<!-- <div class="wrapper">
-					<ui:repeat var="o" value="#{principalController.paginator.model}">
-					  <section class="column">
-					    <img src="#{o.imagem.caminhoImagem}" />
-					  </section>
-					</ui:repeat>
-					</div> -->
+						<p:fieldset rendered="#{principalController.enabled}">
+							Tipo de imagem:
+							 <ul class="checkbox"> 
+							  <li><p:selectBooleanCheckbox value="#{principalController.filtros.fotografia}" /><label for="cb3">Fotografia</label></li> 
+							  <li><p:selectBooleanCheckbox value="#{principalController.filtros.ilustracao}" /><label for="cb4">Ilustração</label></li>
+							</ul>
+							<p:commandButton styleClass="btn btn-success" action="#{principalController.buscarImagens}" ajax="false" value="Filtrar" label="Filtrar"/>
+						</p:fieldset>
+						<!-- <p:fieldset rendered="#{principalController.enabled}">
+							Colorido:
+							 <ul class="checkbox"> 
+							  <li><p:selectBooleanCheckbox value="#{principalController.filtros.colorido}" /><label for="cb3">Colorido</label></li> 
+							  <li><p:selectBooleanCheckbox value="#{principalController.filtros.pretoBranco}" /><label for="cb4">Preto e Branco</label></li> 
+							</ul>
+							
+						</p:fieldset> -->
+					</p:outputPanel>
+					<br/>
+					
 					<div id="categoriaList" class="categoria-list">
 						<ui:repeat var="o" value="#{principalController.paginator.lista}">
 							<div class="col-md-4 col-xs-6">
@@ -98,28 +76,33 @@
 									<h:commandLink action="#{cadastrarOrdemServico.iniciarPagina(o)}" class="galeria-cart">
 										<img src="#{o.imagem.caminhoImagem}" />
 									</h:commandLink>
+									 <p:commandLink onclick="PF('dlg-#{o.imagem.codigo}').show();" >
+									 	<h:graphicImage value="img/zoom.png" title="zoom" width="20" height="20" >									        
+									    </h:graphicImage>
+									    <p:dialog header="#{o.titulo}" widgetVar="dlg-#{o.imagem.codigo}" modal="true">
+										   <h:graphicImage value="#{o.imagem.caminhoImagemComp}" title="zoom" >
+											</h:graphicImage>
+										</p:dialog> 
+									 </p:commandLink>
 								</div>
 							</div>
 						</ui:repeat>
-					</div>
-					 <!-- <p:dataList value="#{principalController.listaImagens}" var="o" type="unordered" itemType="none" paginator="true" rows="9">
-				       <div class="col-md-4 col-xs-6">
-							<div class="categoria-box">
-								<h:commandLink action="#{cadastrarOrdemServico.iniciarPagina(o)}" class="galeria-cart">
-									<img src="#{o.imagem.caminhoImagem}" />
-								</h:commandLink>
-							</div>
-						</div>
-				    </p:dataList> -->
-					<h:outputText value="Foram encontrados #{principalController.paginator.total} resultados" />
+					</div>					
 				</div>
 				<div class="pagination clearfix">
+					<h:outputText value="Foram encontrados #{principalController.paginator.total} resultados" />
+					<br/>
 					<p:commandButton value="&lt; Anterior" actionListener="#{principalController.anterior}" ajax="false" />
 					<h:outputText value="#{principalController.paginator.pagina} / #{principalController.paginator.numeroPaginas} " />
 					<p:commandButton value="Próxima &gt;" actionListener="#{principalController.proxima}" ajax="false" />
 					<!-- <h:inputHidden value="#{principalController.paginator.pageIndex}" /> -->
 				</div>
-				
+				<!-- <p:outputPanel id="imagemAlta" style="display:block"> -->
+					<p:dialog header="Modal Dialog" widgetVar="dlg2" id="imagemDialog" modal="true">
+					   <h:graphicImage value="#{principalController.imagem.imagem.caminhoImagemComp}" title="zoom" width="20" height="20" >
+						</h:graphicImage>
+					</p:dialog> 
+				<!-- </p:outputPanel> -->  
 			</div>
 		</h:form>
 	</ui:define>
