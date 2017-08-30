@@ -10,8 +10,8 @@ public class GettyImagePaginator implements Serializable{
 	 */
 	private static final long serialVersionUID = 3654770158637235778L;
 	private List<ImagemGettyImage> lista;
-	private long total;
-	private int pagina;
+	private Integer total;
+	private Integer pagina;
 	
 	public List<ImagemGettyImage> getLista() {
 		return lista;
@@ -19,19 +19,19 @@ public class GettyImagePaginator implements Serializable{
 	public void setLista(List<ImagemGettyImage> lista) {
 		this.lista = lista;
 	}
-	public long getTotal() {
+	public Integer getTotal() {
 		return total;
 	}
-	public void setTotal(long total) {
+	public void setTotal(Integer total) {
 		this.total = total;
 	}
-	public int getPagina() {
+	public Integer getPagina() {
 		return pagina;
 	}
-	public void setPagina(int pagina) {
+	public void setPagina(Integer pagina) {
 		this.pagina = pagina;
 	}
-	public long getNumeroPaginas(){
+	public Integer getNumeroPaginas(){
 		return total/10;
 	}
 	

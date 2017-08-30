@@ -1,6 +1,8 @@
 package br.com.digitalxp.controller.internet.ordemservico;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 public class GettyImageFilters implements Serializable{
 
@@ -103,6 +105,76 @@ public class GettyImageFilters implements Serializable{
 		this.ilustracao = ilustracao;
 	}
 	
-	
+	public String getURI(){
+		String filters = "";
+		
+		List<String> filtroPessoas  = new ArrayList<String>();
+		if(this.isSemPessoas()){
+			filtroPessoas.add("none");
+		}
+		if(this.isComPessoas()){
+			filtroPessoas.add("group");
+		}
+		if(this.isUmaPessoas()){
+			filtroPessoas.add("one");
+		}
+		if(this.isDuasPessoas()){
+			filtroPessoas.add("two");
+		}
+		
+		if(!filtroPessoas.isEmpty()){
+			StringBuilder sb = new StringBuilder();
+			for (String pessoas : filtroPessoas) {
+				sb.append(pessoas).append(",");
+		    }
+			sb.deleteCharAt(sb.length()-1);
+			filters+="&number_of_people="+sb.toString();
+		}
+		
+		
+		List<String> filtroOrientacao  = new ArrayList<String>();
+		if(this.isHorizonalPanoramica()){
+			filtroOrientacao.add("PanoramicHorizontal");
+		}
+		if(this.isHorizontal()){
+			filtroOrientacao.add("Horizontal");
+		}
+		if(this.isQuadrado()){
+			filtroOrientacao.add("Square");
+		}
+		if(this.isVertical()){
+			filtroOrientacao.add("Vertical");
+		}
+		if(this.isVerticalPanoramica()){
+			filtroOrientacao.add("PanoramicVertical");
+		}
+		
+		if(!filtroOrientacao.isEmpty()){
+			StringBuilder sb = new StringBuilder();
+			for (String orientacao : filtroOrientacao) {
+				sb.append(orientacao).append(",");
+		    }
+			sb.deleteCharAt(sb.length()-1);
+			filters+="&orientations="+sb.toString();
+		}
+		
+		List<String> filtroImagem  = new ArrayList<String>();
+		if(this.isIlustracao()){
+			filtroImagem.add("illustration");
+		}
+		if(this.isFotografia()){
+			filtroImagem.add("photography");
+		}
+		
+		if(!filtroImagem.isEmpty()){
+			StringBuilder sb = new StringBuilder();
+			for (String imagem : filtroImagem) {
+				sb.append(imagem).append(",");
+		    }
+			sb.deleteCharAt(sb.length()-1);
+			filters+="&graphical_styles="+sb.toString();
+		}
+		return filters;
+	}
 
 }

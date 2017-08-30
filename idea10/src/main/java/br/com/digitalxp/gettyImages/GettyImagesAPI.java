@@ -50,47 +50,7 @@ public final class GettyImagesAPI {
 		HttpGet getRequest = null;
 		String json = null;
 		try {
-			String filters = "";
-			if(filtros.isSemPessoas()){
-				filters+="&number_of_people=none";
-			}
-			if(filtros.isComPessoas()){
-				filters+="&number_of_people=group";
-			}
-			if(filtros.isUmaPessoas()){
-				filters+="&number_of_people=one";
-			}
-			if(filtros.isDuasPessoas()){
-				filters+="&number_of_people=two";
-			}
-			if(filtros.isHorizonalPanoramica()){
-				filters+="&orientations=PanoramicHorizontal";
-			}
-			if(filtros.isHorizontal()){
-				filters+="&orientations=Horizontal";
-			}
-			if(filtros.isQuadrado()){
-				filters+="&orientations=Square";
-			}
-			if(filtros.isVertical()){
-				filters+="&orientations=Vertical";
-			}
-			if(filtros.isVerticalPanoramica()){
-				filters+="&orientations=PanoramicVertical";
-			}
-			if(filtros.isIlustracao()){
-				filters+="&graphical_styles=illustration";
-			}
-			if(filtros.isFotografia()){
-				filters+="&graphical_styles=photography";
-			}
-			if(filtros.isPretoBranco()){
-				filters+="&color_type=black_and_white";
-			}
-			if(filtros.isColorido()){
-				filters+="&color_type=color";
-			}
-			
+			String filters = filtros.getURI();			
 			
 			getRequest = new HttpGet(BASE_URL+BASE_SEARCH+DEFAULT_RECORDS_NUMBER+page+filters+SEARCH_BY_PHRASE+URLEncoder.encode(phrase, "UTF-8"));
 		
@@ -118,7 +78,7 @@ public final class GettyImagesAPI {
         com.google.gson.Gson gson = new com.google.gson.Gson();
         GettyImagesResponse resposta = gson.fromJson(json, GettyImagesResponse.class);
         GettyImagePaginator paginator = new GettyImagePaginator();
-        if(resposta != null){        
+        if(resposta != null && resposta.getResultCount() != null){        
 	        List<ImagemGettyImage> listaRetorno = popular(resposta);
 	        paginator.setLista(listaRetorno);
 	        paginator.setTotal(resposta.getResultCount());
