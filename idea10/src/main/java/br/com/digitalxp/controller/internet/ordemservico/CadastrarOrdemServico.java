@@ -40,8 +40,7 @@ public class CadastrarOrdemServico {
 	@Inject
 	SubstratoModel substratoModel;
 
-	@Inject
-	OrdemServicoModel ordemServico;
+	private OrdemServicoModel ordemServico;
 
 	@Inject
 	UsuarioAdmController usuarioController;
@@ -85,6 +84,9 @@ public class CadastrarOrdemServico {
 		resetQuantidade();
 		renderizaPasso2 = false;
 		renderizaPasso3 = false;
+		ordemServico = new OrdemServicoModel();
+		valorX = null;
+		valorY = null;
 		return retorno;
 	}
 
@@ -206,20 +208,22 @@ public class CadastrarOrdemServico {
 	}
 
 	public void calcularValor() {
-		SubstratoEntity st = substratoRepository.getSubstrato(substratoModel.getCodigo());
-		Double valorM2 = st.getValorMaterial();
-		int area = this.getValorX() * this.getValorY();
-		Double areaM2 = area * conversor;
-		Double valorParcial = valorM2 * areaM2 * quantidade;
-		valorFinal = valorParcial;
-		if (this.getOrdemServico().getFlagCmyk())
-			valorFinal = valorParcial * 0.3 + valorFinal;
-		if (this.getOrdemServico().getFlagFundoBranco())
-			valorFinal = valorParcial * 0.3 + valorFinal;
-		if (this.getOrdemServico().getFlagVernizLocalizado())
-			valorFinal = valorParcial * 0.3 + valorFinal;
-		Locale ptBr = new Locale("pt", "BR");
-		valor = NumberFormat.getCurrencyInstance(ptBr).format(valorFinal);
+		if (quantidade != null) {
+			SubstratoEntity st = substratoRepository.getSubstrato(substratoModel.getCodigo());
+			Double valorM2 = st.getValorMaterial();
+			int area = this.getValorX() * this.getValorY();
+			Double areaM2 = area * conversor;
+			Double valorParcial = valorM2 * areaM2 * quantidade;
+			valorFinal = valorParcial;
+			if (this.getOrdemServico().getFlagCmyk())
+				valorFinal = valorParcial * 0.3 + valorFinal;
+			if (this.getOrdemServico().getFlagFundoBranco())
+				valorFinal = valorParcial * 0.3 + valorFinal;
+			if (this.getOrdemServico().getFlagVernizLocalizado())
+				valorFinal = valorParcial * 0.3 + valorFinal;
+			Locale ptBr = new Locale("pt", "BR");
+			valor = NumberFormat.getCurrencyInstance(ptBr).format(valorFinal);
+		}
 	}
 
 	public String getValor() {
