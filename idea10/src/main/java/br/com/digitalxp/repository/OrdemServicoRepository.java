@@ -94,12 +94,12 @@ public class OrdemServicoRepository {
 			ordemServicoModel.setCodigo(ordemServicoEntity.getCodigo());
 			ordemServicoModel.setTamanho(ordemServicoEntity.getTamanho());
 			ordemServicoModel.setDataCadastro(ordemServicoEntity.getDataCadastro());
-			ordemServicoEntity.setValorOrdemServico(ordemServicoEntity.getValorOrdemServico());
-			ordemServicoEntity.setValorX(ordemServicoEntity.getValorX());
-			ordemServicoEntity.setValorY(ordemServicoEntity.getValorY());
-			ordemServicoEntity.setFlagCmyk(ordemServicoModel.getFlagCmyk());
-			ordemServicoEntity.setFlagFundoBranco(ordemServicoModel.getFlagFundoBranco());
-			ordemServicoEntity.setFlagVernizLocalizado(ordemServicoModel.getFlagVernizLocalizado());
+			ordemServicoModel.setValorOrdemServico(ordemServicoEntity.getValorOrdemServico());
+			ordemServicoModel.setValorX(ordemServicoEntity.getValorX());
+			ordemServicoModel.setValorY(ordemServicoEntity.getValorY());
+			ordemServicoModel.setFlagCmyk(ordemServicoEntity.getFlagCmyk());
+			ordemServicoModel.setFlagFundoBranco(ordemServicoEntity.getFlagFundoBranco());
+			ordemServicoModel.setFlagVernizLocalizado(ordemServicoEntity.getFlagVernizLocalizado());
 
 			SubstratoModel substratoModel = new SubstratoModel(ordemServicoEntity.getSubstrato());
 			ordemServicoModel.setSubstrato(substratoModel);
