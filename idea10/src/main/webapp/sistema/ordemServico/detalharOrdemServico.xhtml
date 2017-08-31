@@ -8,8 +8,7 @@
 	<h:form>
 
 		<h:panelGrid id="panelGrid-campos-form" columns="2">
-			<h:panelGrid id="panelGrid-campos-detalhes" columns="2"
-				cellpadding="10">
+			<h:panelGrid id="panelGrid-campos-detalhes" columns="2">
 				<p:outputLabel value="Código: " for="inputText-codigo" />
 				<p:inputText id="inputText-codigo"
 					value="#{consultarOrdemServicoController.ordemServicoModel.codigo}"
@@ -20,15 +19,42 @@
 					value="#{consultarOrdemServicoController.ordemServicoModel.substrato.material}"
 					style="width:80px" readonly="true" />
 
-				<p:outputLabel value="Tamanho: " for="inputText-tamanho" />
-				<p:inputText id="inputText-tamanho"
-					value="#{consultarOrdemServicoController.ordemServicoModel.valorX} X #{consultarOrdemServicoController.ordemServicoModel.valorY}"
-					style="width:50px" readonly="true" />
+				<p:outputLabel value="Tamanho: " />
+				<h:panelGrid columns="5">
+					<p:inputText id="inputText-tamanho-X"
+						value="#{consultarOrdemServicoController.ordemServicoModel.valorX}"
+						style="width:50px" readonly="true" />
+					<p:outputLabel value="cm" style="margin-left:5px; " />
+					<p:outputLabel value="X" style="margin-left:20px; " />
+					<p:inputText id="inputText-tamanho-Y"
+						value="#{consultarOrdemServicoController.ordemServicoModel.valorY}"
+						style="width:50px" readonly="true" />
+					<p:outputLabel value="cm" style="margin-left:5px;" />
+				</h:panelGrid>
 
 				<p:outputLabel value="Metros M²: " for="inputText-metros" />
 				<p:inputText id="inputText-metros"
 					value="#{consultarOrdemServicoController.ordemServicoModel.tamanho}"
 					style="width:50px" readonly="true" />
+
+				<p:outputLabel value="Valor: " for="inputText-valor" />
+				<p:inputText id="inputText-valor"
+					value="R$ #{consultarOrdemServicoController.ordemServicoModel.valorOrdemServico}"
+					style="width:50px" readonly="true" />
+
+				<p:selectBooleanCheckbox
+					value="#{consultarOrdemServicoController.ordemServicoModel.flagCmyk}"
+					id="duploCMYK" disabled="true" />
+				<h:outputLabel value="Duplo CMYK" style="margin-left: 20px;" />
+				<p:selectBooleanCheckbox
+					value="#{consultarOrdemServicoController.ordemServicoModel.flagFundoBranco}"
+					id="fundoBranco" disabled="true" />
+				<h:outputLabel value="Fundo Branco / Branco Localizado"
+					style="margin-left: 20px;" />
+				<p:selectBooleanCheckbox
+					value="#{consultarOrdemServicoController.ordemServicoModel.flagVernizLocalizado}"
+					id="verniz" disabled="true" />
+				<h:outputLabel value="Verniz Localizado" style="margin-left: 20px;" />
 
 			</h:panelGrid>
 			<h:panelGrid id="panelGrid-campos-imagem" columns="1">
