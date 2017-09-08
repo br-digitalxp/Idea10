@@ -113,7 +113,7 @@
 								</h:panelGrid>
 							</p:outputPanel>
 						</p:outputPanel>
-						<p:outputPanel style="display:block; margin-top:30px;" id="panel-5" styleClass="produto-formato">
+						<!-- <p:outputPanel style="display:block; margin-top:30px;" id="panel-5" styleClass="produto-formato">
 							<p:outputPanel style="display:block" rendered="#{cadastrarOrdemServico.quantidade != null}" styleClass="etapa">
 								<span class="etp">5</span>
 								<h3>
@@ -130,9 +130,9 @@
 									<p:inputMask id="CPF"
 												 value="#{cadastrarOrdemServico.cliente.cpf}"
 							                     maxlength="11">
-							            <!-- <f:convertNumber integerOnly="true"/> -->
+							            <!-- <f:convertNumber integerOnly="true"/> 
 							        </p:inputMask>
-									<!-- <h:inputText value="#{cadastrarOrdemServico.cliente.cpf}" maxlength="14" /> -->
+									<!-- <h:inputText value="#{cadastrarOrdemServico.cliente.cpf}" maxlength="14" /> 
 									<h:outputLabel />
 									<h:outputLabel />
 									<h:outputLabel value="E-mail:" />
@@ -148,14 +148,14 @@
 							                     mask="(99)99999-999?9"
 							                     value="#{cadastrarOrdemServico.cliente.telefone}"
 							                     maxlength="11">
-							            <!-- <f:convertNumber integerOnly="true"/> -->
+							            <!-- <f:convertNumber integerOnly="true"/> 
 							            <p:ajax update="panel-6" event="change" />
 							        </p:inputMask>
 									<!-- <h:inputText value="#{cadastrarOrdemServico.cliente.telefone}" maxlength="15" >
 										<p:ajax update="panel-6" event="change" />
-									</h:inputText> -->
+									</h:inputText> 
 								</h:panelGrid>
-							</p:outputPanel>
+							</p:outputPanel>-->
 							<p:outputPanel style="display:block;margin-top:30px;" id="panel-6" styleClass="col-md-3 catalogo-completo">
 								<p:commandButton value="Cadastrar Ordem de Serviço"  rendered="#{cadastrarOrdemServico.quantidade != null}" id="commandButton-cadastrar-ordem-servico" styleClass="btn btn-default"  action="#{cadastrarOrdemServico.cadastraOrdemServico}"  />
 							</p:outputPanel>
