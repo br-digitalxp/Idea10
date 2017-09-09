@@ -71,7 +71,7 @@
 					
 					<div id="categoriaList" class="categoria-list">
 						<ui:repeat var="o" value="#{principalController.paginator.lista}">
-							<div class="col-md-4 col-xs-6">
+							<div class="item">
 								<div class="categoria-box">
 									<h:commandLink action="#{cadastrarOrdemServico.iniciarPagina(o)}" class="galeria-cart">
 										<img src="#{o.imagem.caminhoImagem}" />

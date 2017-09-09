@@ -33,7 +33,7 @@ public final class GettyImagesAPI {
 	private static final String SECRET = "Bearer mfM8EtNbUpssBbcygADYajdnCcnt3vUCyE5UnevPN7NF8";
 	private static final String THUMBNAIL = "thumb";
 	private static final String COMP = "comp";
-	private static final String DEFAULT_RECORDS_NUMBER = "&page_size=10&page=";
+	private static final String DEFAULT_RECORDS_NUMBER = "&page_size=40&page=";
 	private static final GettyImagesAPI INSTANCE = new GettyImagesAPI();
 
 	private GettyImagesAPI() {
