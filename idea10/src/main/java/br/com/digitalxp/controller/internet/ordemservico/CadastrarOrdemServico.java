@@ -58,7 +58,7 @@ public class CadastrarOrdemServico {
 
 	private List<SelectItem> listaSubstrato;
 	private ImagemGettyImage imagem;
-	private Long numeroPedido;
+	private BigInteger numeroPedido;
 	private Integer valorX;
 	private Integer valorY;
 	private String valor;
@@ -67,6 +67,8 @@ public class CadastrarOrdemServico {
 	private Double valorFinal;
 	private boolean renderizaPasso2 = false;
 	private boolean renderizaPasso3 = false;
+	private boolean renderizaPassos = false;
+	private boolean disabledFields = false;
 
 	@Inject
 	ClienteModel cliente;
@@ -84,6 +86,8 @@ public class CadastrarOrdemServico {
 		resetQuantidade();
 		renderizaPasso2 = false;
 		renderizaPasso3 = false;
+		renderizaPassos = false;
+		disabledFields = false;
 		ordemServico = new OrdemServicoModel();
 		valorX = null;
 		valorY = null;
@@ -100,14 +104,17 @@ public class CadastrarOrdemServico {
 
 	public void renderizaPasso3() {
 		this.resetQuantidade();
-		if (this.getValorX() != null && this.getValorY() != null)
+		if (this.getValorX() != null && this.getValorY() != null) {
+			calcularValor();
 			renderizaPasso3 = true;
+			renderizaPassos = true;
+		}
 	}
 
 	/**
 	 * SALVA UM NOVO REGISTRO VIA INPUT
 	 */
-	public String cadastraOrdemServico() {
+	public void cadastraOrdemServico() {
 		UsuarioModel usuario = new UsuarioModel();
 		usuario.setCodigo(1);
 		cliente.setUsuarioModel(usuario);
@@ -144,14 +151,12 @@ public class CadastrarOrdemServico {
 		ordemServico.setUsuario(usuario);
 		ordemServico.setValorOrdemServico(valorFinal);
 
-		BigInteger numeroPedido = ordemServicoRepository.SalvarNovoRegistro(ordemServico);
+		numeroPedido = ordemServicoRepository.SalvarNovoRegistro(ordemServico);
 
 		Uteis.MensagemInfo("Pedido Nº" + numeroPedido + " realizado com sucesso");
+		renderizaPassos = false;
+		disabledFields = true;
 
-		return "sucesso";
-		/*
-		 * substratoModel = null; tamanho = new TamanhoSubstratoModel();
-		 */
 	}
 
 	public void consultarTamanhoSubstrato(SelectItem item) {
@@ -208,22 +213,20 @@ public class CadastrarOrdemServico {
 	}
 
 	public void calcularValor() {
-		if (quantidade != null) {
-			SubstratoEntity st = substratoRepository.getSubstrato(substratoModel.getCodigo());
-			Double valorM2 = st.getValorMaterial();
-			int area = this.getValorX() * this.getValorY();
-			Double areaM2 = area * conversor;
-			Double valorParcial = valorM2 * areaM2 * quantidade;
-			valorFinal = valorParcial;
-			if (this.getOrdemServico().getFlagCmyk())
-				valorFinal = valorParcial * 0.3 + valorFinal;
-			if (this.getOrdemServico().getFlagFundoBranco())
-				valorFinal = valorParcial * 0.3 + valorFinal;
-			if (this.getOrdemServico().getFlagVernizLocalizado())
-				valorFinal = valorParcial * 0.3 + valorFinal;
-			Locale ptBr = new Locale("pt", "BR");
-			valor = NumberFormat.getCurrencyInstance(ptBr).format(valorFinal);
-		}
+		SubstratoEntity st = substratoRepository.getSubstrato(substratoModel.getCodigo());
+		Double valorM2 = st.getValorMaterial();
+		int area = this.getValorX() * this.getValorY();
+		Double areaM2 = area * conversor;
+		Double valorParcial = valorM2 * areaM2;
+		valorFinal = valorParcial;
+		// if (this.getOrdemServico().getFlagCmyk())
+		// valorFinal = valorParcial * 0.3 + valorFinal;
+		// if (this.getOrdemServico().getFlagFundoBranco())
+		// valorFinal = valorParcial * 0.3 + valorFinal;
+		// if (this.getOrdemServico().getFlagVernizLocalizado())
+		// valorFinal = valorParcial * 0.3 + valorFinal;
+		Locale ptBr = new Locale("pt", "BR");
+		valor = NumberFormat.getCurrencyInstance(ptBr).format(valorFinal);
 	}
 
 	public String getValor() {
@@ -234,11 +237,11 @@ public class CadastrarOrdemServico {
 		this.valor = valor;
 	}
 
-	public Long getNumeroPedido() {
+	public BigInteger getNumeroPedido() {
 		return numeroPedido;
 	}
 
-	public void setNumeroPedido(Long numeroPedido) {
+	public void setNumeroPedido(BigInteger numeroPedido) {
 		this.numeroPedido = numeroPedido;
 	}
 
@@ -288,6 +291,22 @@ public class CadastrarOrdemServico {
 
 	public void setOrdemServico(OrdemServicoModel ordemServico) {
 		this.ordemServico = ordemServico;
+	}
+
+	public boolean getRenderizaPassos() {
+		return renderizaPassos;
+	}
+
+	public void setRenderizaPassos(boolean renderizaPassos) {
+		this.renderizaPassos = renderizaPassos;
+	}
+
+	public boolean getDisabledFields() {
+		return disabledFields;
+	}
+
+	public void setDisabledFields(boolean disabledFields) {
+		this.disabledFields = disabledFields;
 	}
 
 	@PostConstruct

@@ -1,0 +1,78 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:format="http://digitalxp.com.br/LocalDateTimeConverter">
+
+	<h:form>
+
+		<h:panelGrid id="panelGrid-campos-form" columns="2">
+			<h:panelGrid id="panelGrid-campos-detalhes" columns="2">
+				<p:outputLabel value="Código: " for="inputText-codigo" />
+				<p:inputText id="inputText-codigo"
+					value="#{consultarOrdemServicoLeroyMerlinController.ordemServicoModel.codigo}"
+					style="width:100px" readonly="true" />
+
+				<p:outputLabel value="Substrato: " for="inputText-substrato" />
+				<p:inputText id="inputText-substrato"
+					value="#{consultarOrdemServicoLeroyMerlinController.ordemServicoModel.substrato.material}"
+					style="width:80px" readonly="true" />
+
+				<p:outputLabel value="Tamanho: " />
+				<h:panelGrid columns="5">
+					<p:inputText id="inputText-tamanho-X"
+						value="#{consultarOrdemServicoLeroyMerlinController.ordemServicoModel.valorX}"
+						style="width:50px" readonly="true" />
+					<p:outputLabel value="cm" style="margin-left:5px; " />
+					<p:outputLabel value="X" style="margin-left:20px; " />
+					<p:inputText id="inputText-tamanho-Y"
+						value="#{consultarOrdemServicoLeroyMerlinController.ordemServicoModel.valorY}"
+						style="width:50px" readonly="true" />
+					<p:outputLabel value="cm" style="margin-left:5px;" />
+				</h:panelGrid>
+
+				<p:outputLabel value="Metros M²: " for="inputText-metros" />
+				<p:inputText id="inputText-metros"
+					value="#{consultarOrdemServicoLeroyMerlinController.ordemServicoModel.tamanho}"
+					style="width:50px" readonly="true" />
+
+				<p:outputLabel value="Valor: " for="inputText-valor" />
+				<p:inputText id="inputText-valor"
+					value="R$ #{consultarOrdemServicoLeroyMerlinController.ordemServicoModel.valorOrdemServico}"
+					style="width:100px" readonly="true" />
+
+			</h:panelGrid>
+			<h:panelGrid id="panelGrid-campos-imagem" columns="1">
+				<p:outputLabel value="Imagem: " />
+				<p:graphicImage
+					url="#{consultarOrdemServicoLeroyMerlinController.ordemServicoModel.imagem.caminhoImagem}"
+					height="150px" width="100px" style="text-align: center;" />
+			</h:panelGrid>
+			<h:panelGrid id="panelGrid-campos-cliente" columns="2">
+				<p:outputLabel value="Id Imagem Getty Images: " />
+				<p:inputText style="width:320px" readonly="true"
+					value="#{consultarOrdemServicoLeroyMerlinController.ordemServicoModel.imagem.codigo}" />
+				<p:outputLabel value="Número Leroy Merlin: " />
+				<p:inputText style="width:320px" readonly="true"
+					value="#{consultarOrdemServicoLeroyMerlinController.ordemServicoModel.numeroPedidoLeroy}" />
+				<p:outputLabel value="Data de entrega: " />
+				<p:inputText style="width:320px" readonly="true"
+					value="#{consultarOrdemServicoLeroyMerlinController.ordemServicoModel.dataEntrega}" />
+			</h:panelGrid>
+
+			<p:spacer />
+			<p:commandButton value="Fechar" id="commandButton-alterar"
+				icon="ui-icon-close" onclick="PF('dialog-modal-editar').hide();"
+				update="form-consulta" />
+
+
+			<p:spacer />
+			<p:messages showDetail="false" autoUpdate="true" closable="true"
+				severity="error" />
+
+		</h:panelGrid>
+
+	</h:form>
+
+</ui:composition>

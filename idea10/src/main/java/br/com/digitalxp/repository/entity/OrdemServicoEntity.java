@@ -19,6 +19,7 @@ import javax.persistence.Table;
 @NamedQueries({
 
 		@NamedQuery(name = "OrdemServicoEntity.findAll", query = "SELECT p FROM OrdemServicoEntity p"),
+		@NamedQuery(name = "OrdemServicoEntity.findByDate", query = "SELECT p FROM OrdemServicoEntity p where p.dataCadastro between :inicio and :fim and p.numeroPedidoLeroy is null"),
 
 })
 public class OrdemServicoEntity {

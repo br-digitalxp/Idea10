@@ -123,6 +123,56 @@ public class OrdemServicoRepository {
 
 	}
 
+	public List<OrdemServicoModel> GetOrdemServicos(LocalDateTime inicio, LocalDateTime fim) {
+
+		List<OrdemServicoModel> OredemServicosModel = new ArrayList<OrdemServicoModel>();
+
+		entityManager = Uteis.JpaEntityManager();
+
+		Query query = entityManager.createNamedQuery("OrdemServicoEntity.findByDate");
+		query.setParameter("inicio", inicio);
+		query.setParameter("fim", fim);
+
+		@SuppressWarnings("unchecked")
+		Collection<OrdemServicoEntity> ordemServicosEntity = (Collection<OrdemServicoEntity>) query.getResultList();
+
+		OrdemServicoModel ordemServicoModel = null;
+
+		for (OrdemServicoEntity ordemServicoEntity : ordemServicosEntity) {
+
+			ordemServicoModel = new OrdemServicoModel();
+			ordemServicoModel.setCodigo(ordemServicoEntity.getCodigo());
+			ordemServicoModel.setTamanho(ordemServicoEntity.getTamanho());
+			ordemServicoModel.setDataCadastro(ordemServicoEntity.getDataCadastro());
+			ordemServicoModel.setValorOrdemServico(ordemServicoEntity.getValorOrdemServico());
+			ordemServicoModel.setValorX(ordemServicoEntity.getValorX());
+			ordemServicoModel.setValorY(ordemServicoEntity.getValorY());
+			ordemServicoModel.setFlagCmyk(ordemServicoEntity.getFlagCmyk());
+			ordemServicoModel.setFlagFundoBranco(ordemServicoEntity.getFlagFundoBranco());
+			ordemServicoModel.setFlagVernizLocalizado(ordemServicoEntity.getFlagVernizLocalizado());
+
+			SubstratoModel substratoModel = new SubstratoModel(ordemServicoEntity.getSubstrato());
+			ordemServicoModel.setSubstrato(substratoModel);
+
+			ImagemModel imagemModel = new ImagemModel(ordemServicoEntity.getImagem());
+			ordemServicoModel.setImagem(imagemModel);
+
+			UsuarioEntity usuarioEntity = ordemServicoEntity.getUsuarioEntity();
+
+			UsuarioModel usuarioModel = new UsuarioModel();
+			usuarioModel.setUsuario(usuarioEntity.getUsuario());
+
+			ordemServicoModel.setUsuario(usuarioModel);
+			ordemServicoModel.setPrazoAcordado(ordemServicoEntity.getPrazoAcordado());
+			ordemServicoModel.setDataEntrega(ordemServicoEntity.getDataEntrega());
+			ordemServicoModel.setNumeroPedidoLeroy(ordemServicoEntity.getNumeroPedidoLeroy());
+			OredemServicosModel.add(ordemServicoModel);
+		}
+
+		return OredemServicosModel;
+
+	}
+
 	/***
 	 * CONSULTA UMA OredemServico CADASTRADA PELO CÓDIGO
 	 * 

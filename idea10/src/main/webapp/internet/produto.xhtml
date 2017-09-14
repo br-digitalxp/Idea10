@@ -30,7 +30,20 @@
 								Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</p> -->
 						</p:outputPanel>
 					</p:outputPanel>
-					<p:outputPanel style="display:block" styleClass="col-md-6">
+						<p:outputPanel style="display:block" styleClass="produto-material" rendered="#{cadastrarOrdemServico.disabledFields}">
+							<p:outputPanel style="display:block" styleClass="etapa">
+								<span class="etp"></span>
+								<h3>
+									<strong style="color:red;">Procure um Vendedor Leroy Merlin</strong> 
+								</h3>
+							</p:outputPanel>
+							<p:outputPanel style="display:block" styleClass="produto-list-item">
+								<p:outputLabel value="Número da Ordem de Serviço: #{cadastrarOrdemServico.numeroPedido}"/>
+							</p:outputPanel>
+						
+						<p:outputPanel />
+						</p:outputPanel>
+					<p:outputPanel style="display:block" styleClass="col-md-6" id="panel-passos">
 						<p:outputPanel style="display:block" styleClass="produto-material">
 							<p:outputPanel style="display:block" styleClass="etapa">
 								<span class="etp">1</span>
@@ -39,10 +52,10 @@
 								</h3>
 							</p:outputPanel>
 							<p:outputPanel style="display:block" styleClass="produto-list-item">
-								<p:selectOneMenu id="inputText-categoria" style="width:350px;" value="#{cadastrarOrdemServico.substratoModel.codigo}">
+								<p:selectOneMenu id="inputText-categoria" style="width:350px;" value="#{cadastrarOrdemServico.substratoModel.codigo}" disabled="#{cadastrarOrdemServico.disabledFields}">
 									<f:selectItem noSelectionOption="true"></f:selectItem>
 									<f:selectItems value="#{cadastrarOrdemServico.listaSubstrato}" var="substrato" itemLabel="#{substrato.material}" itemValue="#{substrato}" />
-									<p:ajax listener="#{cadastrarOrdemServico.buscarTamanhoSubstrato}" update="panel-2,panel-3,panel-4,panel-5,panel-6" event="change" />
+									<p:ajax listener="#{cadastrarOrdemServico.buscarTamanhoSubstrato}" update="panel-2,panel-3,panel-4" event="change" />
 								</p:selectOneMenu>
 							</p:outputPanel>
 						</p:outputPanel>
@@ -50,19 +63,19 @@
 							<p:outputPanel style="display:block" rendered="#{cadastrarOrdemServico.substratoModel.codigo != null}" styleClass="etapa">
 								<span class="etp">2</span>
 								<h3>
-									<strong>PASSO 2 :</strong> SELECIONE O FORMATO (CM)
+									<strong>PASSO 2 :</strong> SELECIONE O TAMANHO 
 								</h3>
 							</p:outputPanel>
 							<p:outputPanel style="display:block" rendered="#{cadastrarOrdemServico.renderizaPasso2}" styleClass="produto-list-item">
 								<h:panelGrid columns="6">
-									<h:outputLabel value="Tamanho do Substrato: " />
-									<p:inputText value="#{cadastrarOrdemServico.valorX}" id="X" size="3" maxlength="3" >
-										<p:ajax listener="#{cadastrarOrdemServico.renderizaPasso3}" update="panel-3,panel-4,panel-5,panel-6" event="change" />
+									<h:outputLabel value="Medidas: " />
+									<p:inputText value="#{cadastrarOrdemServico.valorX}" id="X" size="3" maxlength="3" disabled="#{cadastrarOrdemServico.disabledFields}">
+										<p:ajax listener="#{cadastrarOrdemServico.renderizaPasso3}" update="panel-2,panel-3,panel-4,commandButton-cadastrar-ordem-servico" event="change" />
 									</p:inputText>
 									<h:outputLabel value="cm"  style="margin-left:5px;"/>
 									<h:outputLabel value=" X " style="margin-left:20px;"/>
-									<p:inputText value="#{cadastrarOrdemServico.valorY}" id="Y" size="3" maxlength="3" style="margin-left:20px;">
-										<p:ajax listener="#{cadastrarOrdemServico.renderizaPasso3}" update="panel-3,panel-4,panel-5,panel-6" event="change" />
+									<p:inputText value="#{cadastrarOrdemServico.valorY}" id="Y" size="3" maxlength="3" style="margin-left:20px;" disabled="#{cadastrarOrdemServico.disabledFields}">
+										<p:ajax listener="#{cadastrarOrdemServico.renderizaPasso3}" update="panel-2,panel-3,panel-4,commandButton-cadastrar-ordem-servico" event="change" />
 									</p:inputText>
 									<h:outputLabel value="cm" style="margin-left:5px;" />
 								</h:panelGrid>
@@ -72,40 +85,10 @@
 							<p:outputPanel style="display:block" rendered="#{cadastrarOrdemServico.renderizaPasso3}"  styleClass="etapa">
 								<span class="etp">3</span>
 								<h3>
-									<strong>PASSO 3 :</strong> QUANTIDADE
+									<strong>PASSO 3 :</strong> VALOR
 								</h3>
 							</p:outputPanel>
 							<p:outputPanel style="display:block" rendered="#{cadastrarOrdemServico.renderizaPasso3}"  styleClass="produto-list-item">
-								<h:panelGrid columns="2">
-									<p:selectBooleanCheckbox value="#{cadastrarOrdemServico.ordemServico.flagCmyk}" id="cmyk">
-										<p:ajax listener="#{cadastrarOrdemServico.calcularValor}" update="panel-4,panel-5,panel-6" event="change" process="@form"/>
-									</p:selectBooleanCheckbox>
-									<h:outputLabel value="Duplo CMYK" style="margin-left: 20px;"/>
-									<p:selectBooleanCheckbox value="#{cadastrarOrdemServico.ordemServico.flagFundoBranco}" id="fundoBranco">
-										<p:ajax listener="#{cadastrarOrdemServico.calcularValor}" update="panel-4,panel-5,panel-6" event="change" process="@form"/>
-									</p:selectBooleanCheckbox>	
-									<h:outputLabel value="Fundo Branco / Branco Localizado" style="margin-left: 20px;"/>
-									<p:selectBooleanCheckbox value="#{cadastrarOrdemServico.ordemServico.flagVernizLocalizado}" id="verniz">
-										<p:ajax listener="#{cadastrarOrdemServico.calcularValor}" update="panel-4,panel-5,panel-6" event="change" process="@form"/>
-									</p:selectBooleanCheckbox>
-									<h:outputLabel value="Verniz Localizado" style="margin-left: 20px;"/>
-									</h:panelGrid>
-								<h:panelGrid columns="2">
-									<h:outputLabel value="Quantidade de material: " />
-									<p:inputText value="#{cadastrarOrdemServico.quantidade}" id="quantidade" size="3">
-										<p:ajax listener="#{cadastrarOrdemServico.calcularValor}" update="panel-4,panel-5,panel-6" event="blur" process="@form"/>
-									</p:inputText>
-								</h:panelGrid>
-							</p:outputPanel>
-						</p:outputPanel>
-						<p:outputPanel style="display:block; margin-top:30px;" id="panel-4" styleClass="produto-formato">
-							<p:outputPanel style="display:block" rendered="#{cadastrarOrdemServico.quantidade != null}"  styleClass="etapa">
-								<span class="etp">4</span>
-								<h3>
-									<strong>PASSO 4 :</strong> VALOR
-								</h3>
-							</p:outputPanel>
-							<p:outputPanel style="display:block" rendered="#{cadastrarOrdemServico.quantidade != null}"  styleClass="produto-list-item">
 								<h:panelGrid columns="2">
 									<h:outputLabel styleClass="output-produto" value="Valor: " />
 									<h:outputText value="#{cadastrarOrdemServico.valor}" id="valorFinal" >
@@ -113,52 +96,12 @@
 								</h:panelGrid>
 							</p:outputPanel>
 						</p:outputPanel>
-						<!-- <p:outputPanel style="display:block; margin-top:30px;" id="panel-5" styleClass="produto-formato">
-							<p:outputPanel style="display:block" rendered="#{cadastrarOrdemServico.quantidade != null}" styleClass="etapa">
-								<span class="etp">5</span>
-								<h3>
-									<strong>PASSO 5 :</strong> DADOS DO CLIENTE (Opcional)
-								</h3>
-							</p:outputPanel>
-							<p:outputPanel style="display:block" rendered="#{cadastrarOrdemServico.quantidade != null}" styleClass="produto-list-item">
-								<h:panelGrid columns="2">
-									<h:outputLabel value="Nome Completo:" />
-									<p:inputText value="#{cadastrarOrdemServico.cliente.nome}" />
-									<h:outputLabel />
-									<h:outputLabel />
-									<h:outputLabel value="CPF:" />
-									<p:inputMask id="CPF"
-												 value="#{cadastrarOrdemServico.cliente.cpf}"
-							                     maxlength="11">
-							            <!-- <f:convertNumber integerOnly="true"/> 
-							        </p:inputMask>
-									<!-- <h:inputText value="#{cadastrarOrdemServico.cliente.cpf}" maxlength="14" /> 
-									<h:outputLabel />
-									<h:outputLabel />
-									<h:outputLabel value="E-mail:" />
-									<p:inputText value="#{cadastrarOrdemServico.cliente.email}" />
-									<h:outputLabel />
-									<h:outputLabel />
-									<h:outputLabel value="Endereço:" />
-									<p:inputText value="#{cadastrarOrdemServico.cliente.endereco}" />
-									<h:outputLabel />
-									<h:outputLabel />
-									<h:outputLabel value="Telefone:" />
-									<p:inputMask id="telefone"
-							                     mask="(99)99999-999?9"
-							                     value="#{cadastrarOrdemServico.cliente.telefone}"
-							                     maxlength="11">
-							            <!-- <f:convertNumber integerOnly="true"/> 
-							            <p:ajax update="panel-6" event="change" />
-							        </p:inputMask>
-									<!-- <h:inputText value="#{cadastrarOrdemServico.cliente.telefone}" maxlength="15" >
-										<p:ajax update="panel-6" event="change" />
-									</h:inputText> 
-								</h:panelGrid>
-							</p:outputPanel>-->
-							<p:outputPanel style="display:block;margin-top:30px;" id="panel-6" styleClass="col-md-3 catalogo-completo">
-								<p:commandButton value="Cadastrar Ordem de Serviço"  rendered="#{cadastrarOrdemServico.quantidade != null}" id="commandButton-cadastrar-ordem-servico" styleClass="btn btn-default"  action="#{cadastrarOrdemServico.cadastraOrdemServico}"  />
-							</p:outputPanel>
+						<p:outputPanel style="display:block;margin-top:30px;"  id="panel-4" styleClass="col-md-3 catalogo-completo">
+							<h:commandButton value="Cadastrar Ordem de Serviço" update="panel-passos,panel-4" rendered="#{cadastrarOrdemServico.renderizaPassos}"
+								id="commandButton-cadastrar-ordem-servico" styleClass="btn btn-default"  actionListener="#{cadastrarOrdemServico.cadastraOrdemServico}"  />
+						</p:outputPanel>
+						<p:outputPanel style="display:block;margin-top:30px;"  id="panel-6" styleClass="col-md-3 catalogo-completo" rendered="#{cadastrarOrdemServico.disabledFields}">
+							<h:commandButton value="Voltar" id="voltar" styleClass="btn btn-default" action="index.xhtml"  />
 						</p:outputPanel>
 					</p:outputPanel>
 				</p:outputPanel>
